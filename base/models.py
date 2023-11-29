@@ -30,13 +30,16 @@ class Film(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    author = models.CharField(max_length=200)
+    director = models.CharField(max_length=200, default='Unknown')
+    lead = models.CharField(max_length=200, default='Unknown')
+    release_date = models.DateTimeField(null=True, blank=True)
+    duration = models.IntegerField(null=True, blank=True)
     participants = models.ManyToManyField(User, related_name="participants", blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(blank=True, null=True, upload_to="film_img")
-    video = models.FileField(blank=True, null=True, upload_to="film_videos", help_text="Upload an MP4 video file")# New field for video
-    average_rating = models.FloatField(null=True, blank=True)  # New field for average rating
+    video = models.FileField(blank=True, null=True, upload_to="film_videos", help_text="Upload an MP4 video file")
+    average_rating = models.FloatField(null=True, blank=True)
 
     class Meta:
         ordering = ["-updated", "-created"]

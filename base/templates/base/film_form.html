@@ -19,7 +19,6 @@
         </div>
       </div>
       <div class="layout__body">
-        
          <!--<form class="form" action="" method="POST" enctype="multipart/form-data">-->
           <form class="form" action="{% if film.id %}{% url 'update-film' pk=film.id %}{% else %}{% url 'create-film' %}{% endif %}" method="POST" enctype="multipart/form-data"> 
           {% csrf_token %}
@@ -60,20 +59,3 @@
 </main>
 
 {% endblock %}
-
-
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-

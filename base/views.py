@@ -206,7 +206,10 @@ def createFilm(request):
             category=category,
             title=request.POST.get("title"),
             description=request.POST.get("description"),
-            author=request.POST.get("author"),
+            director=request.POST.get("director"),
+            lead=request.POST.get("lead"),
+            release_date=request.POST.get("release_date"),
+            duration=request.POST.get("duration"),
             image=image
         )
         film.save()

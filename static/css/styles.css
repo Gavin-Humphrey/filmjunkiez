@@ -605,12 +605,6 @@ a {
   text-decoration: none; 
 }
 
-
-/*0000000000000000*/
-
-
-
-/*0000000000000000000*/
 /*
 ===>>> Confirm unfollow
 */
@@ -657,8 +651,15 @@ a {
 }
 
 /*==============================
-=>  Categories
+=>  forms
 ================================*/
+
+/*===========Checking this out for the form===============*/
+
+
+
+
+/*========================================================*/
 
 .form__group {
   margin-bottom: 2rem;
@@ -672,8 +673,8 @@ a {
 
 .form__group label {
   display: block;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: small;
+  margin-bottom: 0.5rem;
 }
 
 .form__group input,
@@ -681,7 +682,6 @@ a {
 .form__group select {
   background: transparent;
   border: 1px solid var(--color-dark-light);
-  padding: 1rem;
   border-radius: 3px;
   width: 100%;
   color: var(--color-light);
@@ -715,6 +715,7 @@ a {
   display: flex;
   justify-content: flex-end;
   gap: 3rem;
+ 
 }
 
 .form__hide {
@@ -1508,18 +1509,6 @@ a {
 }
 
 
-/* ... (other styles) ... */
-
-
-
-
-
-
-
-
-
-
-
 /*.filmListFilm__image {
   position: absolute;
   top: 1.25rem;
@@ -1575,7 +1564,7 @@ a {
   font-size: smaller;
 }*/
 
-.filmListFilm__review__author-rating {
+.filmListFilm__review__director-rating {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1585,7 +1574,7 @@ a {
   width: 76%;/**/
 }
 
-.filmListFilm__review__author {
+.filmListFilm__review__director {
   flex-grow: 1; /* Take remaining space */
 }
 
@@ -1594,7 +1583,7 @@ a {
   
 }
 
-.filmListFilm__review__author h4 {
+.filmListFilm__review__director h4 {
   margin: 0;
   font-size: small;
   font-weight: bolder;
@@ -1606,10 +1595,6 @@ a {
   margin: 0;
   font-size: small;
 }
-
-
-
-
 
 /*======*/
 
@@ -1629,8 +1614,6 @@ a {
   color: var(--color-main);
   width: 70%;
 }
-
-
 
 .film__hosted p {
   text-transform: uppercase;
