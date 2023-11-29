@@ -1,0 +1,134 @@
+{% extends "main.html" %}
+
+{% block content %}
+<main class="film-details__layout"> <!--  create-film__layout-->
+    <div class="film-details__container"> <!--container-->
+        <div class="film-details__layout__box"> <!--film-details__layout__box  layout__box-->
+            <div class="film-details__layout__boxHeader"><!--<film-details__layout__boxHeader-->
+                <div class="film-details__layout__boxTitle"><!--layout__boxTitle-->
+                    <a href="{% url 'home' %}">
+
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                            <title>arrow-left</title>
+                            <path
+                                d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                            </path>
+                        </svg>
+                    </a>   
+                        <h3>{{film.title}}</h3>
+                    <!--</a>-->
+                </div>
+
+            </div>
+        </div>
+       
+        <!-- New box with container as its header -->
+       
+        <div class="film-details__container-box">
+            <div class="film-details__container-video">
+                {% if film.video %}
+                                  
+                <video controls>    
+                    <source src="{{ film.video.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+               
+                {% endif %}      
+            </div>
+            <!--<div class="container-box__content">
+                
+            </div>-->
+        </div>
+
+        <div class="film-details__contents">
+            <div class="film-details__contents-header">
+                <h4>Contents</h4>
+            </div>
+            <ul>
+                <li>Director: {{ film.author }}</li>
+                <li>Lead: {{ film.lead }}</li>
+                <li>Release Date: {{ film.release_date }}</li>
+                <li>Duration: {{ film.duration }}</li>
+            </ul>  
+        
+            
+        </div>
+
+
+    </div>
+
+        <div class="container-box__description">
+            <div class="description__layout__boxHeader"><h3>DETAILS</h3></div> 
+            <div class="description__layout__body">
+                <!-- Your content goes here --> 
+                {% if film.image %}
+                <div class="filmDetails__image"></div>
+                    <img src="{{ film.image.url }}" alt="{{ film.title }}" />
+                    <h3>{{film.description}}</h3>
+            </div>        
+            {% endif %}            
+            
+        </div>
+
+        
+        
+   <!--</div>
+    </div>-->
+</main>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+<main class="film-details__layout"> <!--  create-film__layout-->
+    <div class="film-details__container"> <!--container-->
+        <div class="film-details__layout__box"> <!--film-details__layout__box  layout__box-->
+            <div class="layout__boxHeader"><!--<film-details__layout__boxHeader-->
+                <div class="layout__boxTitle"><!--film-details__layout__boxTitle-->
+                    <a href="{% url 'home' %}">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                        <title>arrow-left</title>
+                        <path
+                        d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                        </path>
+                    </svg>
+                    <h3>{{film.title}}</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+         <!-- New box with container as its header -->
+         <div class="film-details__container-box">
+            <div class="container-box__header">
+                <h3>{{film.description}}</h3>
+            </div>
+            <div class="container-box__content">
+                
+            </div>
+        </div>
+        </div>
+    
+        <div class="layout__boxHeader">
+            <div class="layout__body">
+           <!-- Your content goes here -->
+           {% if film.image %}
+           <div class="filmListFilm__image">
+               <img src="{{ film.image.url }}" alt="{{ film.title }}" />
+           </div>
+            {% endif %}
+            <div class="container-box__header">
+                <h3>{{film.description}}</h3>
+            </div>
+            </div>
+        </div>
+    </div>   
+     
+  </main>

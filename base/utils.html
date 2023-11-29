@@ -1,0 +1,28 @@
+<!--==========film.html============-->
+
+<!---====film rating stars====-->
+
+<div class="bookListBook__rating">
+    <!--=========Star Rating==========-->
+    <div class="rating">
+      <input type="radio" id="star5" name="rating" value="5" {% if user_rated and user_rating == 5 %} checked {% endif %} {% if user_rated %} disabled {% endif %} />
+      <label for="star5" title="5 stars">★</label>
+      <input type="radio" id="star4" name="rating" value="4" {% if user_rated and user_rating == 4 %} checked {% endif %} {% if user_rated %} disabled {% endif %} />
+      <label for="star4" title="4 stars">★</label>
+      <input type="radio" id="star3" name="rating" value="3" {% if user_rated and user_rating == 3 %} checked {% endif %} {% if user_rated %} disabled {% endif %} />
+      <label for="star3" title="3 stars">★</label>
+      <input type="radio" id="star2" name="rating" value="2" {% if user_rated and user_rating == 2 %} checked {% endif %} {% if user_rated %} disabled {% endif %} />
+      <label for="star2" title="2 stars">★</label>
+      <input type="radio" id="star1" name="rating" value="1" {% if user_rated and user_rating == 1 %} checked {% endif %} {% if user_rated %} disabled {% endif %} />
+      <label for="star1" title="1 star">★</label>
+     
+      <!-- Hidden input to capture the selected rating -->
+      <input type="hidden" name="selected_rating" id="selected_rating" value="" />
+    </div>
+  </div> 
+  
+  
+  <small><a href="{% url 'film-details' film.id %}">open</a></small>
+
+
+

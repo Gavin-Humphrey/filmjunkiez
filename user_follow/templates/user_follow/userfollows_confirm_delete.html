@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<div class="confirm-unfollow__section">
+    <form method="POST">
+      {% csrf_token %}
+        <h3>Are you sure you want to unfollow {{ unfollow.followed_user }} ?</h3>
+        <button class="confirm-unfollow-btn" type="submit">Yes, Unfollow</button>
+        <a class="btn btn-outline-secondary" href="{% url 'follow-page' %}">Cancel</a>
+    </form>
+  </div>
+
+{% endblock content %}

@@ -1,0 +1,111 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<main class="follow-page__layout"><!---create-film layout----->
+  <div class="follow-page__container"><!----container---->
+    <div class="follow-page__layout__box"><!----layout__box----->
+      <div class="follow-page__layout__boxHeader"><!----layout__boxHeader---->
+        <div class="follow-page__layout__boxTitle"><!---------->
+          <a href="{% url 'user-profile' user.id%}">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+              <title>arrow-left</title>
+              <path
+                d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
+              ></path>
+            </svg>
+          </a>
+          <h3>Add a Follow</h3>
+        </div>
+
+      </div>
+      <!--++++++++++++++++++++++-->
+
+      
+    
+
+     <div class="follow-page__layout__body"><!--categories-page layout__body-->
+        <form action="" method="POST" class="follow__search"><!--header__search-->
+          {% csrf_token %}
+          <label>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+              <title>search</title>
+              <path
+                d="M32 30.586l-10.845-10.845c1.771-2.092 2.845-4.791 2.845-7.741 0-6.617-5.383-12-12-12s-12 5.383-12 12c0 6.617 5.383 12 12 12 2.949 0 5.649-1.074 7.741-2.845l10.845 10.845 1.414-1.414zM12 22c-5.514 0-10-4.486-10-10s4.486-10 10-10c5.514 0 10 4.486 10 10s-4.486 10-10 10z"
+              ></path>
+            </svg>
+            <input name="followed_user" placeholder="Enter username" />
+            <div class="follow-bt-submit"><!--input-group-append-->
+              <button class="btn follow-btn--main" id="button-addon2" type="submit">Follow</button>
+            </div>
+          </label>
+        </form>
+
+        {% for message in messages %}
+          <p id="messages">{{message}}</p>
+        {% endfor %}
+
+        <div class="row">
+          <div class="col">
+            <h6>Users you follow ({{ user_follows.count }})</h6>
+            {% if user_follows %}
+                <ul class="list-group list-group-flush">
+                  {% for follow in user_follows %}
+                  <li class="list-group-item">
+                    <div class="follows-list__box">
+                      <div class="avatar avatar--small">
+                        <a href="{% url 'user-profile' follow.followed_user.id %}" >
+                        <img src="{{ follow.followed_user.avatar.url }}"
+                        alt="{{ follow.followed_user}} profile picture"> 
+                      </div> 
+                        <span>{{ follow.followed_user.username }}</span>
+                        </a>
+                    </div>
+                        <a class="unfollow-btn" href="{% url 'confirm-unfollow' follow.id %}">Unfollow</a>
+                    
+                  </li>
+                  {% endfor %}
+            {% elif not user_follows %}
+              <div class="card text-center mb-5">
+                <div class="card-body">
+                  <h5 class="card-title text-muted">You are not following anyone.</h5>
+                  <p class="card-text text-muted">Follow other users to review their posts!</p>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="col">
+            <h6>Users following you ({{ followed_by.count }})</h6>
+            {% if followed_by %}
+              <ul class="list-group list-group-flush">
+                {% for follow in followed_by %}
+                  <li class="list-group-item">
+                    <div class="followed-list__box">
+                      <div class="avatar avatar--small">
+                        <a href="{% url 'user-profile' follow.user.id %}" >
+                        <img src="{{ follow.user.avatar.url }}"
+                        alt="{{ follow.user.avatar.url }} profile picture">
+                      </div> 
+                      <span>{{ follow.user.username }}</span>
+                    </a>
+                  </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% elif not followed_by %}
+              <div class="card text-center mb-5">
+                <div class="card-body">
+                  <h5 class="card-title text-muted">No one is following you.</h5>
+                  <p class="card-text text-muted">Follow other users to be able to review their posts!</p>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

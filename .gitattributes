@@ -1,0 +1,8 @@
+static/img/film_videos/*.mov filter=lfs diff=lfs merge=lfs -text
+static/img/film_videos/*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+static/img/film_videos/103bf708-d16b-4c83-b151-b93164a12300_AEtfsYD.mov filter=lfs diff=lfs merge=lfs -text
+
+
+
