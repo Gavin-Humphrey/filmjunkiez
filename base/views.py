@@ -35,7 +35,7 @@ def registerUser(request):
         else:
             messages.error(request, 'An error occurred during registration')
 
-    return render(request, 'base/login_register.html', {'form': form})
+    return render(request, 'base/login_signup.html', {'form': form})
 
 
 def loginPage(request):
@@ -50,7 +50,6 @@ def loginPage(request):
             if form.is_valid():
                 user = form.get_user()
                 login(request, user)
-               # messages.success(request, "Login successful.")
                 return redirect("home")
             else:
                 raise ValueError("Invalid username or password")
@@ -62,10 +61,7 @@ def loginPage(request):
         messages.error(request, "Invalid username or password.")
 
     context = {"page": page, "form": form}
-    return render(request, "base/login_register.html", context)
-
-
-#########
+    return render(request, "base/login_signup.html", context)
 
 
 def logout_view(request):
