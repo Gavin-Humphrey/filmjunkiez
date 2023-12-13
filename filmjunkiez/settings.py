@@ -95,7 +95,7 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DATABASE_NAME'),
+        'NAME': config('DATABASE_NAME', default='Film_Junkiez_db'),
         'USER': config('DATABASE_USER'),
         'PASSWORD': config('DATABASE_PASSWORD'),
         'HOST': 'db',#'db',#'localhost',
