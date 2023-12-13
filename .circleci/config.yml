@@ -3,7 +3,7 @@ version: '2.1'
 jobs:
   build-and-test:
     docker:
-      - image: cimg/python:3.12
+      - image: circleci/python:3.9.7-buster
     steps:
       - checkout
       - restore_cache:
