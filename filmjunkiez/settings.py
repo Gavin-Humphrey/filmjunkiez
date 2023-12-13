@@ -149,7 +149,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://film-junkiez.com"   #########
 ]
 
-sentry_dsn = config('FILM_JUNKIEZ_SENTRY_DSN', default='FILM_JUNKIEZ_SENTRY_DSN_DEFAULT')
+sentry_dsn = config('FILM_JUNKIEZ_SENTRY_DSN', default=None)
 
 sentry_sdk.init(
     dsn=sentry_dsn,
