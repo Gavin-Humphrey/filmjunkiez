@@ -96,8 +96,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DATABASE_NAME', default='Film_Junkiez_db'),
-        'USER': config('DATABASE_USER'),
-        'PASSWORD': config('DATABASE_PASSWORD'),
+        'USER': config('DATABASE_USER',default='Film_Junkiez_User'),
+        'PASSWORD': config('DATABASE_PASSWORD', default='Film_Junkiez_Password'),
         'HOST': 'db',#'db',#'localhost',
         'PORT': '', # 5432 by default
     }
