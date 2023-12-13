@@ -29,6 +29,8 @@ WORKDIR /code
 # Install the PostgreSQL client library
 RUN apk add --no-cache postgresql-libs
 
+ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /usr/local/bin/wait-for-it
+RUN chmod +x /usr/local/bin/wait-for-it
 
 # Copy only the necessary files from the builder stage
 COPY --from=builder /code /code
