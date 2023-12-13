@@ -1,31 +1,42 @@
-FROM python:3.9-alpine
-
+# Build Level
+FROM python:3.10-alpine AS builder
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV SENTRY_DSN $SENTRY_DSN
 
 WORKDIR /code
 
 COPY requirements.txt .
 
-RUN pip install --upgrade pip --no-cache-dir
+# Install build dependencies
+RUN apk add --no-cache build-base libffi-dev openssl-dev && \
+    apk add --no-cache postgresql-dev
 
-RUN pip install -r requirements.txt
+# Install Python dependencies
+RUN pip install --no-build-isolation --ignore-installed -r requirements.txt && \
+    pip install psycopg2-binary==2.9.9
 
 
-COPY . /code/
+# Runtime Level
+FROM python:3.10-alpine
 
-RUN python manage.py collectstatic --noinput
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
 
-# add and run as non-root user
+WORKDIR /code
+
+# Install the PostgreSQL client library
+RUN apk add --no-cache postgresql-libs
+
+
+# Copy only the necessary files from the builder stage
+COPY --from=builder /code /code
+COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
+
 RUN adduser -D myuser
 USER myuser
 
-# Expose the required ports
 EXPOSE $PORT
 
-# Start Gunicorn or the Django server
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:$PORT"]
-
-CMD gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:$PORT
+CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$PORT

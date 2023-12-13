@@ -28,7 +28,7 @@
            <label for="{{ form.category.id_for_label }}">Category</label>
            <select name="{{ form.category.name }}" id="{{ form.category.id_for_label }}" disabled>
                {% for category in categories %}
-                   <option value="{{ category.title }}" {% if category == form.category.value %}selected{% endif %}>{{ category.title }}</option>
+                  <option value="{{ category.title }}" {% if category == form.category.value %}selected{% endif %}>{{ category.title }}</option>
                {% endfor %}
            </select>
          </div>
@@ -54,3 +54,6 @@
 </main>
 
 {% endblock %}
+
+
+

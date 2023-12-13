@@ -47,7 +47,7 @@
             <ul>
                 <li>Director: {{ film.director }}</li>
                 <li>Lead: {{ film.lead }}</li>
-                <li>Release Date: {{ film.release_date }}</li>
+                <li>Release Date: {{ film.release_date|date:"Y-m-d" }}</li>
                 <li>Duration: {{ film.duration }}</li>
             </ul>  
           

@@ -1,0 +1,82 @@
+version: '3'
+
+jobs:
+  build-and-test:
+    docker:
+      - image: circleci/python:3.12.1-buster
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v1-dependencies-
+      - run:
+          name: Remove existing venv directory
+          command: |
+            rm -rf venv
+      - run:
+          name: Set up Python virtual environment
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+      - run:
+          name: Install Python dependencies
+          command: |
+            pip install -r requirements.txt
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: Linting
+          command: |
+            flake8 --max-line-length=120 .
+      - run:
+          name: Pytest
+          command: |
+            . venv/bin/activate
+            pytest
+      - setup_remote_docker
+      - run:
+          name: Check DOCKER_LOGIN
+          command: |
+            echo $DOCKER_LOGIN
+      - run:
+          name: Check DOCKER_USERNAME
+          command: |
+            echo $DOCKER_USERNAME
+      - run:
+          name: Login to Docker Hub
+          command: |
+            echo "DOCKER_LOGIN: $DOCKER_LOGIN"
+            echo $DOCKER_LOGIN | docker login --username=$DOCKER_USERNAME --password-stdin
+      - run:
+          name: Containerize
+          command: |
+            docker build -t filmjunkiez .
+            docker tag filmjunkiez $DOCKER_USERNAME/filmjunkiez
+            docker push $DOCKER_USERNAME/filmjunkiez
+
+  deploy-to-heroku:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build and push Docker image to Heroku
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a film-junkiez web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a filmjunkiez web
+
+workflows:
+  build:
+    jobs:
+      - build-and-test
+
+      - deploy-to-heroku:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: master

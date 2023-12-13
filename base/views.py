@@ -119,12 +119,14 @@ def film(request, pk):
     reviews = film.review_set.all()
     participants = film.participants.all()
 
+
     # Check if the user is following the host
     following_host = request.user.is_authenticated and request.user != film.host \
                      and UserFollows.objects.filter(followed_user=film.host, user=request.user).exists()
     
     # Check if the user has already rated the film
-    user_rated = Review.objects.filter(user=request.user, film=film).exists()
+    #user_rated = Review.objects.filter(user=request.user, film=film).exists()
+    user_rated = Review.objects.filter(user=request.user if request.user.is_authenticated else None, film=film).exists()
 
     if request.method == "POST":
         if following_host:
@@ -222,7 +224,9 @@ def updateFilm(request, pk):
     categories = Category.objects.all()
 
     if request.user != film.host:
-        return HttpResponse("You do not have the permission to do this")
+        #return HttpResponse("You do not have the permission to do this")
+        messages.error(request, "You do not have the permission to do this")
+        return redirect("film", pk=film.id)
 
     if request.method == "POST":
         form = FilmForm(request.POST, request.FILES, instance=film)
@@ -234,12 +238,41 @@ def updateFilm(request, pk):
             film = form.save(commit=False)
             film.category = category
             film.save()
-
+            messages.success(request, "Film updated successfully.")
             return redirect("film", pk=film.id)
 
     context = {"form": form, "categories": categories, "film": film}
     return render(request, "base/film_form.html", context)
+###########
 
+"""def updateFilm(request, pk):
+    film = Film.objects.get(id=pk)
+    form = FilmForm(request.POST or None, request.FILES or None, instance=film)
+    categories = Category.objects.all()
+
+    if request.user != film.host:
+        messages.error(request, "You do not have the permission to do this")
+        return redirect("film", pk=film.id)
+
+    if request.method == "POST":
+        form = FilmForm(request.POST, request.FILES, instance=film)
+        if form.is_valid():
+            # Update film instance with form data
+            film = form.save(commit=False)
+
+            # Get or create the category based on the form data
+            category_title = request.POST.get("category")
+            category, created = Category.objects.get_or_create(title=category_title)
+
+            film.category = category
+            film.save()
+
+            return redirect("film", pk=film.id)
+
+    context = {"form": form, "categories": categories, "film": film}
+    return render(request, "base/film_form_update.html", context)"""
+
+#######
 
 @login_required(login_url="login")
 def deleteFilm(request, pk):

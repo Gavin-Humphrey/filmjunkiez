@@ -1,0 +1,1 @@
+web: gunicorn filmjunkies.wsgi --log-file -

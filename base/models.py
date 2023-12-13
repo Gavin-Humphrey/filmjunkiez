@@ -1,5 +1,4 @@
 from django.db import models
-#from django.contrib.auth.models import User
 from PIL import Image, ImageOps
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -60,19 +59,33 @@ class Film(models.Model):
         else:
             self.average_rating = None
 
-    if image is True:
-        def save(self, *args, **kwargs):
-            super().save()
-            img = ImageOps.contain(Image.open(self.image.path), (200, 200), method=3)
-            img.save(self.image.path)
+    # if image is True:
+    #     def save(self, *args, **kwargs):
+    #         super().save()
+    #         img = ImageOps.contain(Image.open(self.image.path), (200, 200), method=3)
+    #         img.save(self.image.path)
 
+    #         if not self.pk and self.video:
+    #         # Will handle video processing or validation, here later, if needed
+    #             pass
+
+    #         super().save(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+            # Check if image has been modified
+            if self.image and hasattr(self, '_original_image') and self.image.path != self._original_image:
+                # Apply image processing logic
+                img = ImageOps.contain(Image.open(self.image.path), (200, 200), method=3)
+                img.save(self.image.path)
+
+            # Video processing or validation (currently does nothing)
             if not self.pk and self.video:
-            # Will handle video processing or validation, here later, if needed
                 pass
 
             super().save(*args, **kwargs)
-    
-       
+            # Store the original image path after the save
+            self._original_image = self.image.path
+         
 
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -91,27 +104,22 @@ class Review(models.Model):
         return self.body[0:50]
 
 
+# class Film(models.Model):
+#     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+#     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+#     title = models.CharField(max_length=200)
+#     description = models.TextField(null=True, blank=True)
+#     director = models.CharField(max_length=200, default='Unknown')
+#     lead = models.CharField(max_length=200, default='Unknown')
+#     release_date = models.DateTimeField(null=True, blank=True)
+#     duration = models.IntegerField(null=True, blank=True)
+#     participants = models.ManyToManyField(User, related_name="participants", blank=True)
+#     updated = models.DateTimeField(auto_now=True)
+#     created = models.DateTimeField(auto_now_add=True)
+#     image = models.ImageField(blank=True, null=True, upload_to="film_img")
+#     video = models.FileField(blank=True, null=True, upload_to="film_videos", help_text="Upload an MP4 video file")
+#     average_rating = models.FloatField(null=True, blank=True)
 
+#     class Meta:
+#         ordering = ["-updated", "-created"]
 
-"""
-
-class Film(models.Model):
-    host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    title = models.CharField(max_length=200)
-    description = models.TextField(null=True, blank=True)
-    director = models.CharField(max_length=200, default='Unknown')
-    lead = models.CharField(max_length=200, default='Unknown')
-    release_date = models.DateTimeField(null=True, blank=True)
-    duration = models.IntegerField(null=True, blank=True)
-    participants = models.ManyToManyField(User, related_name="participants", blank=True)
-    updated = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(blank=True, null=True, upload_to="film_img")
-    video = models.FileField(blank=True, null=True, upload_to="film_videos", help_text="Upload an MP4 video file")
-    average_rating = models.FloatField(null=True, blank=True)
-
-    class Meta:
-        ordering = ["-updated", "-created"]
-
-"""
