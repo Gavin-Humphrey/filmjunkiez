@@ -23,6 +23,10 @@ jobs:
           name: Install Python dependencies
           command: |
             pip install -r requirements.txt
+      - run:
+          name: Upgrade pip
+          command: |
+            pip install --upgrade pip
       - save_cache:
           paths:
             - ./venv
