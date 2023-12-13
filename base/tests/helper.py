@@ -1,4 +1,3 @@
-#from django import setup
 from base.models import User
 from django.test import TestCase, Client
 from django.urls import reverse

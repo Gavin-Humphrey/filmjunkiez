@@ -3,7 +3,7 @@ version: '2.1'
 jobs:
   build-and-test:
     docker:
-      - image: circleci/python:3.12.1-buster
+      - image: circleci/python:3.12.1
     steps:
       - checkout
       - restore_cache:
@@ -80,3 +80,4 @@ workflows:
           filters:
             branches:
               only: master
+              

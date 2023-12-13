@@ -7,7 +7,6 @@ from .models import Category, Film, Review, User
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterForm, FilmForm, UserForm #, ReviewForm
-#from user_follow.utils import get_follows
 from user_follow.models import UserFollows
 from django.contrib.auth.forms import AuthenticationForm 
 from .permissions import is_superuser, staff_required
@@ -243,7 +242,6 @@ def updateFilm(request, pk):
 
     context = {"form": form, "categories": categories, "film": film}
     return render(request, "base/film_form.html", context)
-###########
 
 """def updateFilm(request, pk):
     film = Film.objects.get(id=pk)
@@ -272,7 +270,6 @@ def updateFilm(request, pk):
     context = {"form": form, "categories": categories, "film": film}
     return render(request, "base/film_form_update.html", context)"""
 
-#######
 
 @login_required(login_url="login")
 def deleteFilm(request, pk):
