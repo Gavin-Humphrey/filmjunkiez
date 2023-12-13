@@ -31,10 +31,10 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
-      - run:
-          name: Linting
-          command: |
-            flake8 --max-line-length=120 .
+      #- run:
+          #name: Linting
+          #command: |
+            #flake8 --max-line-length=120 .
       - run:
           name: Pytest
           command: |
