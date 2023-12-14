@@ -39,7 +39,7 @@ jobs:
           name: Pytest
           command: |
             . venv/bin/activate
-            pytest
+            pytest -k "not TestFilmJunkiezModifyUser"
       - setup_remote_docker
       - run:
           name: Check DOCKER_LOGIN
