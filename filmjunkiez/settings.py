@@ -111,9 +111,7 @@ DATABASES = {
         'NAME': config('DATABASE_NAME', default='Film_Junkiez_db'),
         'USER': config('DATABASE_USER',default='Film_Junkiez_User'),
         'PASSWORD': config('DATABASE_PASSWORD', default='Film_Junkiez_Password'),
-        #'HOST': os.environ.get('DJANGO_DB_HOST', 'localhost'),
-        'HOST': os.environ.get('DJANGO_DB_HOST', 'db'),
-
+        'HOST': os.environ.get('DJANGO_DB_HOST', 'localhost'),
         'PORT': '', # 5432 by default
     }
 }
