@@ -18,6 +18,9 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from django.core.management.utils import get_random_secret_key
 
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,7 +34,17 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', f'{os.environ.get("film-junkiez")}.herokuapp.com']
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', f'{os.environ.get("film-junkiez")}.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# Check if running in a Docker environment
+if os.environ.get("DOCKER_ENV"):
+    ALLOWED_HOSTS.append('0.0.0.0')
+
+# Heroku app domain
+heroku_domain = os.environ.get("FILM_JUNKIEZ")
+if heroku_domain:
+    ALLOWED_HOSTS.append(f'{heroku_domain}.herokuapp.com')
 
 
 # Application definition
@@ -46,8 +59,8 @@ INSTALLED_APPS = [
 
     "base.apps.BaseConfig",
     "user_follow.apps.UserFollowConfig",
-    "rest_framework", #
-    "corsheaders",  #
+    "rest_framework", 
+    "corsheaders", 
 ]
 
 AUTH_USER_MODEL = 'base.User'
@@ -98,21 +111,11 @@ DATABASES = {
         'NAME': config('DATABASE_NAME', default='Film_Junkiez_db'),
         'USER': config('DATABASE_USER',default='Film_Junkiez_User'),
         'PASSWORD': config('DATABASE_PASSWORD', default='Film_Junkiez_Password'),
-        'HOST': 'db',#'db',#'localhost',
+        'HOST': os.environ.get('DJANGO_DB_HOST', 'localhost'),
         'PORT': '', # 5432 by default
     }
 }
 
-"""DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'FilmJunkiez',
-        'USER': 'postgres',
-        'PASSWORD': 'Admin',
-        'HOST': 'db',
-        'PORT': '5432',  # Default PostgreSQL port
-    }
-}"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

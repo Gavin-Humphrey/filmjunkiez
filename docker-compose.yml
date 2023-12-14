@@ -1,23 +1,31 @@
-
 version: '3'
 
 services:
-  db:
-    image: postgres
-    environment: 
-      - POSTGRES_DB=FilmJunkiez
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Admin
-  web:
+  django:
     build: .
-    #command: ["wait-for-it", "db:5432", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
     command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
     volumes:
       - .:/code
     ports:
       - "8000:8000"
     depends_on:
       - db
+    networks:
+      - filmjunkiez-network
+    environment:
+      - DJANGO_DB_HOST=db  
+      - DOCKER_ENV=true
+      - FILM_JUNKIEZ=${FILM_JUNKIEZ}
 
+  db:
+    image: postgres:latest
+    environment: 
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    networks:
+      - filmjunkiez-network
 
-
+networks:
+  filmjunkiez-network:
