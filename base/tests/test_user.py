@@ -1,4 +1,4 @@
-"""from django.urls import reverse
+from django.urls import reverse
 from .helper import BaseFilmJunkiezTestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from base.models import User
@@ -93,4 +93,4 @@ class TestFilmJunkiezModifyUser(BaseFilmJunkiezTestCase):
         # Logout and try to access the view, expecting a redirect to the login page
         self.client.logout()
         response = self.client.get(self.url)
-        self.assertRedirects(response, reverse('login') + f'?next={self.url}')"""
+        self.assertRedirects(response, reverse('login') + f'?next={self.url}')
