@@ -4,7 +4,8 @@ services:
   django:
     build: .
     command: ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
-
+    env_file:
+      - .env
     volumes:
       - .:/code
     ports:
@@ -13,14 +14,10 @@ services:
       - db
     networks:
       - filmjunkiez-network
-    environment:
-      - DJANGO_DB_HOST=db  
-      - DOCKER_ENV=true
-      - FILM_JUNKIEZ=${FILM_JUNKIEZ}
-
   db:
     image: postgres:latest
-    environment: 
+    env_file: .env
+    environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}

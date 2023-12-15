@@ -2,7 +2,6 @@ from django.urls import reverse
 from .helper import BaseFilmJunkiezTestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from base.models import User
-import pytest
 
 
  
@@ -26,7 +25,6 @@ class TestFilmJunkiezUser(BaseFilmJunkiezTestCase):
         assert "filmList__header" in markup 
 
 
-@pytest.mark.ci_skip
 class TestFilmJunkiezModifyUser(BaseFilmJunkiezTestCase):
    
     def test_modify_user_view_rendering(self):
