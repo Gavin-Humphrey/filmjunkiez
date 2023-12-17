@@ -9,7 +9,6 @@ jobs:
           POSTGRES_DB: $DATABASE_NAME 
           POSTGRES_USER: $DATABASE_USER
           POSTGRES_PASSWORD: $DATABASE_PASSWORD
-          POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - checkout
       - restore_cache:
@@ -46,8 +45,7 @@ jobs:
           name: Database Initialization
           command: |
             docker run --rm -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME postgres:latest \
-              initdb --no-locale --no-instructions -D /var/lib/postgresql/data
-
+              su -c "initdb --no-locale --no-instructions -D /var/lib/postgresql/data" postgres
 
       - run:
           name: Database Migrations
