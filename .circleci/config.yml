@@ -43,10 +43,11 @@ jobs:
       #     command: |
       #       flake8 --max-line-length=120 .
       - run:
-          name: Check PostgreSQL Server Status
+          name: Database Initialization
           command: |
-            docker run --rm -e PGPASSWORD=$DATABASE_PASSWORD postgres:latest \
-              psql -h localhost -U $DATABASE_USER -d $DATABASE_NAME -c "SELECT 1;"
+            docker run --rm -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME postgres:latest \
+              initdb --no-locale --no-instructions -D /var/lib/postgresql/data
+
 
       - run:
           name: Database Migrations
