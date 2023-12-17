@@ -22,9 +22,9 @@ logger = logging.getLogger(__name__)
 
 def registerUser(request):
     form = RegisterForm()
-
     if request.method == 'POST':
         form = RegisterForm(request.POST)
+
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
@@ -145,7 +145,7 @@ def film(request, pk):
                     film.calculate_average_rating()
                     film.save()
 
-                    messages.success(request, "Review successfully added!")
+                    #messages.success(request, "Review successfully added!")
                     return redirect("film", pk=film.id)
                 else:
                     messages.error(request, "You have already rated this film.")
@@ -197,6 +197,7 @@ def createFilm(request):
         category_title = request.POST.get("category")
         category, created = Category.objects.get_or_create(title=category_title)
         image = request.FILES.get("image", None)
+        video = request.FILES.get("video")
 
         film = Film(
             host=request.user,
@@ -207,7 +208,8 @@ def createFilm(request):
             lead=request.POST.get("lead"),
             release_date=request.POST.get("release_date"),
             duration=request.POST.get("duration"),
-            image=image
+            image=image,
+            video=video
         )
         film.save()
 

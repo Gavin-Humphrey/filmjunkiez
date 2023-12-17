@@ -19,11 +19,13 @@ class User(AbstractUser):
     def __str__(self):
         return self.name or self.username
 
+    class Meta:
+        db_table = 'auth_user'
+        
 
 class Category(models.Model):
     title = models.CharField(max_length=200)
     
-
     def __str__(self) -> str:
         return self.title
 
@@ -59,17 +61,17 @@ class Film(models.Model):
         else:
             self.average_rating = None
 
-    # if image is True:
-    #     def save(self, *args, **kwargs):
-    #         super().save()
-    #         img = ImageOps.contain(Image.open(self.image.path), (200, 200), method=3)
-    #         img.save(self.image.path)
+    """if image is True:
+        def save(self, *args, **kwargs):
+            super().save()
+            img = ImageOps.contain(Image.open(self.image.path), (200, 200), method=3)
+            img.save(self.image.path)
 
-    #         if not self.pk and self.video:
-    #         # Will handle video processing or validation, here later, if needed
-    #             pass
+            if not self.pk and self.video:
+            # Will handle video processing or validation, here later, if needed
+                pass
 
-    #         super().save(*args, **kwargs)
+            super().save(*args, **kwargs)
 
     def save(self, *args, **kwargs):
             # Check if image has been modified
@@ -84,7 +86,30 @@ class Film(models.Model):
 
             super().save(*args, **kwargs)
             # Store the original image path after the save
+            self._original_image = self.image.path"""
+
+    def save(self, *args, **kwargs):
+        # Check if image field is not None
+        if self.image:
+            # Check if image has been modified
+            if hasattr(self, '_original_image') and self.image.path != self._original_image:
+                # Apply image processing logic
+                img = ImageOps.contain(Image.open(self.image.path), (200, 200), method=3)
+                img.save(self.image.path)
+
+            # Store the original image path after the save
             self._original_image = self.image.path
+
+        # Call the parent save method to save other fields
+        super().save(*args, **kwargs)
+
+        # Check if video field is not None
+        if not self.pk and self.video:
+            # Add your video processing or validation logic here
+            # This part will be executed only during the initial save
+            pass
+            
+       
          
 
 class Review(models.Model):

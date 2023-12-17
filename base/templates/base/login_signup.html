@@ -19,6 +19,7 @@
         <form class="form" method="POST" action="">
           {% csrf_token %}
           <div class="form__group form__group">
+
             <label for="film_title">{{field.label}}</label>
             {{field}}
           </div>

@@ -12,13 +12,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from decouple import config
+from decouple import config, Csv
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from django.core.management.utils import get_random_secret_key
 
-
+import sys
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -113,7 +113,15 @@ DATABASES = {
         'PASSWORD': config('DATABASE_PASSWORD', default='Film_Junkiez_Password'),
         'HOST': config('DATABASE_HOST', default='localhost'),
         'PORT': config('DJANGO_DB_PORT', default='5432'),
-    }
+    },
+     'test': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'FilmJunkiezTest',
+        'USER': config('DATABASE_USER', default='Film_Junkiez_User'),
+        'PASSWORD': config('DATABASE_PASSWORD', default='Film_Junkiez_Password'),
+        'HOST': config('DATABASE_HOST', default='localhost'),
+        'PORT': config('DJANGO_DB_PORT', default='5432'),
+    },
 }
 config.debug = True
 
