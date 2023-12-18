@@ -22,7 +22,6 @@ jobs:
       - run:
           name: Set up Python virtual environment
           command: |
-            cd FilmJunkiez
             python -m venv venv
             source venv/bin/activate
             pip install -r requirements.txt
