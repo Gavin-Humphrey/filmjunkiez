@@ -1,4 +1,4 @@
-version: '2.1'
+version: 2.1
 
 jobs:
   build-and-test:
@@ -26,11 +26,7 @@ jobs:
             python -m venv venv
             . venv/bin/activate
       - run:
-          name: Upgrade pip
-          command: |
-            python -m pip install --upgrade pip
-      - run:
-          name: Install Django
+          name: Install Python dependencies
           command: |
             pip install -r requirements.txt
       - save_cache:
@@ -46,9 +42,8 @@ jobs:
       - run:
           name: Database Migrations
           command: |
-            chmod +x venv/bin/activate
-            source venv/bin/activate
-            python manage.py migrate
+            . venv/bin/activate
+            python manage.py migrate    
       - run:
           name: Pytest
           command: |
@@ -82,10 +77,10 @@ jobs:
       - run:
           name: Build and push Docker image to Heroku
           command: |
-            sudo curl https://cli-assets.heroku.com/install.sh | sh \
-            && HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login \
-            && HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a film-junkiez web \
-            && HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a filmjunkiez web
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a filmjunkiez web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a filmjunkiez web
 
 workflows:
   build:
