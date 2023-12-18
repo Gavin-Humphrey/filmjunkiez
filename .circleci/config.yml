@@ -9,7 +9,6 @@ jobs:
           POSTGRES_DB: $DATABASE_NAME 
           POSTGRES_USER: $DATABASE_USER
           POSTGRES_PASSWORD: $DATABASE_PASSWORD
-          POSTGRES_HOST_AUTH_METHOD: $POSTGRES_PASSWORD
     steps:
       - checkout
       - restore_cache:
@@ -26,25 +25,17 @@ jobs:
             python -m venv venv
             . venv/bin/activate
       - run:
-          name: Install Django==5.0
-          command: pip install -r requirements.txt      
+          name: Upgrade pip
+          command: |
+            python -m pip install --upgrade pip
       - run:
           name: Install Python dependencies
           command: |
             pip install -r requirements.txt
-      - run:
-          name: Upgrade pip
-          command: |
-            pip install --upgrade pip
       - save_cache:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
-      # Uncomment the following linting step when you're ready
-      # - run:
-      #     name: Linting
-      #     command: |
-      #       flake8 --max-line-length=120 .
       - run:
           name: Database Initialization
           command: |
@@ -106,3 +97,4 @@ workflows:
           filters:
             branches:
               only: master
+
