@@ -4,17 +4,8 @@ jobs:
   build-and-test:
     docker:
       - image: circleci/python:3.9.7-buster
-        environment:
-          POSTGRES_DB: $DATABASE_NAME
-          POSTGRES_USER: $DATABASE_USER
-          POSTGRES_PASSWORD: $DATABASE_PASSWORD
-          POSTGRES_HOST_AUTH_METHOD: "md5"
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-            - v1-dependencies-
       - run: sleep 1000000
       - run:
           name: Remove existing venv directory
@@ -25,10 +16,6 @@ jobs:
             python -m venv venv
             source venv/bin/activate
             pip install -r requirements.txt
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: Database Initialization
           command: docker run -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME postgres:latest su -c "initdb --no-locale --no-instructions -D /var/lib/postgresql/data" postgres
@@ -57,17 +44,14 @@ jobs:
             docker tag filmjunkiez $DOCKER_USERNAME/filmjunkiez
             docker push $DOCKER_USERNAME/filmjunkiez
 
-  deploy-to-heroku:
-    machine: true
-    steps:
-      - checkout
-      - run:
-          name: Build and push Docker image to Heroku
-          command: |
-            sudo curl https://cli-assets.heroku.com/install.sh | sh
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a filmjunkiez web
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a filmjunkiez web
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: $DATABASE_NAME
+      POSTGRES_USER: $DATABASE_USER
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+      POSTGRES_HOST_AUTH_METHOD: "md5"
 
 workflows:
   version: 2
@@ -78,10 +62,3 @@ workflows:
           POSTGRES_USER: $DATABASE_USER
           POSTGRES_PASSWORD: $DATABASE_PASSWORD
           POSTGRES_HOST_AUTH_METHOD: "md5"
-
-      - deploy-to-heroku:
-          requires:
-            - build-and-test
-          filters:
-            branches:
-              only: master
