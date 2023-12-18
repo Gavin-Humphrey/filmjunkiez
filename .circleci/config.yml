@@ -17,6 +17,9 @@ jobs:
             source venv/bin/activate
             pip install -r requirements.txt
       - run:
+          name: Install decouple
+          command: pip install python-decouple
+      - run:
           name: Activate Virtual Environment
           command: source venv/bin/activate
       - run:
