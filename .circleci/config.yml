@@ -20,6 +20,12 @@ jobs:
           name: Activate Virtual Environment
           command: source venv/bin/activate
       - run:
+          name: Install Django
+          command: pip install django
+      - run:
+          name: Check sys.path
+          command: python -c "import sys; print(sys.path)"    
+      - run:
           name: Set PYTHONPATH
           command: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
       - run:
