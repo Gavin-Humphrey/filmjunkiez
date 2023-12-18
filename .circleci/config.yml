@@ -44,6 +44,18 @@ jobs:
             docker tag filmjunkiez $DOCKER_USERNAME/filmjunkiez
             docker push $DOCKER_USERNAME/filmjunkiez
 
+  deploy-to-heroku:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build and push Docker image to Heroku
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a filmjunkiez web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a filmjunkiez web
+
 services:
   postgres:
     image: postgres:latest
