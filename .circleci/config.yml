@@ -1,80 +1,18 @@
 version: 2.1
-
 jobs:
-  build-and-test:
+  build:
     docker:
       - image: circleci/python:3.9.7-buster
-      - image: postgres:latest
-        environment:
-          POSTGRES_DB: $DATABASE_NAME 
-          POSTGRES_USER: $DATABASE_USER
-          POSTGRES_PASSWORD: $DATABASE_PASSWORD
-          POSTGRES_HOST_AUTH_METHOD: "md5"
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-            - v1-dependencies-
       - run:
-          name: Remove existing venv directory
-          command: rm -rf venv
-      - run:
-          name: Set up Python virtual environment
+          name: Install dependencies
           command: |
             python -m venv venv
             source venv/bin/activate
             pip install -r requirements.txt
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-          name: Database Initialization
-          command: docker run --rm -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME postgres:latest su -c "initdb --no-locale --no-instructions -D /var/lib/postgresql/data" postgres
-      - run:
-          name: Database Migrations
-          command: python manage.py migrate
-      - run:
-          name: Pytest
-          command: pytest
-      - setup_remote_docker
-      - run:
-          name: Check DOCKER_LOGIN
-          command: echo $DOCKER_LOGIN
-      - run:
-          name: Check DOCKER_USERNAME
-          command: echo $DOCKER_USERNAME
-      - run:
-          name: Login to Docker Hub
-          command: echo $DOCKER_LOGIN | docker login --username=$DOCKER_USERNAME --password-stdin
-      - run:
-          name: Containerize
+          name: Run tests
           command: |
-            docker build -t filmjunkiez .
-            docker tag filmjunkiez $DOCKER_USERNAME/filmjunkiez
-            docker push $DOCKER_USERNAME/filmjunkiez
-
-  deploy-to-heroku:
-    machine: true
-    steps:
-      - checkout
-      - run:
-          name: Build and push Docker image to Heroku
-          command: |
-            sudo curl https://cli-assets.heroku.com/install.sh | sh
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a filmjunkiez web
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a filmjunkiez web
-
-workflows:
-  build:
-    jobs:
-      - build-and-test
-
-      - deploy-to-heroku:
-          requires:
-            - build-and-test
-          filters:
-            branches:
-              only: master
+            source venv/bin/activate
+            python manage.py test
