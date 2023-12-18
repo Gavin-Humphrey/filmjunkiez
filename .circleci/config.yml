@@ -22,19 +22,21 @@ jobs:
       - run:
           name: Set up Python virtual environment
           command: |
+            cd FilmJunkiez
             python -m venv venv
             source venv/bin/activate
             pip install -r requirements.txt
       - save_cache:
           paths:
-            - ./venv
+            #- ./venv
+            - "venv"
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: Database Initialization
           command: docker run --rm -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME postgres:latest su -c "initdb --no-locale --no-instructions -D /var/lib/postgresql/data" postgres
       - run:
           name: Database Migrations
-          command: python3 manage.py migrate
+          command: python manage.py migrate
       - run:
           name: Pytest
           command: pytest
