@@ -9,6 +9,7 @@ jobs:
           POSTGRES_DB: $DATABASE_NAME 
           POSTGRES_USER: $DATABASE_USER
           POSTGRES_PASSWORD: $DATABASE_PASSWORD
+          POSTGRES_HOST_AUTH_METHOD: "md5"
     steps:
       - checkout
       - restore_cache:
@@ -80,7 +81,6 @@ jobs:
       - run:
           name: Build and push Docker image to Heroku
           command: |
-            # Use '&&' instead of ';' for conditional execution
             sudo curl https://cli-assets.heroku.com/install.sh | sh \
             && HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login \
             && HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a film-junkiez web \
@@ -97,4 +97,3 @@ workflows:
           filters:
             branches:
               only: master
-
