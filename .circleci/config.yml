@@ -46,7 +46,8 @@ jobs:
       - run:
           name: Database Migrations
           command: |
-            venv/bin/activate
+            chmod +x venv/bin/activate
+            source venv/bin/activate
             python manage.py migrate
       - run:
           name: Pytest
