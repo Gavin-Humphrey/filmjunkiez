@@ -4,11 +4,11 @@ jobs:
   build-and-test:
     docker:
       - image: circleci/python:3.9.7-buster
-    environment:
-      POSTGRES_DB: $DATABASE_NAME
-      POSTGRES_USER: $DATABASE_USER
-      POSTGRES_PASSWORD: $DATABASE_PASSWORD
-      POSTGRES_HOST_AUTH_METHOD: "md5"
+        environment:
+          POSTGRES_DB: $DATABASE_NAME
+          POSTGRES_USER: $DATABASE_USER
+          POSTGRES_PASSWORD: $DATABASE_PASSWORD
+          POSTGRES_HOST_AUTH_METHOD: "md5"
     steps:
       - checkout
       - restore_cache:
@@ -74,13 +74,10 @@ workflows:
   build:
     jobs:
       - build-and-test:
-          docker:
-            - image: circleci/python:3.9.7-buster
-          environment:
-            POSTGRES_DB: $DATABASE_NAME
-            POSTGRES_USER: $DATABASE_USER
-            POSTGRES_PASSWORD: $DATABASE_PASSWORD
-            POSTGRES_HOST_AUTH_METHOD: "md5"
+          POSTGRES_DB: $DATABASE_NAME
+          POSTGRES_USER: $DATABASE_USER
+          POSTGRES_PASSWORD: $DATABASE_PASSWORD
+          POSTGRES_HOST_AUTH_METHOD: "md5"
 
       - deploy-to-heroku:
           requires:
