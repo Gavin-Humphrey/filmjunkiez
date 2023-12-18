@@ -27,8 +27,7 @@ jobs:
             pip install -r requirements.txt
       - save_cache:
           paths:
-            #- ./venv
-            - "venv"
+            - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: Database Initialization
