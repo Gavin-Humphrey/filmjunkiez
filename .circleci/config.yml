@@ -18,7 +18,7 @@ jobs:
             pip install -r requirements.txt
       - run:
           name: Database Initialization
-          command: docker run -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME postgres:latest su -c "initdb --no-locale --no-instructions -D /var/lib/postgresql/data" postgres
+          command: docker run -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
       - run:
           name: Database Migrations
           command: python manage.py migrate
@@ -44,21 +44,17 @@ jobs:
             docker tag filmjunkiez $DOCKER_USERNAME/filmjunkiez
             docker push $DOCKER_USERNAME/filmjunkiez
 
-services:
-  postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: $DATABASE_NAME
-      POSTGRES_USER: $DATABASE_USER
-      POSTGRES_PASSWORD: $DATABASE_PASSWORD
-      POSTGRES_HOST_AUTH_METHOD: "md5"
-
 workflows:
   version: 2
   build:
     jobs:
       - build-and-test:
-          POSTGRES_DB: $DATABASE_NAME
-          POSTGRES_USER: $DATABASE_USER
-          POSTGRES_PASSWORD: $DATABASE_PASSWORD
-          POSTGRES_HOST_AUTH_METHOD: "md5"
+          docker:
+            - image: circleci/python:3.9.7-buster
+
+      - deploy-to-heroku:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: master
