@@ -43,11 +43,11 @@ jobs:
             docker run --rm -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME postgres:latest \
               su -c "initdb --no-locale --no-instructions -D /var/lib/postgresql/data" postgres
 
-      #- run:
-          #name: Database Migrations
-          #command: |
-            #. venv/bin/activate
-            #python manage.py migrate
+      - run:
+          name: Database Migrations
+          command: |
+            . venv/bin/activate
+            python manage.py migrate
       - run:
           name: Pytest
           command: |
