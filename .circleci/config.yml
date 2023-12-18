@@ -18,16 +18,12 @@ jobs:
             - v1-dependencies-
       - run:
           name: Remove existing venv directory
-          command: |
-            rm -rf venv
+          command: rm -rf venv
       - run:
           name: Set up Python virtual environment
           command: |
             python -m venv venv
-            . venv/bin/activate
-      - run:
-          name: Install Python dependencies
-          command: |
+            source venv/bin/activate
             pip install -r requirements.txt
       - save_cache:
           paths:
@@ -35,34 +31,23 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: Database Initialization
-          command: |
-            . venv/bin/activate
-            docker run --rm -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME postgres:latest \
-              su -c "initdb --no-locale --no-instructions -D /var/lib/postgresql/data" postgres
+          command: docker run --rm -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME postgres:latest su -c "initdb --no-locale --no-instructions -D /var/lib/postgresql/data" postgres
       - run:
           name: Database Migrations
-          command: |
-            . venv/bin/activate
-            python manage.py migrate    
+          command: python manage.py migrate
       - run:
           name: Pytest
-          command: |
-            . venv/bin/activate
-            pytest
+          command: pytest
       - setup_remote_docker
       - run:
           name: Check DOCKER_LOGIN
-          command: |
-            echo $DOCKER_LOGIN
+          command: echo $DOCKER_LOGIN
       - run:
           name: Check DOCKER_USERNAME
-          command: |
-            echo $DOCKER_USERNAME
+          command: echo $DOCKER_USERNAME
       - run:
           name: Login to Docker Hub
-          command: |
-            echo "DOCKER_LOGIN: $DOCKER_LOGIN"
-            echo $DOCKER_LOGIN | docker login --username=$DOCKER_USERNAME --password-stdin
+          command: echo $DOCKER_LOGIN | docker login --username=$DOCKER_USERNAME --password-stdin
       - run:
           name: Containerize
           command: |
