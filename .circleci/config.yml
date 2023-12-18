@@ -17,6 +17,15 @@ jobs:
             source venv/bin/activate
             pip install -r requirements.txt
       - run:
+          name: Activate Virtual Environment
+          command: source venv/bin/activate
+      - run:
+          name: Set PYTHONPATH
+          command: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
+      - run:
+          name: Verify Django Installation
+          command: python -m django --version
+      - run:
           name: Database Initialization
           command: docker run -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
       - run:
