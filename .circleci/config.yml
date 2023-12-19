@@ -19,6 +19,9 @@ jobs:
       - run:
           name: Install decouple
           command: pip install python-decouple
+      - run:
+          name: Install sentry-sdk
+          command: pip install python-sentry-sdk
       #- run:
           #name: Activate Virtual Environment
           #command: source venv/bin/activate
