@@ -25,6 +25,8 @@ jobs:
           command: |
             pwd
             ls -l
+            ls -l venv
+            ls -l venv/lib/python3.9/site-packages
 
       # Print the contents of the virtual environment
       - run:
