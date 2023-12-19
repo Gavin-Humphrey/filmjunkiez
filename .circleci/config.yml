@@ -10,7 +10,11 @@ jobs:
       - run:
           name: Remove existing venv directory
           command: rm -rf venv
-      
+      - run:
+          name: Print Project Directory Information
+          command: |
+            pwd
+            ls -l
       - run:
           name: Set up Python virtual environment
           command: |
@@ -21,19 +25,15 @@ jobs:
             pip install -r requirements.txt
             python -m pip freeze  # Print installed packages for debugging
       - run:
-          name: Print Project Directory Information
+          name: Debugging Output
           command: |
-            pwd
-            ls -l
-            ls -l venv
-            ls -l venv/lib/python3.9/site-packages
-
-      # Print the contents of the virtual environment
+            echo "PATH=$PATH"
+            echo "PYTHONPATH=$PYTHONPATH"
+            pip list
       - run:
-          name: Print Virtual Environment Information
-          command: |
-            ls -l venv
-            ls -l venv/lib/python3.9/site-packages
+          name: Check Python Version
+          command: python --version
+
       #- run:
           #name: Install decouple
           #command: pip install python-decouple
