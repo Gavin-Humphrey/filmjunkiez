@@ -10,12 +10,11 @@ jobs:
       - run:
           name: Remove existing venv directory
           command: rm -rf venv
+      
       - run:
           name: Set up Python virtual environment
           command: |
-            python -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
+            pip install -U pip setuptools virtualenv
       #- run:
           #name: Install decouple
           #command: pip install python-decouple
