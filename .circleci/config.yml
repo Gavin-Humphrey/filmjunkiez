@@ -6,6 +6,7 @@ jobs:
       - image: circleci/python:3.9.7-buster
     steps:
       - checkout
+      - run: sleep 60
       - run:
           name: Set up Python virtual environment
           command: |
@@ -17,7 +18,7 @@ jobs:
           command: echo "export PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV
       - run:
           name: Source BASH_ENV
-          command: source $BASH_ENV
+          command: bash -c "source $BASH_ENV"
       - run:
           name: Verify Django Installation
           command: python -m django --version
