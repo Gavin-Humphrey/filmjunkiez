@@ -11,8 +11,7 @@ jobs:
           name: Set up Python virtual environment
           command: |
             python -m venv venv
-            source venv/bin/activate
-            pip install -r requirements.txt
+            bash -c "source venv/bin/activate && pip install -r requirements.txt"
       - run:
           name: Set PYTHONPATH
           command: echo "export PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV
