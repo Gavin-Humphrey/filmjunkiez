@@ -14,14 +14,14 @@ jobs:
           name: Set up Python virtual environment
           command: |
             python -m venv venv
-            source venv/bin/activate
+            . venv/bin/activate
             pip install -r requirements.txt
-      - run:
-          name: Install decouple
-          command: pip install python-decouple
-      - run:
-          name: Install sentry-sdk
-          command: pip install sentry-sdk
+      #- run:
+          #name: Install decouple
+          #command: pip install python-decouple
+      #- run:
+          #name: Install sentry-sdk
+          #command: pip install sentry-sdk
       #- run:
           #name: Activate Virtual Environment
           #command: source venv/bin/activate
