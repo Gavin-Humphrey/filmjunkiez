@@ -6,10 +6,6 @@ jobs:
       - image: circleci/python:3.9.7-buster
     steps:
       - checkout
-      - run: sleep 60
-      - run:
-          name: Remove existing venv directory
-          command: rm -rf venv
       - run:
           name: Set up Python virtual environment
           command: |
@@ -17,20 +13,11 @@ jobs:
             source venv/bin/activate
             pip install -r requirements.txt
       - run:
-          name: Install decouple
-          command: pip install python-decouple
-      - run:
-          name: Activate Virtual Environment
-          command: source venv/bin/activate
-      - run:
-          name: Install Django
-          command: pip install django
-      - run:
-          name: Check sys.path
-          command: python -c "import sys; print(sys.path)"    
-      - run:
           name: Set PYTHONPATH
-          command: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
+          command: echo "export PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV
+      - run:
+          name: Source BASH_ENV
+          command: source $BASH_ENV
       - run:
           name: Verify Django Installation
           command: python -m django --version
