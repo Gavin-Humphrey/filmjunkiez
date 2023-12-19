@@ -11,29 +11,19 @@ jobs:
           name: Remove existing venv directory
           command: rm -rf venv
       - run:
-          name: Print Project Directory Information
-          command: |
-            pwd
-            ls -l
-      - run:
           name: Set up Python virtual environment
           command: |
             python -m venv venv
-            source venv/bin/activate
-            hash -r  # Refresh the shell's command hash
-            pip install -U pip setuptools
-            pip install -r requirements.txt
-            python -m pip freeze  # Print installed packages for debugging
+            . venv/bin/activate
       - run:
-          name: Debugging Output
+          name: Install Python dependencies
           command: |
-            echo "PATH=$PATH"
-            echo "PYTHONPATH=$PYTHONPATH"
-            pip list
+            pip install -r requirements.txt
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-          name: Check Python Version
-          command: python --version
-
       #- run:
           #name: Install decouple
           #command: pip install python-decouple
@@ -43,9 +33,9 @@ jobs:
       #- run:
           #name: Activate Virtual Environment
           #command: source venv/bin/activate
-      - run:
-          name: Install Django
-          command: pip install django
+      #- run:
+          #name: Install Django
+          #command: pip install django
       - run:
           name: Check sys.path
           command: python -c "import sys; print(sys.path)"    
