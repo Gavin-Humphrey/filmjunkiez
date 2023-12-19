@@ -19,7 +19,19 @@ jobs:
             hash -r  # Refresh the shell's command hash
             pip install -U pip setuptools
             pip install -r requirements.txt
-            python -m pip freeze  # Print installed packages for debugging          
+            python -m pip freeze  # Print installed packages for debugging
+      - run:
+          name: Print Project Directory Information
+          command: |
+            pwd
+            ls -l
+
+      # Print the contents of the virtual environment
+      - run:
+          name: Print Virtual Environment Information
+          command: |
+            ls -l venv
+            ls -l venv/lib/python3.9/site-packages
       #- run:
           #name: Install decouple
           #command: pip install python-decouple
