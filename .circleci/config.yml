@@ -15,10 +15,11 @@ jobs:
           name: Set up Python virtual environment
           command: |
             python -m venv venv
-            . venv/bin/activate
+            source venv/bin/activate
             hash -r  # Refresh the shell's command hash
             pip install -U pip setuptools
-            pip install -r requirements.txt           
+            pip install -r requirements.txt
+            python -m pip freeze  # Print installed packages for debugging          
       #- run:
           #name: Install decouple
           #command: pip install python-decouple
