@@ -14,7 +14,10 @@ jobs:
       - run:
           name: Set up Python virtual environment
           command: |
-            pip install -U pip setuptools virtualenv
+            python -m venv venv
+            source venv/bin/activate
+            pip install -U pip setuptools
+            pip install -r requirements.txt
       #- run:
           #name: Install decouple
           #command: pip install python-decouple
