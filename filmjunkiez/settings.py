@@ -113,16 +113,8 @@ DATABASES = {
         'USER': config('DATABASE_USER', default='Film_Junkiez_User'),
         'PASSWORD': config('DATABASE_PASSWORD', default='Film_Junkiez_Password'),
         'HOST': config('DATABASE_HOST', default='localhost'),
-        'PORT': config('DJANGO_DB_PORT', default='5432'),
-    },
-     'test': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'FilmJunkiezTest',
-        'USER': config('DATABASE_USER', default='Film_Junkiez_User'),
-        'PASSWORD': config('DATABASE_PASSWORD', default='Film_Junkiez_Password'),
-        'HOST': config('DATABASE_HOST', default='localhost'),
-        'PORT': config('DJANGO_DB_PORT', default='5432'),
-    },
+        'PORT': config('DJANGO_DB_PORT', default='PORT'),
+    }    
 }
 config.debug = True
 

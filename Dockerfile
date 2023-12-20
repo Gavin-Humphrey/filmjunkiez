@@ -38,4 +38,4 @@ USER myuser
 
 EXPOSE $PORT
 
-CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$PORT
+CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$ORT
