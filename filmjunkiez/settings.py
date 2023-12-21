@@ -115,7 +115,8 @@ DATABASES = {
         'USER': config('DATABASE_USER', default='Film_Junkiez_User'),
         'PASSWORD': config('DATABASE_PASSWORD', default='Film_Junkiez_Password'),
         'HOST': 'db' if 'DOCKERIZED' in os.environ else 'localhost',
-        'PORT':''
+        #'PORT':''
+        'PORT': config('DJANGO_DB_PORT', default='5432'),
     }    
 }
 config.debug = True
