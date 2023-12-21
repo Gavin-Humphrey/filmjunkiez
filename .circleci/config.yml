@@ -76,7 +76,7 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a filmjunkiez web
 
 services:
-  postgres:
+  db:
     image: postgres:latest
     environment:
       POSTGRES_DB: $DATABASE_NAME
