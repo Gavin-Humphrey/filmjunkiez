@@ -3,17 +3,19 @@ version: '3'
 services:
   django:
     build: .
-    command: ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
+    command: ["python", "manage.py", "runserver", "0.0.0.0:${DJANGO_DB_PORT}"]
     env_file:
       - .env
     volumes:
       - .:/code
     ports:
-      - "${PORT}:${PORT}"
+      - "${PORT}:${DJANGO_DB_PORT}"
     depends_on:
       - db
     networks:
       - filmjunkiez-network
+    environment:
+      - DOCKERIZED=1
   db:
     image: postgres:latest
     env_file: .env

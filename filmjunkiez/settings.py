@@ -106,14 +106,16 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DOCKERIZED = os.environ.get('DOCKERIZED', False)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DATABASE_NAME', default='Film_Junkiez_db'),
         'USER': config('DATABASE_USER', default='Film_Junkiez_User'),
         'PASSWORD': config('DATABASE_PASSWORD', default='Film_Junkiez_Password'),
-        'HOST': config('DATABASE_HOST', default='localhost'),
-        'PORT': config('DJANGO_DB_PORT', default='5432'),
+        'HOST': 'db' if 'DOCKERIZED' in os.environ else 'localhost',
+        'PORT':''
     }    
 }
 config.debug = True

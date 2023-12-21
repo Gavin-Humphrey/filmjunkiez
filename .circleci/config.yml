@@ -23,18 +23,9 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
-      #- run:
-          #name: Install decouple
-          #command: pip install python-decouple
-      #- run:
-          #name: Install sentry-sdk
-          #command: pip install sentry-sdk
-      #- run:
-          #name: Activate Virtual Environment
-          #command: source venv/bin/activate
-      #- run:
-          #name: Install Django
-          #command: pip install django
+      - run:
+          name: Set DOCKERIZED variable
+          command: echo "DOCKERIZED=true" >> $BASH_ENV && source $BASH_ENV
       - run:
           name: Check sys.path
           command: python -c "import sys; print(sys.path)"    
@@ -47,9 +38,9 @@ jobs:
       - run:
           name: Database Initialization
           command: docker run -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
-      #- run:
-          #name: Database Migrations
-          #command: python manage.py migrate
+      - run:
+          name: Database Migrations
+          command: python manage.py migrate
       - run:
           name: Pytest
           command: pytest
