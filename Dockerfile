@@ -36,7 +36,7 @@ COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/pytho
 RUN adduser -D myuser
 USER myuser
 
-EXPOSE $DJANGO_DB_PORT
+EXPOSE $PORT
 
 # Use CMD to start the Gunicorn server
-CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$DJANGO_DB_PORT
+CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$PORT

@@ -3,13 +3,13 @@ version: '3'
 services:
   django:
     build: .
-    command: ["python", "manage.py", "runserver", "0.0.0.0:${DJANGO_DB_PORT}"]
+    command: ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
     env_file:
       - .env
     volumes:
       - .:/code
     ports:
-      - "${PORT}:${DJANGO_DB_PORT}"
+      - "${PORT}:${PORT}"
     depends_on:
       - db
     networks:

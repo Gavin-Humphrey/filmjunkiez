@@ -36,7 +36,7 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 DEBUG = True
 
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', f'{os.environ.get("film-junkiez")}.herokuapp.com']
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 # Check if running in a Docker environment
 if os.environ.get("DOCKER_ENV"):
