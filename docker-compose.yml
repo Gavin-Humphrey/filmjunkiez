@@ -19,7 +19,7 @@ services:
       - DOCKERIZED=1
   db:
     image: postgres:latest
-    env_file: ..env
+    env_file: .env
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USER}
