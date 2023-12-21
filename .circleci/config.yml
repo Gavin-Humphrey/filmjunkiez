@@ -35,9 +35,9 @@ jobs:
       - run:
           name: Verify Django Installation
           command: python -m django --version
-      #- run:
-          #name: Database Initialization
-          #command: docker run -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
+      - run:
+          name: Database Initialization
+          command: docker run -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
       - run:
           name: Database Migrations
           command: python manage.py migrate
