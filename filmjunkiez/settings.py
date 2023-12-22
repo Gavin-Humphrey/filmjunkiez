@@ -127,7 +127,7 @@ DATABASES = {
         'NAME': os.environ.get('DATABASE_NAME'),
         'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': 'db' if 'DOCKERIZED' in os.environ else 'localhost',
+        'HOST': 'PROD_DB_HOST' if 'DOCKERIZED' in os.environ else 'localhost',
         'PORT': os.environ.get('DJANGO_DB_PORT'), 
     }
 }

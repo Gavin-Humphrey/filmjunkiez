@@ -40,3 +40,6 @@ EXPOSE $PORT
 
 # Use CMD to start the Gunicorn server
 CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$PORT
+
+
+

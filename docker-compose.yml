@@ -4,24 +4,34 @@ services:
   django:
     build: .
     command: ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
-    #env_file:
-      #- .env
     volumes:
       - .:/code
     ports:
       - "${PORT}:${PORT}"
     depends_on:
-      - db
+      - PROD_DB_HOST
     networks:
       - filmjunkiez-network
     environment:
+      - DJANGO_DB_HOST=$PROD_DB_HOST 
+      - DJANGO_DB_PORT
+      - DATABASE_NAME
+      - DATABASE_USER
+      - DATABASE_PASSWORD
       - DOCKERIZED=1
-  db:
+
+  PROD_DB_HOST:
     image: postgres:latest
     environment:
-      - POSTGRES_DB=${DATABASE_NAME}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=$DATABASE_NAME
+      - POSTGRES_USER=$DATABASE_USER
+      - POSTGRES_PASSWORD=$DATABASE_PASSWORD
+      - PROGRES_HOST=$PROD_DB_HOST
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $DATABASE_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - filmjunkiez-network
 
