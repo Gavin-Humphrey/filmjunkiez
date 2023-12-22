@@ -4,8 +4,8 @@ services:
   django:
     build: .
     command: ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
-    env_file:
-      - .env
+    #env_file:
+      #- .env
     volumes:
       - .:/code
     ports:
