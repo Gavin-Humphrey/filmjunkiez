@@ -3,13 +3,14 @@ version: '3'
 services:
   django:
     build: .
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
     env_file:
-      - .env
+      #- .env
+      - /Users/gmworld/My Website/FilmJunkiez/.env
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "${PORT}:${PORT}"
       
     depends_on:
       - db
@@ -19,7 +20,8 @@ services:
       - DOCKERIZED=1
   db:
     image: postgres:latest
-    env_file: .env
+    #env_file: .env
+    env_file: /Users/gmworld/My Website/FilmJunkiez/.env
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USER}
