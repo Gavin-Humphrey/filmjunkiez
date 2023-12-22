@@ -108,7 +108,7 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 
 DOCKERIZED = os.environ.get('DOCKERIZED', False)
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DATABASE_NAME', default='Film_Junkiez_db'),
@@ -118,10 +118,10 @@ DOCKERIZED = os.environ.get('DOCKERIZED', False)
         'PORT': config('DJANGO_DB_PORT', default='5432'),    
     }    
 }
-config.debug = True"""
+config.debug = True
 
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DATABASE_NAME'),
@@ -130,7 +130,7 @@ DATABASES = {
         'HOST': 'db' if 'DOCKERIZED' in os.environ else 'localhost',
         'PORT': os.environ.get('DJANGO_DB_PORT'), 
     }
-}
+}"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
