@@ -35,8 +35,8 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', f'{os.environ.get("film-junkiez")}.herokuapp.com']
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("film-junkiez")}.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Check if running in a Docker environment
 if os.environ.get("DOCKER_ENV"):
@@ -108,7 +108,7 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 
 DOCKERIZED = os.environ.get('DOCKERIZED', False)
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DATABASE_NAME', default='Film_Junkiez_db'),
@@ -118,20 +118,19 @@ DATABASES = {
         'PORT': config('DJANGO_DB_PORT', default='5432'),    
     }    
 }
-config.debug = True
+config.debug = True"""
 
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DATABASE_NAME'),
         'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
         'HOST': 'db' if 'DOCKERIZED' in os.environ else 'localhost',
-        'PORT': os.environ.get('DJANGO_DB_PORT'),   
+        'PORT': os.environ.get('DJANGO_DB_PORT'), 
     }
-}"""
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

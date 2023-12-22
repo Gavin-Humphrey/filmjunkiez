@@ -5,13 +5,11 @@ services:
     build: .
     command: ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
     env_file:
-      #- .env
-      - /Users/gmworld/My Website/FilmJunkiez/.env
+      - .env
     volumes:
       - .:/code
     ports:
       - "${PORT}:${PORT}"
-      
     depends_on:
       - db
     networks:
@@ -20,8 +18,6 @@ services:
       - DOCKERIZED=1
   db:
     image: postgres:latest
-    #env_file: .env
-    env_file: /Users/gmworld/My Website/FilmJunkiez/.env
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USER}
