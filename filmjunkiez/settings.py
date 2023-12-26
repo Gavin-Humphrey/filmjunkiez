@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from decouple import config, Csv
-
-
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from django.core.management.utils import get_random_secret_key
@@ -24,6 +22,7 @@ import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -33,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("film-junkiez")}.herokuapp.com']
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -47,10 +46,11 @@ heroku_domain = os.environ.get("FILM_JUNKIEZ")
 if heroku_domain:
     ALLOWED_HOSTS.append(f'{heroku_domain}.herokuapp.com')
 
-
+#ALLOWED_HOSTS = ['*']#####
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -68,9 +68,8 @@ AUTH_USER_MODEL = 'base.User'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-
-    "corsheaders.middleware.CorsMiddleware", #
-
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware", 
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -102,24 +101,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DOCKERIZED = os.environ.get('DOCKERIZED', False)
-
-"""DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DATABASE_NAME', default='Film_Junkiez_db'),
-        'USER': config('DATABASE_USER', default='Film_Junkiez_User'),
-        'PASSWORD': config('DATABASE_PASSWORD', default='Film_Junkiez_Password'),
-        'HOST': 'db' if 'DOCKERIZED' in os.environ else 'localhost',
-        'PORT': config('DJANGO_DB_PORT', default='5432'),    
-    }    
-}
-config.debug = True"""
-
 
 DATABASES = {
     'default': {
@@ -159,11 +144,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')###
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = "/img/"
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] ####
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] #x#
 
 MEDIA_ROOT = BASE_DIR / "static/img"
 
@@ -175,7 +160,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #CORS_ALLOW_ALL_ORIGINS = True #
 
 CORS_ALLOWED_ORIGINS = [
-    "https://film-junkiez.com"   #########
+    "https://film-junkiez.com" 
 ]
 
 sentry_dsn = config('FILM_JUNKIEZ_SENTRY_DSN', default=None)

@@ -1,0 +1,72 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [django internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.13kB done
+#1 DONE 0.0s
+
+#2 [django internal] load .dockerignore
+#2 transferring context: 2B done
+#2 DONE 0.0s
+
+#3 [django auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [django internal] load metadata for docker.io/library/python:3.10-alpine
+#4 DONE 0.9s
+
+#5 [django 1/9] FROM docker.io/library/python:3.10-alpine@sha256:8a66e74c0581e0c7b8b481fe7f0444b2fd599685d4fb525c1047da4f6f44fdaa
+#5 DONE 0.0s
+
+#6 [django internal] load build context
+#6 transferring context: 1.30MB 1.0s done
+#6 DONE 1.0s
+
+#7 [django 2/9] WORKDIR /app
+#7 CACHED
+
+#8 [django 3/9] COPY requirements.txt .
+#8 CACHED
+
+#9 [django 4/9] RUN apk update && apk add --no-cache build-base libffi-dev openssl-dev postgresql-dev
+#9 CACHED
+
+#10 [django 5/9] RUN pip install --upgrade pip --no-cache-dir     && pip install -r requirements.txt     && pip install psycopg2-binary==2.9.9
+#10 CACHED
+
+#11 [django 6/9] COPY . /app/
+#11 DONE 17.6s
+
+#12 [django 7/9] RUN python manage.py collectstatic --noinput    && ls -l /app/
+#12 3.954 
+#12 3.954 193 static files copied to '/app/staticfiles'.
+#12 4.052 total 68
+#12 4.052 -rw-r--r--    1 root     root          1088 Dec 25 10:56 Dockerfile
+#12 4.052 -rw-r--r--    1 root     root            43 Dec 24 23:25 Procfile
+#12 4.052 drwxr-xr-x    3 root     root          4096 Dec 24 21:50 app
+#12 4.052 drwxr-xr-x    7 root     root          4096 Dec 24 21:49 base
+#12 4.052 -rw-r--r--    1 root     root           434 Dec 25 15:52 build_output.log
+#12 4.052 -rw-r--r--    1 root     root          4768 Dec 10 20:59 default.jpg
+#12 4.052 -rw-r--r--    1 root     root           895 Dec 25 13:56 docker-compose.yml
+#12 4.052 drwxr-xr-x    5 root     root          4096 Dec 24 23:26 filmjunkiez
+#12 4.052 -rwxr-xr-x    1 root     root           669 Dec 20 13:36 manage.py
+#12 4.052 -rw-r--r--    1 root     root          1026 Dec 24 12:23 requirements.txt
+#12 4.052 -rw-r--r--    1 root     root            60 Nov 30 17:40 setup.cfg
+#12 4.052 drwxr-xr-x    5 root     root          4096 Dec  2 12:03 static
+#12 4.052 drwxr-xr-x    7 root     root          4096 Dec 25 15:52 staticfiles
+#12 4.052 drwxr-xr-x    2 root     root          4096 Nov 12 20:33 templates
+#12 4.052 drwxr-xr-x    5 root     root          4096 Dec 20 18:35 user_follow
+#12 4.052 drwxr-xr-x    5 root     root          4096 Dec 24 12:14 venv
+#12 DONE 4.7s
+
+#13 [django 8/9] RUN adduser -D myuser
+#13 DONE 0.3s
+
+#14 [django 9/9] RUN chown -R myuser:myuser /app/staticfiles
+#14 DONE 3.0s
+
+#15 [django] exporting to image
+#15 exporting layers
+#15 exporting layers 6.8s done
+#15 writing image sha256:a24d5aa1279043ba2c1b42e1e4edbddfa64c374c1f64559634b7e4f8dc78eb0a 0.0s done
+#15 naming to docker.io/library/filmjunkiez-django done
+#15 DONE 6.9s

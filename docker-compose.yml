@@ -3,18 +3,20 @@ version: '3'
 services:
   django:
     build: .
-    #command: ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
+    user: myuser
     volumes:
-      - .:/code
+      - .:/app
+    working_dir: /app 
     ports:
       - "${PORT}:${PORT}"
+      #- "${PORT}:${DJANGO_DB_PORT}"
     depends_on:
       - PROD_DB_HOST
     networks:
       - filmjunkiez-network
     environment:
       - DJANGO_DB_HOST=$PROD_DB_HOST 
-      - DJANGO_DB_PORT
+      - PORT
       - DATABASE_NAME
       - DATABASE_USER
       - DATABASE_PASSWORD
