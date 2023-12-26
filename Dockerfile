@@ -9,6 +9,8 @@ ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
 # Set the working directory
 WORKDIR /app
 
+COPY ./manage.py /app/
+
 # Copy the requirements file
 COPY requirements.txt .
 
@@ -19,8 +21,6 @@ RUN apk update && apk add --no-cache build-base libffi-dev openssl-dev postgresq
 RUN pip install --upgrade pip --no-cache-dir \
     && pip install -r requirements.txt \
     && pip install psycopg2-binary==2.9.9
-
-COPY ./manage.py /app/
 
 # Copy the application code
 COPY . /app/
