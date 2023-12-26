@@ -20,6 +20,8 @@ RUN pip install --upgrade pip --no-cache-dir \
     && pip install -r requirements.txt \
     && pip install psycopg2-binary==2.9.9
 
+COPY ./manage.py /app/
+
 # Copy the application code
 COPY . /app/
 
