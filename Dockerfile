@@ -24,7 +24,7 @@ RUN pip install --upgrade pip --no-cache-dir \
 COPY . .
 
 # Copy the manage.py file
-#COPY ./manage.py /app/
+COPY ./manage.py /app/
 
 # Run collectstatic
 RUN python manage.py collectstatic --noinput\
