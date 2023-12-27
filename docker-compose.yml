@@ -5,7 +5,7 @@ services:
     build: .
     user: myuser
     volumes:
-      - .:/filmjunkiez
+      - .:/app
     working_dir: /filmjunkiez
     ports:
       - "${PORT}:${PORT}"
