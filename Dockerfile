@@ -44,4 +44,3 @@ EXPOSE $PORT
 # Use CMD to start the Gunicorn server
 #CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$PORT --reload --timeout 300 --log-level debug
 CMD python manage.py migrate && gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$PORT --reload --timeout 300 --log-level debug
-
