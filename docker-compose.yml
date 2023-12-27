@@ -6,8 +6,7 @@ services:
     user: myuser
     volumes:
       - .:/app
-    #working_dir: ./app
-    working_dir: /filmjunkiez
+    working_dir: /app
     ports:
       - "${PORT}:${PORT}"
       #- "${PORT}:${DJANGO_DB_PORT}"
