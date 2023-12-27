@@ -4,8 +4,8 @@ services:
   django:
     build: .
     user: myuser
-    volumes:
-      - .:/app
+    #volumes:
+      #- .:/app
     working_dir: /app 
     ports:
       - "${PORT}:${PORT}"

@@ -12,6 +12,10 @@ WORKDIR /app
 # Copy the requirements file
 COPY requirements.txt .
 
+# Copy the manage.py file
+COPY ./manage.py /app/
+
+
 # Install build dependencies
 RUN apk update && apk add --no-cache build-base libffi-dev openssl-dev postgresql-dev
 
@@ -22,9 +26,6 @@ RUN pip install --upgrade pip --no-cache-dir \
 
 # Copy the application code
 COPY . .
-
-# Copy the manage.py file
-COPY ./manage.py /app/
 
 # Run collectstatic
 RUN python manage.py collectstatic --noinput\
