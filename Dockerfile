@@ -12,12 +12,6 @@ WORKDIR /app
 # Copy the requirements file
 COPY requirements.txt .
 
-# Copy the application code
-COPY . .
-
-# Copy the manage.py file
-COPY ./manage.py /app/
-
 # Install build dependencies
 RUN apk update && apk add --no-cache build-base libffi-dev openssl-dev postgresql-dev
 
@@ -26,7 +20,13 @@ RUN pip install --upgrade pip --no-cache-dir \
     && pip install -r requirements.txt \
     && pip install psycopg2-binary==2.9.9
 
-# Run collectstatic (make sure manage.py is in /app/ directory)
+# Copy the application code
+COPY . .
+
+# Copy the manage.py file
+#COPY ./manage.py /app/
+
+# Run collectstatic
 RUN python manage.py collectstatic --noinput\
     && ls -l /app/
 
@@ -41,5 +41,6 @@ RUN chown -R myuser:myuser /app/staticfiles
 EXPOSE $PORT
 
 # Use CMD to start the Gunicorn server
-CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$PORT --reload --timeout 300 --log-level debug
+#CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$PORT --reload --timeout 300 --log-level debug
+CMD python manage.py migrate && gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$PORT --reload --timeout 300 --log-level debug
 
