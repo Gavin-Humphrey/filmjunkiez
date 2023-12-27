@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED 1
 ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
 
 # Set the working directory
-WORKDIR /app 
+WORKDIR /filmjunkiez
 
 # Copy the requirements file
 COPY requirements.txt .
@@ -29,14 +29,14 @@ COPY . .
 
 # Run collectstatic
 RUN python manage.py collectstatic --noinput\
-    && ls -l /app/
+    && ls -l /filmjunkiez/
 
 # Add a non-root user
 RUN adduser -D myuser
 #USER myuser
 
 # Check file permissions and ownership
-RUN chown -R myuser:myuser /app/staticfiles
+RUN chown -R myuser:myuser /filmjunkiez/staticfiles
 
 # Expose the required ports
 EXPOSE $PORT
