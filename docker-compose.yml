@@ -5,8 +5,8 @@ services:
     build: .
     user: myuser
     #volumes:
-      #- .:/app
-    working_dir: /app 
+      #- .:/code #app
+    #working_dir: ./app
     ports:
       - "${PORT}:${PORT}"
       #- "${PORT}:${DJANGO_DB_PORT}"
