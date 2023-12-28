@@ -13,12 +13,10 @@ from .permissions import is_superuser, staff_required
 from django.shortcuts import get_object_or_404
 from django.db.models import Avg
 
-import os
 
 
 logger = logging.getLogger(__name__)
 
-logger.debug(f"Database Host: {os.environ.get('PROD_DB_HOST')}")
 
 def registerUser(request):
     form = RegisterForm()
