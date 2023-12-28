@@ -115,8 +115,31 @@ DATABASES = {
         #'HOST': 'PROD_DB_HOST' if 'DOCKERIZED' in os.environ else 'localhost',
         'HOST': 'PROD_DB_HOST',
         'PORT': os.environ.get('DJANGO_DB_PORT'), 
+        'CONN_MAX_AGE': 60,
     }
 }
+#######
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+    'django.db.backends': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
+
+
+#########
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
