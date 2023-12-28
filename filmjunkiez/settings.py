@@ -108,14 +108,15 @@ DOCKERIZED = os.environ.get('DOCKERIZED', False)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': 'PROD_DB_HOST' if 'DOCKERIZED' in os.environ else 'localhost',
+        'ENGINE':'django.db.backends.postgresql',
+        'NAME':os.environ.get('DATABASE_NAME'),
+        'USER':os.environ.get('DATABASE_USER'),
+        'PASSWORD':os.environ.get('DATABASE_PASSWORD'),
+        'HOST':'PROD_DB_HOST' if 'DOCKERIZED' in os.environ else 'localhost',
         #'HOST': os.environ.get('PROD_DB_HOST'),
-        'PORT': os.environ.get('DJANGO_DB_PORT'), 
-        'CONN_MAX_AGE': 60,
+        #'PORT': os.environ.get('DJANGO_DB_PORT'),
+        'PORT':'',
+        'CONN_MAX_AGE':100,
     }
 }
 
