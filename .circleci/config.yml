@@ -37,7 +37,9 @@ jobs:
           command: python -m django --version
       - run:
           name: Database Initialization
-          command: docker run -e POSTGRES_PASSWORD=$DATABASE_PASSWORD -e POSTGRES_USER=$DATABASE_USER -e POSTGRES_DB=$DATABASE_NAME -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
+          #command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
+          command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} --name postgres -p ${DJANGO_DB_PORT}:${DJANGO_DB_PORT} -d postgres:latest
+
       - run:
           name: Database Migrations
           #command: docker-compose run -e DOCKERIZED=1 django python manage.py migrate
@@ -48,21 +50,21 @@ jobs:
       - setup_remote_docker
       - run:
           name: Check DOCKER_LOGIN
-          command: echo $DOCKER_LOGIN
+          command: echo ${DOCKER_LOGIN}
           no_output_timeout: 15s
       - run:
           name: Check DOCKER_USERNAME
-          command: echo $DOCKER_USERNAME
+          command: echo ${DOCKER_USERNAME}
           no_output_timeout: 15s
       - run:
           name: Login to Docker Hub
-          command: echo $DOCKER_LOGIN | docker login --username=$DOCKER_USERNAME --password-stdin
+          command: echo ${DOCKER_LOGIN} | docker login --username=${DOCKER_USERNAME} --password-stdin
       - run:
           name: Containerize
           command: |
             docker build -t filmjunkiez .
-            docker tag filmjunkiez $DOCKER_USERNAME/filmjunkiez
-            docker push $DOCKER_USERNAME/filmjunkiez
+            docker tag filmjunkiez ${DOCKER_USERNAME}/filmjunkiez
+            docker push ${DOCKER_USERNAME}/filmjunkiez
 
   deploy-to-heroku:
     machine: true
@@ -80,10 +82,10 @@ services:
   db:
     image: postgres:latest
     environment:
-      POSTGRES_DB: $DATABASE_NAME
-      POSTGRES_USER: $DATABASE_USER
-      POSTGRES_PASSWORD: $DATABASE_PASSWORD
-      POSTGRES_HOST_AUTH_METHOD: "md5"
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      #POSTGRES_HOST_AUTH_METHOD: "md5"
 
 workflows:
   version: 2

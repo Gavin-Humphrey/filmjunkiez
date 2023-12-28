@@ -14,7 +14,7 @@ services:
     networks:
       - filmjunkiez-network
     environment:
-      - DJANGO_DB_HOST=$PROD_DB_HOST 
+      - DJANGO_DB_HOST=${PROD_DB_HOST} 
       - PORT
       - DATABASE_NAME
       - DATABASE_USER
@@ -24,12 +24,12 @@ services:
   PROD_DB_HOST:
     image: postgres:latest
     environment:
-      - POSTGRES_DB=$DATABASE_NAME
-      - POSTGRES_USER=$DATABASE_USER
-      - POSTGRES_PASSWORD=$DATABASE_PASSWORD
-      - PROGRES_HOST=$PROD_DB_HOST
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - PROGRES_HOST=${PROD_DB_HOST}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $DATABASE_USER"]
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
