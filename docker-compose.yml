@@ -25,6 +25,8 @@ services:
     #command: ["python", "-c", "from django.db import connections; connection = connections['default']; print(f'Database Host: {connection.settings_dict['HOST']}'); print(f'Database Port: {connection.settings_dict['PORT']}'); print(f'Database Name: {connection.settings_dict['NAME']}'); print(f'Database User: {connection.settings_dict['USER']}'); print(f'Database Password: {connection.settings_dict['PASSWORD']}')"]
   db:
     image: postgres:latest
+    volumes:
+      - ./var/lib/postgresql/data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USER}
