@@ -44,9 +44,9 @@ jobs:
           name: Database Migrations
           #command: docker-compose run -e DOCKERIZED=1 django python manage.py migrate
           command: docker-compose run django python manage.py migrate 
-      #- run:
-          #name: Pytest
-          #command: pytest
+      - run:
+          name: Pytest
+          command: pytest
       - setup_remote_docker
       - run:
           name: Check DOCKER_LOGIN
