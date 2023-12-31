@@ -15,18 +15,12 @@ services:
     networks:
       - filmjunkiez-network
     environment:
-      # - PROD-DB_HOST=db
-      # - PORT=${PORT}
-      # - DATABASE_NAME=${DATABASE_NAME}
-      # - DATABASE_USER=${DATABASE_USER}
-      # - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-      # - DOCKERIZED=1
       - PROD-DB_HOST=db
-      - PORT=8000
-      - DATABASE_NAME=FilmJunkiez
-      - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=Prod1234
-      - DOCKERIZED=1
+      - PORT=${PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DOCKERIZED=1   
     #command: ["sh", "-c", "python manage.py print_db_params && python manage.py migrate"]
     #command: ["python", "-c", "from django.db import connections; connection = connections['default']; print(f'Database Host: {connection.settings_dict['HOST']}'); print(f'Database Port: {connection.settings_dict['PORT']}'); print(f'Database Name: {connection.settings_dict['NAME']}'); print(f'Database User: {connection.settings_dict['USER']}'); print(f'Database Password: {connection.settings_dict['PASSWORD']}')"]
   db:
@@ -34,18 +28,13 @@ services:
     #volumes:
       #- ./var/lib/postgresql/data:/var/lib/postgresql/data
     environment:
-      # - POSTGRES_DB=${DATABASE_NAME}
-      # - POSTGRES_USER=${DATABASE_USER}
-      # - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      # - POSTGRES_HOST=db
-      # - POSTGRES_PORT=${DJANGO_DB_PORT}
-      - POSTGRES_DB=FilmJunkiez
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Prod123
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_HOST=db
-      - POSTGRES_PORT='5432'
+      - POSTGRES_PORT=${DJANGO_DB_PORT}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"] #${DATABASE_USER}
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER}"] 
       interval: 10s
       timeout: 5s
       retries: 5
