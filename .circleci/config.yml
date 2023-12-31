@@ -55,10 +55,11 @@ jobs:
       # Build the Docker image first
       - run: docker build -t filmjunkiez .
 
-      # Tag and push the Docker image to Docker Hub
-      - run: |
-        docker tag filmjunkiez ${DOCKERHUB_USERNAME}/filmjunkiez
-        docker push ${DOCKERHUB_USERNAME}/filmjunkiez
+      # Tag the Docker image
+      - run: docker tag filmjunkiez "docker:${DOCKERHUB_USERNAME}/filmjunkiez"
+
+      # Push the Docker image to Docker Hub
+      - run: docker push "docker:${DOCKERHUB_USERNAME}/filmjunkiez"
 
   # Deploy the Docker image to Heroku
   deploy-to-heroku:
