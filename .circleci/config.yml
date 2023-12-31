@@ -61,20 +61,35 @@ jobs:
       # Push the Docker image to Docker Hub
       - run: docker push "docker:${DOCKERHUB_USERNAME}/filmjunkiez"
 
-  # Deploy the Docker image to Heroku
   deploy-to-heroku:
     machine: true
-    docker:
-      - image: circleci/python:3.10-alpine
-
     steps:
       - checkout
+      - run:
+          name: Build and push Docker image to Heroku
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a filmjunkiez web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a filmjunkiez web
+            
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      #POSTGRES_HOST_AUTH_METHOD: "md5"
 
-      # Install Heroku CLI and login with API key
-      - run: sudo curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-      - run: heroku login -r filmjunkiez --api-key $HEROKU_TOKEN
-
-      # Push the Docker image to Heroku and release it
-      - |
-        heroku container:push -a filmjunkiez web
-        heroku container:release -a filmjunkiez web
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-and-test
+      - deploy-to-heroku:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: master
