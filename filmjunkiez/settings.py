@@ -106,18 +106,31 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 
 DOCKERIZED = os.environ.get('DOCKERIZED', False)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        #'HOST': os.environ.get('PROD_DB_HOST') if 'DOCKERIZED' in os.environ else 'localhost',
-        'HOST':'db' if 'DOCKERIZED' in os.environ else 'localhost',
-        'PORT': int(os.environ.get('DEV_DB_PORT', default='5432')),
-        'CONN_MAX_AGE': 100,
+ENVIRONMENT = os.environ.get('DJANGO_ENV', 'development')
+
+# Use different database configurations based on the environment
+if ENVIRONMENT == 'production':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DATABASE_NAME'),
+            'USER': os.environ.get('DATABASE_USER'),
+            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+            #'HOST': os.environ.get('PROD_DB_HOST') if 'DOCKERIZED' in os.environ else 'localhost',
+            'HOST':'db' if 'DOCKERIZED' in os.environ else 'localhost',
+            'PORT': int(os.environ.get('DEV_DB_PORT', default='5432')),
+            'CONN_MAX_AGE': 100,
+        }
     }
-}
+elif ENVIRONMENT == 'development':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+else:
+    pass
 
 
 # Password validation
