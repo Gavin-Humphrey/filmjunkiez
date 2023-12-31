@@ -106,7 +106,7 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 
 DOCKERIZED = os.environ.get('DOCKERIZED', False)
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DATABASE_NAME'),
@@ -116,6 +116,17 @@ DATABASES = {
         'HOST':'db' if 'DOCKERIZED' in os.environ else 'localhost',
         #'PORT': os.environ.get('DJANGO_DB_PORT', default='5432'),
         'PORT': '',
+        'CONN_MAX_AGE': 100,
+    }
+}"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'FilmJunkiez',
+        'USER': 'postgres',
+        'PASSWORD': 'Prod123',
+        'HOST':'db',
+        'PORT': '5432',
         'CONN_MAX_AGE': 100,
     }
 }
