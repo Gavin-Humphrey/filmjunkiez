@@ -35,18 +35,20 @@ jobs:
       - run:
           name: Verify Django Installation
           command: python -m django --version
+       - run:
+          name: Pytest
+          command: pytest
       - run:
           name: Database Initialization
           #command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
-          command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} --name postgres -p ${DJANGO_DB_PORT}:${DJANGO_DB_PORT} -d postgres:latest
-
+          command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} --name postgres -p ${DEV_DB_PORT}:${DEV_DB_PORT} -d postgres:latest
       - run:
           name: Database Migrations
           #command: docker-compose run -e DOCKERIZED=1 django python manage.py migrate
           command: docker-compose run django python manage.py migrate 
-      - run:
-          name: Pytest
-          command: pytest
+      # - run:
+      #     name: Pytest
+      #     command: pytest
       - setup_remote_docker
       - run:
           name: Check DOCKER_LOGIN
@@ -65,7 +67,7 @@ jobs:
             docker build -t filmjunkiez .
             docker tag filmjunkiez ${DOCKER_USERNAME}/filmjunkiez
             docker push ${DOCKER_USERNAME}/filmjunkiez
-
+            
   deploy-to-heroku:
     machine: true
     steps:
