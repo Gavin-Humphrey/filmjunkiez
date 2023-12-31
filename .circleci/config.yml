@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   heroku: circleci/heroku@1.2.1
-  python: circleci/python@2.2.3
+  python: circleci/python@latest
 
 jobs:
   # Build and test the Docker image
@@ -31,7 +31,7 @@ jobs:
       - run: echo "DOCKERIZED=true" >> $BASH_ENV && source $BASH_ENV
 
       # Set PYTHONPATH for correct package resolution
-      - run: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
+      - run: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV
 
       # Verify Django installation
       - run: python -m django --version
@@ -61,6 +61,7 @@ jobs:
       # Push the Docker image to Docker Hub
       - run: docker push "docker:${DOCKERHUB_USERNAME}/filmjunkiez"
 
+  # Deploy the Docker image to Heroku
   deploy-to-heroku:
     machine: true
     steps:
@@ -72,7 +73,7 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a filmjunkiez web
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a filmjunkiez web
-            
+
 services:
   db:
     image: postgres:latest
