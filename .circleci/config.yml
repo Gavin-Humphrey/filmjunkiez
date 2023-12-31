@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Verify Django Installation
           command: python -m django --version
-       - run:
+      - run:
           name: Pytest
           command: pytest
       - run:
