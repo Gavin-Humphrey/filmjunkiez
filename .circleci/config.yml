@@ -63,9 +63,9 @@ jobs:
 
   # Deploy the Docker image to Heroku
   deploy-to-heroku:
+    machine: true
     docker:
       - image: circleci/python:3.10-alpine
-    machine: true
 
     steps:
       - checkout
