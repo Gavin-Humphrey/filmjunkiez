@@ -35,7 +35,7 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 DEBUG = False
 
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("film-junkiez")}.herokuapp.com']
-"""ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Check if running in a Docker environment
 if os.environ.get("DOCKER_ENV"):
@@ -44,9 +44,9 @@ if os.environ.get("DOCKER_ENV"):
 # Heroku app domain
 heroku_domain = os.environ.get("FILM_JUNKIEZ")
 if heroku_domain:
-    ALLOWED_HOSTS.append(f'{heroku_domain}.herokuapp.com')"""
+    ALLOWED_HOSTS.append(f'{heroku_domain}.herokuapp.com')
 
-ALLOWED_HOSTS = ['*']#####
+#ALLOWED_HOSTS = ['*']#####
 # Application definition
 
 INSTALLED_APPS = [

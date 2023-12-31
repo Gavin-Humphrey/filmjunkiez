@@ -42,5 +42,5 @@ RUN chown -R myuser:myuser /filmjunkiez/staticfiles
 EXPOSE ${PORT}
 
 # Use CMD to start the Gunicorn server
-#CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:$PROD_DB_PORT --reload --timeout 300 --log-level debug
-CMD python manage.py migrate && gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --reload --timeout 300 --log-level debug
+CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --reload --timeout 300 --log-level debug
+#CMD python manage.py migrate && gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --reload --timeout 300 --log-level debug
