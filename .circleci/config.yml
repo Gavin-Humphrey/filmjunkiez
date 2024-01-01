@@ -37,11 +37,9 @@ jobs:
           command: python -m django --version
       - run:
           name: Database Initialization
-          #command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
-          command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} --name postgres -p 5432:5432 -d postgres:latest
+          command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
       - run:
           name: Production Database Migrations
-          #command: docker-compose run -e DOCKERIZED=1 django python manage.py migrate
           command: docker-compose run django python manage.py migrate 
       - run:
           name: Development Database Migrations
@@ -77,8 +75,8 @@ jobs:
           command: |
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a filmjunkiez web
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a filmjunkiez web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a film-junkiez web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a film-junkiez web
 
 services:
   db:
@@ -87,7 +85,7 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      #POSTGRES_HOST_AUTH_METHOD: "md5"
+      POSTGRES_HOST_AUTH_METHOD: "md5"
 
 workflows:
   version: 2
