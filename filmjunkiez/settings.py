@@ -34,9 +34,7 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
 """ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Check if running in a Docker environment
@@ -166,7 +164,8 @@ MEDIA_URL = "/img/"
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] #x#
 
-MEDIA_ROOT = BASE_DIR / "static/img"
+#MEDIA_ROOT = BASE_DIR / "static/img"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'img')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
