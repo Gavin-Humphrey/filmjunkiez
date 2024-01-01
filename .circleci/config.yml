@@ -71,7 +71,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Debug: Check DEPLOYED_APP_NAME
+          name: "Debug: Check DEPLOYED_APP_NAME"
           command: echo "DEPLOYED_APP_NAME=${DEPLOYED_APP_NAME}"
 
       - run:
