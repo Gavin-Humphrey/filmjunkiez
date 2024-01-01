@@ -46,9 +46,7 @@ heroku_domain = os.environ.get("FILM_JUNKIEZ")
 if heroku_domain:
     ALLOWED_HOSTS.append(f'{heroku_domain}.herokuapp.com')
 
-#ALLOWED_HOSTS = ['*']#####
 # Application definition
-
 INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.admin",
