@@ -42,7 +42,7 @@ if os.environ.get("DOCKER_ENV"):
     ALLOWED_HOSTS.append('0.0.0.0')
 
 # Heroku app domain
-heroku_domain = os.environ.get("FILM_JUNKIEZ")
+heroku_domain = os.environ.get("film-junkiez")
 if heroku_domain:
     ALLOWED_HOSTS.append(f'{heroku_domain}.herokuapp.com')
 
