@@ -71,9 +71,13 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Debug: Check DEPLOYED_APP_NAME
+          command: echo "DEPLOYED_APP_NAME=${DEPLOYED_APP_NAME}"
+
+      - run:
           name: Build and push Docker image to Heroku
           command: |
-            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${DEPLOYED_APP_NAME} web
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${DEPLOYED_APP_NAME} web
