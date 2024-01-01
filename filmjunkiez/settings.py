@@ -34,7 +34,9 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
+ALLOWED_HOSTS = ['*']
+
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
 """ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Check if running in a Docker environment
