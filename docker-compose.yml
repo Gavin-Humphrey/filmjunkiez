@@ -10,7 +10,8 @@ services:
     ports:
       - "${PORT}:${PORT}"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - filmjunkiez-network
     environment:
