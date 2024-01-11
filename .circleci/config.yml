@@ -40,18 +40,10 @@ jobs:
       #     command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
       # - run:
       #     name: Production Database Migrations
-      #     command: docker-compose run django python manage.py migrate 
-       # Check Network Connectivity to PostgreSQL
-      ######
-      - run: ping -c 5 filmjunkiez-db-1
-      - run: docker-compose up -d db
-      - run:
-          name: Wait for PostgreSQL to be ready
-          command: dockerize -wait tcp://db:5432 -timeout 1m
-        ######
-      - run:
-          name: Development Database Migrations
-          command: python manage.py migrate
+      #     command: docker-compose run django python manage.py migrate   
+      # - run:
+      #     name: Development Database Migrations
+      #     command: python manage.py migrate
       - run:
           name: Pytest
           command: pytest
@@ -89,15 +81,6 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${DEPLOYED_APP_NAME} web
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${DEPLOYED_APP_NAME} web
-
-# services:
-#   db:
-#     image: postgres:latest
-#     environment:
-#       POSTGRES_DB: ${DATABASE_NAME}
-#       POSTGRES_USER: ${DATABASE_USER}
-#       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-#       POSTGRES_HOST_AUTH_METHOD: "md5" 
 
 workflows:
   version: 2
