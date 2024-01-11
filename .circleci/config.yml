@@ -44,8 +44,11 @@ jobs:
        # Check Network Connectivity to PostgreSQL
       ######
       - run:
-          name: Start PostgreSQL Server
-          command: sudo service postgresql start
+        name: Check Network Connectivity to PostgreSQL
+        command: ping -c 5 filmjunkiez-db-1
+      - run:
+        name: Start PostgreSQL Server
+        command: docker-compose up -d db
       - run:
           name: Wait for PostgreSQL to be ready
           command: dockerize -wait tcp://db:5432 -timeout 1m
