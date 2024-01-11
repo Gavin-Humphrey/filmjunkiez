@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from email.policy import default
 from pathlib import Path
 import os
 from decouple import config, Csv
@@ -97,9 +98,9 @@ DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DATABASE_NAME'),
-        'USER': config('DATABASE_USER'),
-        'PASSWORD': config('DATABASE_PASSWORD'),
+        'NAME': config('DATABASE_NAME', default='default_database'),
+        'USER': config('DATABASE_USER', default='default_user'),
+        'PASSWORD': config('DATABASE_PASSWORD', default='password'),
         'HOST': 'db' if DOCKERIZED else 'localhost',
         'PORT': '5432',  
         'CONN_MAX_AGE': 100,
