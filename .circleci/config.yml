@@ -28,19 +28,25 @@ jobs:
           command: echo "DOCKERIZED=true" >> $BASH_ENV && source $BASH_ENV
       - run:
           name: Check sys.path
-          command: python -c "import sys; print(sys.path)"    
+          command: python -c "import sys; print(sys.path)"
       - run:
           name: Set PYTHONPATH
           command: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
       - run:
           name: Verify Django Installation
           command: python -m django --version
-      # - run:
-      #     name: Database Initialization
-      #     command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
-      # - run:
-      #     name: Production Database Migrations
-      #     command: docker-compose run django python manage.py migrate 
+      - run:
+          name: Check Network Connectivity to PostgreSQL
+          command: ping -c 5 db
+      - run:
+          name: Set PostgreSQL host based on Dockerized environment
+          command: |
+            if [ "$DOCKERIZED" = true ]; then
+              echo "POSTGRES_HOST=db" >> $BASH_ENV
+            else
+              echo "POSTGRES_HOST=localhost" >> $BASH_ENV
+            fi
+            source $BASH_ENV
       - run:
           name: Development Database Migrations
           command: python manage.py migrate
@@ -65,7 +71,7 @@ jobs:
             docker build -t filmjunkiez .
             docker tag filmjunkiez ${DOCKER_USERNAME}/filmjunkiez
             docker push ${DOCKER_USERNAME}/filmjunkiez
-            
+
   deploy-to-heroku:
     machine: true
     steps:
@@ -73,7 +79,6 @@ jobs:
       - run:
           name: "Debug: Check DEPLOYED_APP_NAME"
           command: echo "DEPLOYED_APP_NAME=${DEPLOYED_APP_NAME}"
-
       - run:
           name: Build and push Docker image to Heroku
           command: |
@@ -81,15 +86,6 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${DEPLOYED_APP_NAME} web
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${DEPLOYED_APP_NAME} web
-
-# services:
-#   db:
-#     image: postgres:latest
-#     environment:
-#       POSTGRES_DB: ${DATABASE_NAME}
-#       POSTGRES_USER: ${DATABASE_USER}
-#       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-#       POSTGRES_HOST_AUTH_METHOD: "md5" 
 
 workflows:
   version: 2
