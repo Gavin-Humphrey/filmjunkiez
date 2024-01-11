@@ -33,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
 
@@ -95,17 +95,25 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 
 DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DATABASE_NAME', default='default_database'),
-        'USER': config('DATABASE_USER', default='default_user'),
-        'PASSWORD': config('DATABASE_PASSWORD', default='password'),
-        'HOST': 'db' if DOCKERIZED else 'localhost',
-        'PORT': '5432',  
-        'CONN_MAX_AGE': 100,
+if DOCKERIZED:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DATABASE_NAME', default='default_database'),
+            'USER': config('DATABASE_USER', default='default_user'),
+            'PASSWORD': config('DATABASE_PASSWORD', default='password'),
+            'HOST': 'db' if DOCKERIZED else 'localhost',
+            'PORT': config('DEV_DB_PORT', default='5432'), 
+            'CONN_MAX_AGE': 100,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

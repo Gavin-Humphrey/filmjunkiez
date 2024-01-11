@@ -49,14 +49,10 @@ jobs:
       - run:
           name: Start PostgreSQL Service
           command: docker-compose up -d db
-      # Run database migrations
-      - run:
-          name: Development Database Migrations
-          command: docker-compose run django python manage.py migrate --settings=filmjunkiez.settings.test
-      #######
       - run:
           name: Pytest
-          command: pytest
+          #command: pytest
+          command: pytest --ds=filmjunkiez.settings
             
       - setup_remote_docker
       - run:
