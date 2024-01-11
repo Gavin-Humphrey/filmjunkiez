@@ -44,7 +44,20 @@ jobs:
       # - run:
       #     name: Development Database Migrations
       #     command: python manage.py migrate
-      
+      ######
+      # Set up PostgreSQL service using docker-compose
+      - run:
+          name: Start PostgreSQL Service
+          command: docker-compose up -d db
+      # Run database migrations
+      - run:
+          name: Development Database Migrations
+          command: docker-compose run django python manage.py migrate --settings=filmjunkiez.settings.test
+      #######
+      - run:
+          name: Pytest
+          command: pytest
+            
       - setup_remote_docker
       - run:
           name: Check DOCKER_LOGIN
@@ -63,10 +76,7 @@ jobs:
             docker build -t filmjunkiez .
             docker tag filmjunkiez ${DOCKER_USERNAME}/filmjunkiez
             docker push ${DOCKER_USERNAME}/filmjunkiez
-      - run:
-          name: Pytest
-          command: pytest
-            
+      
   deploy-to-heroku:
     machine: true
     steps:
