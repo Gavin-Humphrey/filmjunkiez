@@ -15,7 +15,6 @@ COPY requirements.txt .
 # Copy the manage.py file
 COPY ./manage.py .
 
-
 # Install build dependencies
 RUN apk update && apk add --no-cache build-base libffi-dev openssl-dev postgresql-dev
 
@@ -28,18 +27,17 @@ RUN pip install --upgrade pip --no-cache-dir \
 COPY . .
 
 # Run collectstatic
-RUN python manage.py collectstatic --noinput\
-    && ls -l /filmjunkiez/
+RUN python manage.py collectstatic --noinput
 
 # Add a non-root user
 RUN adduser -D myuser
-#USER myuser
 
-# Check file permissions and ownership
-RUN chown -R myuser:myuser /filmjunkiez/staticfiles
+# Grant write access to the media and staticfiles directories
+RUN chmod -R 777 /filmjunkiez/media /filmjunkiez/staticfiles
 
 # Expose the required ports
 EXPOSE ${PORT}
 
 # Use CMD to start the Gunicorn server
-CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --reload --timeout 300 --log-level debug
+CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
+

@@ -1,6 +1,32 @@
 version: '3'
 
 services:
+  db:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=${DEV_DB_PORT}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"] 
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - filmjunkiez-network
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=postgres@filmjuniez.com
+      - PGADMIN_DEFAULT_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - "5555:80"
+    networks:
+      - filmjunkiez-network
   django:
     build: .
     user: myuser
@@ -15,7 +41,6 @@ services:
     networks:
       - filmjunkiez-network
     environment:
-      - PROD_DB_HOST=localhost
       - PORT=${PORT}
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_USER=${DATABASE_USER}
@@ -23,23 +48,10 @@ services:
       - DOCKERIZED=1   
     #command: ["sh", "-c", "python manage.py print_db_params && python manage.py migrate"]
     #command: ["python", "-c", "from django.db import connections; connection = connections['default']; print(f'Database Host: {connection.settings_dict['HOST']}'); print(f'Database Port: {connection.settings_dict['PORT']}'); print(f'Database Name: {connection.settings_dict['NAME']}'); print(f'Database User: {connection.settings_dict['USER']}'); print(f'Database Password: {connection.settings_dict['PASSWORD']}')"]
-  db:
-    image: postgres:latest
-    volumes:
-      - ./var/lib/postgresql/data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=${DATABASE_NAME}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_HOST=db
-      - POSTGRES_PORT=${DEV_DB_PORT}
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER}"] 
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - filmjunkiez-network
 
 networks:
   filmjunkiez-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

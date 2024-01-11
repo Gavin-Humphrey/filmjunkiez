@@ -35,16 +35,6 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
-"""ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
-# Check if running in a Docker environment
-if os.environ.get("DOCKER_ENV"):
-    ALLOWED_HOSTS.append('0.0.0.0')
-
-# Heroku app domain
-heroku_domain = os.environ.get("DEPLOYED_APP_NAME")
-if heroku_domain:
-    ALLOWED_HOSTS.append(f'{heroku_domain}.herokuapp.com')"""
 
 # Application definition
 INSTALLED_APPS = [
@@ -102,35 +92,19 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DOCKERIZED = os.environ.get('DOCKERIZED', False)
+DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 
-ENVIRONMENT = os.environ.get('DJANGO_ENV', 'development')
-
-# Use different database configurations based on the environment
-if ENVIRONMENT == 'production':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DATABASE_NAME'),
-            'USER': os.environ.get('DATABASE_USER'),
-            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-            #'HOST': os.environ.get('PROD_DB_HOST') if 'DOCKERIZED' in os.environ else 'localhost',
-            'HOST':'db' if 'DOCKERIZED' in os.environ else 'localhost',
-            'PORT': int(os.environ.get('DEV_DB_PORT', default='5432')),
-            'CONN_MAX_AGE': 100,
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
+        'HOST': 'db' if DOCKERIZED else 'localhost',
+        'PORT': '5432',  
+        'CONN_MAX_AGE': 100,
     }
-elif ENVIRONMENT == 'development':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-else:
-    pass
-
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -158,26 +132,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = "/static/"
 
-MEDIA_URL = "/img/"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] #x#
+STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 
-#MEDIA_ROOT = BASE_DIR / "static/img"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'img')
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = str(BASE_DIR / 'media' )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-#CORS_ALLOW_ALL_ORIGINS = True #
+CORS_ALLOW_ALL_ORIGINS = True #
 
-CORS_ALLOWED_ORIGINS = [
+"""CORS_ALLOWED_ORIGINS = [
     "https://film-junkiez.com" 
-]
+]"""
 
 sentry_dsn = config('FILM_JUNKIEZ_SENTRY_DSN', default=None)
 
