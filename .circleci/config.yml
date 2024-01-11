@@ -44,9 +44,7 @@ jobs:
       # - run:
       #     name: Development Database Migrations
       #     command: python manage.py migrate
-      - run:
-          name: Pytest
-          command: pytest
+      
       - setup_remote_docker
       - run:
           name: Check DOCKER_LOGIN
@@ -65,6 +63,9 @@ jobs:
             docker build -t filmjunkiez .
             docker tag filmjunkiez ${DOCKER_USERNAME}/filmjunkiez
             docker push ${DOCKER_USERNAME}/filmjunkiez
+      - run:
+          name: Pytest
+          command: pytest
             
   deploy-to-heroku:
     machine: true
