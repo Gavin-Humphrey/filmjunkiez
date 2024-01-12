@@ -49,7 +49,7 @@ class FilmModelTest(TestCase):
   
     def test_save_method_with_image(self):
         # Test the save method of the Film model when an image is provided
-        image_path = os.path.join("static", "img", "film_img", "knowledge.jpg")
+        image_path = os.path.join("media", "film_img", "knowledge.jpg")
         image_file = SimpleUploadedFile(name="test_image.jpg", content=open(image_path, "rb").read(), content_type="image/jpeg")
         film = Film.objects.create(title="Test Film", host=self.user, category=self.category, image=image_file)
 
