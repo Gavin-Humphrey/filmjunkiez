@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Debug Symlinks
           command: |
-            ls -l ${VENV_BIN_PATH}
+            ls -l "${VENV_BIN_PATH}"
 
       #####
       - run:
