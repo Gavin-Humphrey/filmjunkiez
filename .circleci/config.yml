@@ -42,9 +42,9 @@ jobs:
       - run:
            name: Production Database Migrations
            command: docker-compose run django python manage.py migrate   
-      - run:
-           name: Development Database Migrations
-           command: docker-compose run django python manage.py migrate --settings=filmjunkiez.settings.test
+      # - run:
+      #      name: Development Database Migrations
+      #      command: docker-compose run django python manage.py migrate --settings=filmjunkiez.settings.test
       ######
       # Set up PostgreSQL service using docker-compose
       - run:
