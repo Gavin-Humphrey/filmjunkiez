@@ -25,11 +25,8 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       #####
       - run:
-          name: Debug Symlinks
-          command: |
-            echo "Current working directory: $(pwd)"
-            echo "Contents of $(pwd): $(ls -la)"
-            echo "Contents of ${VENV_BIN_PATH}: $(ls -la ${VENV_BIN_PATH})"
+          name: Debug VENV_BIN_PATH
+          command: echo "VENV_BIN_PATH=${VENV_BIN_PATH}"
 
       #####
       - run:
