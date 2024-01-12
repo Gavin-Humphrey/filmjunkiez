@@ -23,6 +23,13 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
+      #####
+      - run:
+          name: Debug Symlinks
+          command: |
+            ls -l ${VENV_BIN_PATH}
+
+      #####
       - run:
           name: Set DOCKERIZED variable
           command: echo "DOCKERIZED=true" >> $BASH_ENV && source $BASH_ENV
