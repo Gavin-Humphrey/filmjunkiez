@@ -26,7 +26,11 @@ jobs:
       #####
       - run:
           name: Debug Symlinks
-          command: ls -l "${VENV_BIN_PATH}"
+          command: |
+            echo "Current working directory: $(pwd)"
+            echo "Contents of $(pwd): $(ls -la)"
+            echo "Contents of ${VENV_BIN_PATH}: $(ls -la ${VENV_BIN_PATH})"
+
       #####
       - run:
           name: Set DOCKERIZED variable
