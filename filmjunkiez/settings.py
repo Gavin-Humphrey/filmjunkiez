@@ -36,7 +36,7 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 DEBUG = False
 
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'film-junkiez.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{config("DEPLOYED_APP_NAME", default="default_app_name")}.herokuapp.com']
 
 
 # Application definition
