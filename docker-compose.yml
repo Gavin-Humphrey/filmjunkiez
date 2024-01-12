@@ -46,9 +46,7 @@ services:
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DOCKERIZED=1 
-    #command: ["sh", "-c", "python manage.py print_db_params && python manage.py migrate"]
-    #command: ["python", "-c", "from django.db import connections; connection = connections['default']; print(f'Database Host: {connection.settings_dict['HOST']}'); print(f'Database Port: {connection.settings_dict['PORT']}'); print(f'Database Name: {connection.settings_dict['NAME']}'); print(f'Database User: {connection.settings_dict['USER']}'); print(f'Database Password: {connection.settings_dict['PASSWORD']}')"]
-
+    
 networks:
   filmjunkiez-network:
     driver: bridge

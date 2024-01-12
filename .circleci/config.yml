@@ -35,26 +35,19 @@ jobs:
       - run:
           name: Verify Django Installation
           command: python -m django --version
-        ###
       - run:
            name: Database Initialization
-           command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p 5432:5432 -d postgres:latest
-      - run:
-           name: Production Database Migrations
-           command: docker-compose run django python manage.py migrate   
-      # - run:
-      #      name: Development Database Migrations
-      #      command: docker-compose run django python manage.py migrate --settings=filmjunkiez.settings.test
-      ######
+           command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p ${DEV_DB_PORT}:${DEV_DB_PORT} -d postgres:latest   
       # Set up PostgreSQL service using docker-compose
       - run:
           name: Start PostgreSQL Service
-          command: docker-compose up -d db
+          command: docker-compose up --build -d --remove-orphans  
+      - run:
+           name: Production Database Migrations
+           command: docker-compose run django python manage.py migrate
       - run:
           name: Pytest
-          command: pytest
-          #command: pytest --ds=filmjunkiez.settings
-            
+          command: pytest            
       - setup_remote_docker
       - run:
           name: Check DOCKER_LOGIN
@@ -101,7 +94,3 @@ workflows:
           filters:
             branches:
               only: master
-
-
-
-
