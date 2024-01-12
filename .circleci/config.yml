@@ -25,9 +25,6 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       #####
       - run:
-          name: Debug VENV_BIN_PATH
-          command: echo "VENV_BIN_PATH=${VENV_BIN_PATH}"
-      - run:
           name: Debug Symlinks
           command: ls -l "${VENV_BIN_PATH}"
       #####
