@@ -25,9 +25,8 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       #####
       - run:
-          name: Debug Symlinks
-          command: |
-            ls -l /Users/gmworld/My Website/FilmJunkiez/filmjunkiez/venv/bin
+          name: Debug Current Directory
+          command: pwd
 
       #####
       - run:
