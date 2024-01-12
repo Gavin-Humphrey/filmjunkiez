@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Debug Symlinks
           command: |
-            ls -l /Users/gmworld/My\ Website/FilmJunkiez/venv/bin
+            ls -l /Users/gmworld/My Website/FilmJunkiez/filmjunkiez/venv/bin
 
       #####
       - run:
