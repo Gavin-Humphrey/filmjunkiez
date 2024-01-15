@@ -20,3 +20,14 @@ def trigger_error(request):
         # Capture the exception and send it to Sentry
         capture_exception(e)
         return HttpResponse("An error occurred. Check your Sentry dashboard for details.")
+
+
+def my_view(request):
+    origin = request.META.get('HTTP_ORIGIN')
+    print("HTTP_ORIGIN:", origin)
+
+    # Your view logic here...
+
+    response = HttpResponse("Hello, World!")
+    response['Access-Control-Allow-Origin'] = origin  # Set the appropriate origin
+    return response
