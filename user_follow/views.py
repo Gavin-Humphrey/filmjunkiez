@@ -12,7 +12,6 @@ from base.models import User
 
 
 
-
 @login_required
 def follows_page(request):
 

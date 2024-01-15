@@ -18,6 +18,20 @@ from django.db.models import Avg
 logger = logging.getLogger(__name__)
 
 
+
+def my_view(request):
+    origin = request.META.get('HTTP_ORIGIN')
+    print("HTTP_ORIGIN:", origin)
+
+    # Your view logic here...
+
+    response = HttpResponse("Hello, World!")
+    response['Access-Control-Allow-Origin'] = origin  # Set the appropriate origin
+    return response
+
+
+
+
 def registerUser(request):
     form = RegisterForm()
     if request.method == 'POST':
