@@ -41,7 +41,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '0.0.0.0',
-    'film-junkiez-be8d3d00a54d.herokuapp.com',
+    'film-junkiez.herokuapp.com',
     f'{os.environ.get("HEROKU_APP_NAME")}.herokuapp.com',
 ]
 
@@ -76,7 +76,7 @@ MIDDLEWARE = [
 
 ]
 
-ROOT_URLCONF = "filmjunkiez.urls"
+ROOT_URLCONF = "FilmJunkiez/filmjunkiez.urls"
 
 TEMPLATES = [
     {
