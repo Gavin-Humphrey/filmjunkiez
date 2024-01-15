@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build-and-test:
+  build-and-test-django-app:
     docker:
       - image: circleci/python:3.9.7-buster
     steps:
@@ -23,15 +23,6 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
-      #####
-      # - run:
-      #     name: Debug Symlinks
-      #     command: |
-      #       pwd
-      #       ls -la
-      #       ls -la ${VENV_BIN_PATH}
-
-      #####
       - run:
           name: Set DOCKERIZED variable
           command: echo "DOCKERIZED=true" >> $BASH_ENV && source $BASH_ENV
@@ -96,10 +87,10 @@ workflows:
   version: 2
   build:
     jobs:
-      - build-and-test
+      - build-and-test-django-app
       - deploy-to-heroku:
           requires:
-            - build-and-test
+            - build-and-test-django-app
           filters:
             branches:
               only: master

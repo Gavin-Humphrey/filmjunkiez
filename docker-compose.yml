@@ -32,7 +32,7 @@ services:
     user: myuser
     volumes:
       - .:/app
-    working_dir: /filmjunkiez
+    working_dir: /FilmJunkiez/filmjunkiez
     ports:
       - "${PORT}:${PORT}"
     depends_on:
