@@ -42,7 +42,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '0.0.0.0',
     'film-junkiez-be8d3d00a54d.herokuapp.com',
-    os.environ.get('HEROKU_APP_NAME') + '.herokuapp.com',
+    f'{os.environ.get("HEROKU_APP_NAME")}.herokuapp.com',
 ]
 
 # Application definition
