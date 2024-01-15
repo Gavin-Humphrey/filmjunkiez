@@ -42,9 +42,11 @@ services:
       - filmjunkiez-network
     environment:
       - PORT=${PORT}
-      - DATABASE_NAME=${DATABASE_NAME}
-      - DATABASE_USER=${DATABASE_USER}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DJANGO_DB_NAME=${DATABASE_NAME}
+      - DJANGO_DB_USER=${DATABASE_USER}
+      - DJANGO_DB_PASSWORD=${DATABASE_PASSWORD}
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=${DEV_DB_PORT}
       - DOCKERIZED=1 
     
 networks:

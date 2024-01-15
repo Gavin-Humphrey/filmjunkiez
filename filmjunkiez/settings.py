@@ -107,11 +107,11 @@ if DOCKERIZED:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('DATABASE_NAME', default='default_database'),
-            'USER': config('DATABASE_USER', default='default_user'),
-            'PASSWORD': config('DATABASE_PASSWORD', default='password'),
-            'HOST': 'db' if DOCKERIZED else 'localhost',
-            'PORT': config('DEV_DB_PORT', default='5432'), 
+            'NAME': os.environ.get('DJANGO_DB_NAME'),
+            'USER': os.environ.get('DJANGO_DB_USER'),
+            'PASSWORD': os.environ.get('DJANGO_DB_PASSWORD'),
+            'HOST': os.environ.get('DJANGO_DB_HOST') if DOCKERIZED else 'localhost',
+            'PORT': os.environ.get('DJANGO_DB_PORT'),
             'CONN_MAX_AGE': 100,
         }
     }
