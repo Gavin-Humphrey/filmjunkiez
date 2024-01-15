@@ -35,9 +35,9 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{config("DEPLOYED_APP_NAME", default="default_app_name")}.herokuapp.com']
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -60,7 +60,7 @@ AUTH_USER_MODEL = 'base.User'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    #"whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware", 
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
