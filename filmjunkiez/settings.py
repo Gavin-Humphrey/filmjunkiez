@@ -76,7 +76,7 @@ MIDDLEWARE = [
 
 ]
 
-ROOT_URLCONF = "FilmJunkiez/filmjunkiez.urls"
+ROOT_URLCONF = "filmjunkiez.urls"
 
 TEMPLATES = [
     {
