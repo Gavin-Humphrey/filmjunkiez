@@ -31,7 +31,9 @@ jobs:
           command: python -c "import sys; print(sys.path)"
       - run:
           name: Set PYTHONPATH
-          command: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
+          #command: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
+          command: |
+           export PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages
       - run:
           name: Verify Django Installation
           command: python -m django --version
@@ -40,6 +42,8 @@ jobs:
           command: |
             pwd
             ls -la
+            cat .env
+            echo $PYTHONPATH
       - run:
           name: Check .env File
           command: cat .env
