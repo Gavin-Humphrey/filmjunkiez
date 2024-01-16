@@ -93,5 +93,10 @@ workflows:
   version: 2
   build:
     jobs:
-      - build-and-test-d
-
+      - build-and-test-django-app
+      - deploy-to-heroku:
+          requires:
+            - build-and-test-django-app
+          filters:
+            branches:
+              only: master
