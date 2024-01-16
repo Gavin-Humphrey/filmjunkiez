@@ -33,7 +33,8 @@ jobs:
           name: Set PYTHONPATH
           #command: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
           command: |
-           export PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages
+            cd /home/circleci/project
+            export PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages
       - run:
           name: Verify Django Installation
           command: python -m django --version
@@ -46,7 +47,7 @@ jobs:
             echo $PYTHONPATH
       - run:
           name: Check .env File
-          command: cat .env
+          command: cat /home/circleci/project/.env
       - run:
           name: Database Initialization
           command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p ${DEV_DB_PORT}:${DEV_DB_PORT} -d postgres:latest
