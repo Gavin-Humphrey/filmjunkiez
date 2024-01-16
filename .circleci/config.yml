@@ -37,7 +37,9 @@ jobs:
           command: python -m django --version
       - run:
           name: Check Directory Contents
-          command: ls -la
+          command: |
+            pwd
+            ls -la
       - run:
           name: Check .env File
           command: cat .env
