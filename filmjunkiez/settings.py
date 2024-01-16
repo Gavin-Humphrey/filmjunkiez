@@ -19,6 +19,8 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from django.core.management.utils import get_random_secret_key
 
 import sys
+import dj_database_url
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'film-junkiez-be8d3d00a54d.herokuapp.com', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{config("DEPLOYED_APP_NAME", default="default_app_name")}.herokuapp.com']
@@ -58,7 +60,7 @@ AUTH_USER_MODEL = 'base.User'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    #"whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware", 
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -95,19 +97,22 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
+default_db_url = config('DEFAULT_DATABASE_URL', default='')
 
-if DOCKERIZED:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DJANGO_DB_NAME'),
-            'USER': os.environ.get('DJANGO_DB_USER'),
-            'PASSWORD': os.environ.get('DJANGO_DB_PASSWORD'),
-            'HOST': os.environ.get('DJANGO_DB_HOST') if DOCKERIZED else 'localhost',
-            'PORT': os.environ.get('DJANGO_DB_PORT'),
-            'CONN_MAX_AGE': 100,
-        }
+DATABASES = {
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL', default=default_db_url)
+        )
     }
+DATABASES['default']['CONN_MAX_AGE'] = 600
+
+"""if DOCKERIZED:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL', default=default_db_url)
+        )
+    }
+    DATABASES['default']['CONN_MAX_AGE'] = 600
 else:
     DATABASES = {
         'default': {
@@ -115,6 +120,7 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -144,7 +150,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'#
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'#
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 

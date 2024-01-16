@@ -5,12 +5,8 @@ services:
     image: postgres:latest
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=${DATABASE_NAME}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_HOST=localhost
-      - POSTGRES_PORT=${DEV_DB_PORT}
+    env_file:
+      - .env 
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"] 
       interval: 10s
@@ -18,15 +14,16 @@ services:
       retries: 5
     networks:
       - filmjunkiez-network
+
   pgadmin:
     image: dpage/pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=postgres@filmjuniez.com
-      - PGADMIN_DEFAULT_PASSWORD=${DATABASE_PASSWORD}
+    env_file:
+      - .env  
     ports:
       - "5555:80"
     networks:
       - filmjunkiez-network
+
   django:
     build: .
     user: myuser
@@ -40,13 +37,11 @@ services:
         condition: service_healthy
     networks:
       - filmjunkiez-network
+    env_file:
+      - .env  
     environment:
       - PORT=${PORT}
-      - DJANGO_DB_NAME=${DATABASE_NAME}
-      - DJANGO_DB_USER=${DATABASE_USER}
-      - DJANGO_DB_PASSWORD=${DATABASE_PASSWORD}
-      - DJANGO_DB_HOST=db
-      - DJANGO_DB_PORT=${DEV_DB_PORT}
+      - DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@${PROD_DB_HOST}:${DEV_DB_PORT}/${DATABASE_NAME}
       - DOCKERIZED=1 
     
 networks:
