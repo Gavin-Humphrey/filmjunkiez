@@ -7,7 +7,8 @@ ENV PYTHONUNBUFFERED 1
 ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
 
 # Set the working directory
-WORKDIR /FilmJunkiez/filmjunkiez
+WORKDIR /app  
+# /FilmJunkiez/filmjunkiez
 
 # Copy the requirements file
 COPY requirements.txt .
@@ -33,7 +34,9 @@ RUN python manage.py collectstatic --noinput
 RUN adduser -D myuser
 
 # Grant write access to the media and staticfiles directories
-RUN chmod -R 777 /FilmJunkiez/filmjunkiez/media /FilmJunkiez/filmjunkiez/staticfiles
+#RUN chmod -R 777 /FilmJunkiez/filmjunkiez/media /FilmJunkiez/filmjunkiez/staticfiles
+RUN chmod -R 777 /app/media /app/staticfiles
+
 
 # Expose the required ports
 EXPOSE ${PORT}

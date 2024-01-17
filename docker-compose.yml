@@ -29,7 +29,7 @@ services:
     user: myuser
     volumes:
       - .:/app
-    working_dir: /FilmJunkiez/filmjunkiez
+    working_dir: /app #/FilmJunkiez/filmjunkiez
     ports:
       - "${PORT}:${PORT}"
     depends_on:
