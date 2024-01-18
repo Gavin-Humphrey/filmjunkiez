@@ -24,8 +24,8 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-          name: Set .env file path
-          command: echo "export ENV_FILE_PATH=$PROJECT_FILE_PATH/.env" >> $BASH_ENV
+          name: Set .env file variables
+          command: source $PROJECT_FILE_PATH/.env
       - run:
           name: Set DOCKERIZED variable
           command: echo "DOCKERIZED=true" >> $BASH_ENV && source $BASH_ENV
