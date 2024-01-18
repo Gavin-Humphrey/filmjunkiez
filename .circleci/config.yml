@@ -43,10 +43,7 @@ jobs:
             echo $PYTHONPATH
       - run:
           name: Database Initialization
-          #command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p ${DEV_DB_PORT}:${DEV_DB_PORT} -d postgres:latest
-          #command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 -e DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@${PROD_DB_HOST}:${DEV_DB_PORT}/${DATABASE_NAME} --name postgres -p ${DEV_DB_PORT}:${DEV_DB_PORT} -d postgres:latest
           command: docker run -e DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DEV_DB_PORT}/${DATABASE_NAME} --name postgres -p ${PORT}:${PORT} -d postgres:latest
-
       - run:
           name: Wait for PostgreSQL
           command: dockerize -wait tcp://localhost:${PORT} -timeout 1m
@@ -55,7 +52,6 @@ jobs:
           command: docker-compose run --env-file env django python manage.py migrate
       - run:
           name: Pytest
-          #command: pytest --ds=filmjunkiez.settings
           command: pytest
 
       - setup_remote_docker
@@ -71,15 +67,11 @@ jobs:
           no_output_timeout: 15s
 
       - run:
-          name: Login to Docker Hub
-          command: echo ${DOCKER_LOGIN} | docker login --username=${DOCKER_USERNAME} --password-stdin
-
-      - run:
           name: Containerize
           command: |
             docker build -t filmjunkiez .
-            docker tag filmjunkiez ${DOCKER_USERNAME}/filmjunkiez
-            docker push ${DOCKER_USERNAME}/filmjunkiez
+            echo "export DOCKER_IMAGE_TAG=${DOCKER_USERNAME}/filmjunkiez" >> $BASH_ENV
+            source $BASH_ENV
 
   deploy-to-heroku:
     machine: true
@@ -108,12 +100,6 @@ workflows:
           filters:
             branches:
               only: master
-
-
-
-
-
-
 
 
 
