@@ -25,7 +25,7 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: Set .env file variables
-          command: source .env
+          command: source $ENV_FILE_PATH
       - run:
           name: Set DOCKERIZED variable
           command: echo "DOCKERIZED=true" >> $BASH_ENV && source $BASH_ENV
@@ -46,12 +46,12 @@ jobs:
           command: |
             pwd
             ls -la
-            cat ${ENV_FILE_PATH}
+            cat $ENV_FILE_PATH
             echo $PYTHONPATH
       - run:
           name: Check .env File
           #command: cat /home/circleci/project/.env
-          command: cat ${ENV_FILE_PATH}
+          command: cat $ENV_FILE_PATH
 
       - run:
           name: Database Initialization
