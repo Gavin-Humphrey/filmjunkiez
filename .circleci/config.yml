@@ -43,7 +43,8 @@ jobs:
             echo $PYTHONPATH
       - run:
           name: Database Initialization
-          command: sudo service postgresql stop && sudo service postgresql start ${DEV_DB_PORT}
+          #command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p ${DEV_DB_PORT}:${DEV_DB_PORT} -d postgres:latest
+          command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 -e DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DEV_DB_PORT}/${DATABASE_NAME} --name postgres -p ${DEV_DB_PORT}:${DEV_DB_PORT} -d postgres:latest
       - run:
           name: Wait for PostgreSQL
           command: dockerize -wait tcp://localhost:${DEV_DB_PORT} -timeout 1m
