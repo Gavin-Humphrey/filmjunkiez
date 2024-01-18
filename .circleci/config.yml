@@ -49,7 +49,7 @@ jobs:
 
       - run:
           name: Wait for PostgreSQL
-          command: dockerize -wait tcp://${PROD_DB_HOST}:${DEV_DB_PORT} -timeout 1m
+          command: dockerize -wait tcp://localhost:${PORT} -timeout 1m
       - run:
           name: Production Database Migrations
           command: docker-compose run --env-file env django python manage.py migrate
