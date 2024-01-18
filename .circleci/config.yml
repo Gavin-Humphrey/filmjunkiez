@@ -6,6 +6,10 @@ jobs:
       - image: circleci/python:3.9.7-buster
     steps:
       - checkout
+      - run: sleep 60
+      - run:
+          name: Remove existing venv directory
+          command: rm -rf venv
       - run:
           name: Set up Python virtual environment
           command: |
