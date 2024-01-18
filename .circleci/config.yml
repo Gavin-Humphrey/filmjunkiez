@@ -24,9 +24,6 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-          name: Set .env file variables
-          command: source .env
-      - run:
           name: Set DOCKERIZED variable
           command: echo "DOCKERIZED=true" >> $BASH_ENV && source $BASH_ENV
       - run:
@@ -35,9 +32,6 @@ jobs:
       - run:
           name: Set PYTHONPATH
           command: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
-          # command: |
-          #   cd /home/circleci/project
-          #   export PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages
       - run:
           name: Verify Django Installation
           command: python -m django --version
@@ -46,11 +40,9 @@ jobs:
           command: |
             pwd
             ls -la
-            cat .env
             echo $PYTHONPATH
       - run:
           name: Check .env File
-          #command: cat /home/circleci/project/.env
           command: cat .env
 
       - run:
