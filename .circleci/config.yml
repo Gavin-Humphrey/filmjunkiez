@@ -50,7 +50,9 @@ jobs:
       # Set up PostgreSQL service using docker-compose
       - run:
           name: Start PostgreSQL Service
-          command: docker-compose up --build -d --remove-orphans --env-file .env
+          command: | 
+            sudo chown -R circleci:circleci . 
+            docker-compose up --build -d --remove-orphans --env-file .env
           working_directory: /app
       - run:
           name: Production Database Migrations
