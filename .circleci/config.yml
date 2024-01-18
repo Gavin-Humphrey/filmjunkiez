@@ -10,7 +10,7 @@ jobs:
           name: Start PostgreSQL Service
           command: |
             sudo chown -R circleci:circleci .
-            chmod docker-compose up --build -d --remove-orphans --env-file .env
+            docker-compose up --build -d --remove-orphans --env-file .env
 
       - run:
           name: Set up Python virtual environment
