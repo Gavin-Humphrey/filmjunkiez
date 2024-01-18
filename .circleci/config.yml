@@ -42,23 +42,18 @@ jobs:
             ls -la
             echo $PYTHONPATH
       - run:
-          name: Print CircleCI Environment Variables
-          command: env
-      - run:
           name: Database Initialization
-          command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p ${DEV_DB_PORT}:${DEV_DB_PORT} -d postgres:latest
+          command: sudo service postgresql stop && sudo service postgresql start ${DEV_DB_PORT}
       - run:
-          name: Start PostgreSQL Service
-          command: |
-            sudo chown -R circleci:circleci .
-            docker-compose up --build -d --remove-orphans --env-file env
+          name: Wait for PostgreSQL
+          command: dockerize -wait tcp://localhost:${DEV_DB_PORT} -timeout 1m
       - run:
           name: Production Database Migrations
           command: docker-compose run --env-file env django python manage.py migrate
       - run:
           name: Pytest
-          #command: pytest
-          command: pytest --ds=filmjunkiez.settings
+          #command: pytest --ds=filmjunkiez.settings
+          command: pytest
 
       - setup_remote_docker
 
@@ -110,4 +105,12 @@ workflows:
           filters:
             branches:
               only: master
+
+
+
+
+
+
+
+
 
