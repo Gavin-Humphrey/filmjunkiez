@@ -6,72 +6,87 @@ jobs:
       - image: circleci/python:3.9.7-buster
     steps:
       - checkout
-      - run: sleep 60
       - run:
-          name: Remove existing venv directory
-          command: rm -rf venv
+          name: Set permissions
+          command: |
+            sudo chown -R circleci:circleci .
+            chmod -R 777 /app/media /app/staticfiles
+
+      - run:
+          name: Start PostgreSQL Service
+          command: docker-compose up --build -d --remove-orphans
+
       - run:
           name: Set up Python virtual environment
           command: |
             python -m venv venv
             . venv/bin/activate
+
       - run:
           name: Install Python dependencies
           command: |
             pip install -r requirements.txt
+
       - save_cache:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
+
       - run:
           name: Set DOCKERIZED variable
           command: echo "DOCKERIZED=true" >> $BASH_ENV && source $BASH_ENV
+
       - run:
           name: Check sys.path
           command: python -c "import sys; print(sys.path)"
+
       - run:
           name: Set PYTHONPATH
           command: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
+
       - run:
           name: Verify Django Installation
           command: python -m django --version
+
       - run:
           name: Check Directory Contents
           command: |
             pwd
             ls -la
             echo $PYTHONPATH
+
       - run:
           name: Print CircleCI Environment Variables
           command: env
+
       - run:
           name: Database Initialization
           command: docker run -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} -e POSTGRES_USER=${DATABASE_USER} -e POSTGRES_DB=${DATABASE_NAME} -e POSTGRES_HOST_AUTH_METHOD=md5 --name postgres -p ${DEV_DB_PORT}:${DEV_DB_PORT} -d postgres:latest
-      # Set up PostgreSQL service using docker-compose
-      - run:
-          name: Start PostgreSQL Service
-          command: | 
-            sudo chown -R circleci:circleci . 
-            docker-compose up --build -d --remove-orphans --env-file .env
-          working_directory: /app
+
       - run:
           name: Production Database Migrations
           command: docker-compose run django python manage.py migrate
+
       - run:
           name: Pytest
           command: pytest
+
       - setup_remote_docker
+
       - run:
           name: Check DOCKER_LOGIN
           command: echo ${DOCKER_LOGIN}
           no_output_timeout: 15s
+
       - run:
           name: Check DOCKER_USERNAME
           command: echo ${DOCKER_USERNAME}
           no_output_timeout: 15s
+
       - run:
           name: Login to Docker Hub
           command: echo ${DOCKER_LOGIN} | docker login --username=${DOCKER_USERNAME} --password-stdin
+
       - run:
           name: Containerize
           command: |
@@ -106,3 +121,4 @@ workflows:
           filters:
             branches:
               only: master
+
