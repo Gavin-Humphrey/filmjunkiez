@@ -44,9 +44,9 @@ jobs:
       - run:
           name: Database Initialization
           command: docker run -e DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DEV_DB_PORT}/${DATABASE_NAME} --name postgres -p ${PORT}:${PORT} -d postgres:latest
-      - run:
-          name: Wait for PostgreSQL
-          command: dockerize -wait tcp://localhost:${PORT} -timeout 1m
+      # - run:
+      #     name: Wait for PostgreSQL
+      #     command: dockerize -wait tcp://localhost:${PORT} -timeout 1m
       - run:
           name: Production Database Migrations
           command: docker-compose run --env-file env django python manage.py migrate
