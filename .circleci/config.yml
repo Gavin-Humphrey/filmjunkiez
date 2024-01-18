@@ -50,8 +50,8 @@ jobs:
       # Set up PostgreSQL service using docker-compose
       - run:
           name: Start PostgreSQL Service
-          command: docker-compose --env-file .env up --build -d --remove-orphans
-          working_directory: /app
+          command: docker-compose --env-file .env  up --build -d --remove-orphans
+          working_directory: /FilmJunkiez/filmjunkiez
       - run:
           name: Production Database Migrations
           command: docker-compose run django python manage.py migrate
