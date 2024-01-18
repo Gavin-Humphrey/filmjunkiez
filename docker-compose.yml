@@ -6,7 +6,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
-      - ${ENV_FILE_PATH} #.env
+      - .env  #${ENV_FILE_PATH} #.env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"] 
       interval: 10s
@@ -18,7 +18,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     env_file:
-      - ${ENV_FILE_PATH}   # .env  
+      - .env   #${ENV_FILE_PATH}   # .env  
     ports:
       - "5555:80"
     networks:
@@ -38,7 +38,7 @@ services:
     networks:
       - filmjunkiez-network
     env_file:
-      - ${ENV_FILE_PATH}   #.env  
+      - .env  #${ENV_FILE_PATH}   #.env  
     environment:
       - PORT=${PORT}
       - DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@${PROD_DB_HOST}:${DEV_DB_PORT}/${DATABASE_NAME}

@@ -51,7 +51,6 @@ jobs:
       - run:
           name: Start PostgreSQL Service
           command: docker-compose up --build -d --remove-orphans
-          working_directory: /app
       - run:
           name: Production Database Migrations
           command: docker-compose run django python manage.py migrate
