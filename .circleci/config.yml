@@ -10,8 +10,6 @@ jobs:
           name: Set permissions
           command: |
             sudo chown -R circleci:circleci .
-            chmod -R 777 /app/media /app/staticfiles
-
       - run:
           name: Start PostgreSQL Service
           command: docker-compose up --build -d --remove-orphans
