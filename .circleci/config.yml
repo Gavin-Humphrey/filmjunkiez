@@ -55,10 +55,16 @@ jobs:
       - run:
           name: Production Database Migrations
           command: docker-compose run --env-file env django python manage.py migrate
+          ######
+      - run:
+          name: Set DJANGO_SETTINGS_MODULE for Testing
+          command: echo "export DJANGO_SETTINGS_MODULE=myproject.settings_test" >> $BASH_ENV && source $BASH_ENV
 
+          ######
       - run:
           name: Pytest
-          command: pytest
+          #command: pytest
+          command: pytest --ds=filmjunkiez.settings_test
 
       - setup_remote_docker
 
