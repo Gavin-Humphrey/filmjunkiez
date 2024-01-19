@@ -19,6 +19,12 @@ COPY ./manage.py .
 # Install build dependencies
 RUN apk update && apk add --no-cache build-base libffi-dev openssl-dev postgresql-dev
 
+####
+# Install dockerize
+RUN wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz \
+    && rm dockerize-linux-amd64-v0.6.1.tar.gz
+
 # Upgrade pip and install required packages
 RUN pip install --upgrade pip --no-cache-dir \
     && pip install -r requirements.txt \
@@ -42,5 +48,10 @@ RUN chmod -R 777 /app/media /app/staticfiles
 EXPOSE ${PORT}
 
 # Use CMD to start the Gunicorn server
-CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
+#CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
+
+####
+CMD dockerize -wait tcp://$PROD_DB_HOST:$DEV_DB_PORT -timeout 300s \
+    gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
+
 
