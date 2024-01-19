@@ -4,7 +4,7 @@ jobs:
   build-and-test-app:
     docker:
       - image: docker/compose:latest
-     working_directory: /app
+    working_directory: /app
     steps:
       - checkout
 
