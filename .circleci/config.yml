@@ -4,13 +4,8 @@ jobs:
   build-and-test-app:
     docker:
       - image: docker/compose:latest
-    working_directory: /Users/gmworld/My\ Website/FilmJunkiez
+    working_directory: /app
     steps:
-      - run:
-          name: Debugging
-          command: |
-            ls -la /app
-            ls -la /app/.env
       - checkout
      
       # - run:
@@ -34,7 +29,12 @@ jobs:
 
       - run:
           name: Print Environment Variables
-          command: docker-compose run --rm django env
+          command: |
+            echo "Using environment variables:"
+            echo "DATABASE_URL=${DATABASE_URL}"
+            echo "DOCKER_USERNAME=${DOCKER_USERNAME}"
+            echo "DOCKER_PASSWORD=${DOCKER_PASSWORD}"
+            docker-compose run --rm django env
 
       - run:
           name: Build and Test
