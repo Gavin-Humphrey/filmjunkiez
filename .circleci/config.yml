@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: docker/compose:latest
 
-    working_directory: $WORKDIR_PATH
+    working_directory: /Users/gmworld/My Website/FilmJunkiez
     steps:
       - checkout
       # - run:
