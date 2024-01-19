@@ -8,7 +8,12 @@ jobs:
     working_directory: /Users/gmworld/My Website/FilmJunkiez
     steps:
       - checkout
-      env_file:
+      - run:
+          name: Build and Run
+          command: |
+            docker-compose config
+            docker-compose up --build -d
+        env_file:
           - /Users/gmworld/My Website/FilmJunkiez/.env 
       # - run:
       #     name: Wait for Database
