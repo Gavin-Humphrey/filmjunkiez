@@ -12,8 +12,8 @@ jobs:
           command: |
             docker-compose config
             docker-compose up --build -d
-        env_file:
-          - /Users/gmworld/My Website/FilmJunkiez/.env 
+          env_file:
+            - /Users/gmworld/My Website/FilmJunkiez/.env 
       # - run:
       #     name: Wait for Database
       #     command: |
