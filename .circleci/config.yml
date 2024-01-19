@@ -12,9 +12,9 @@ jobs:
       #     name: Wait for Database
       #     command: |
       #       dockerize -wait tcp://db:5432 -timeout 1m -wait-retry-interval 10s -env /app/.env python /app/wait_for_db.py
-      - run:
-          name: Verify Docker Compose Configuration
-          command: docker-compose config
+      # - run:
+      #     name: Verify Docker Compose Configuration
+      #     command: docker-compose config
 
       - run:
           name: Database Initialization
