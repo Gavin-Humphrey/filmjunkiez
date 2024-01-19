@@ -4,11 +4,22 @@ jobs:
   build-and-test-app:
     docker:
       - image: docker/compose:latest
-    working_directory: /app
+     working_directory: /app
     steps:
+      - checkout
+
       - run:
-          name: Debug - List Contents of Directory
-          command: ls -la
+          name: Debug - List Contents and Permissions of Directory
+          command: |
+            ls -la /app
+            ls -la /app/.env
+
+      - run:
+          name: Build and Run
+          command: |
+            cp -r /Users/gmworld/My\ Website/FilmJunkiez/* /app
+            docker-compose config
+            docker-compose up --build -d
       # - run:
       #     name: Wait for Database
       #     command: |
