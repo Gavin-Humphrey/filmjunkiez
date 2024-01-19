@@ -8,13 +8,8 @@ jobs:
     working_directory: /Users/gmworld/My Website/FilmJunkiez
     steps:
       - run:
-          name: Build and Run
-          command: |
-            cd /Users/gmworld/My\ Website/FilmJunkiez
-            docker-compose config
-            docker-compose up --build -d
-          env_file:
-            - /Users/gmworld/My Website/FilmJunkiez/.env 
+          name: Debug - List Contents of Directory
+          command: ls -la
       # - run:
       #     name: Wait for Database
       #     command: |
