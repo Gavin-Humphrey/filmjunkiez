@@ -4,7 +4,7 @@ jobs:
   build-and-test-app:
     docker:
       - image: docker/compose:latest
-
+    working_directory: /app
     steps:
       - run:
           name: Debug - List Contents of Directory
