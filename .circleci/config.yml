@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-and-test-app:
     docker:
-      - image: docker/compose:2.24.1
+      - image: docker/compose:latest
 
     steps:
       - checkout
@@ -41,7 +41,7 @@ jobs:
 
   deploy:
     docker:
-      - image: docker/compose:2.24.1
+      - image: docker/compose:latest
 
     steps:
       - checkout
