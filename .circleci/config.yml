@@ -4,6 +4,8 @@ jobs:
   build-and-test-app:
     docker:
       - image: docker/compose:latest
+      
+    working_directory: /FilmJunkiez 
 
     steps:
       - checkout
@@ -25,7 +27,7 @@ jobs:
 
       - run:
           name: Print Environment Variables
-          command: docker-compose run --rm django .env
+          command: docker-compose run --rm django env
 
       - run:
           name: Build and Test
