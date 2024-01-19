@@ -10,6 +10,9 @@ ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
 WORKDIR /app  
 # /FilmJunkiez/filmjunkiez
 
+COPY .env /app/.env
+
+
 # Copy the requirements file
 COPY requirements.txt .
 
@@ -53,5 +56,6 @@ EXPOSE ${PORT}
 ####
 CMD dockerize -wait tcp://$PROD_DB_HOST:$DEV_DB_PORT -timeout 300s \
     gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
+
 
 
