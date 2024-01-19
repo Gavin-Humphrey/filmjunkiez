@@ -7,7 +7,6 @@ jobs:
 
     working_directory: /Users/gmworld/My Website/FilmJunkiez
     steps:
-      - checkout
       - run:
           name: Build and Run
           command: |
