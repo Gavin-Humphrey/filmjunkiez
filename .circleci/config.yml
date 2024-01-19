@@ -8,6 +8,8 @@ jobs:
     working_directory: /Users/gmworld/My Website/FilmJunkiez
     steps:
       - checkout
+      env_file:
+          - /Users/gmworld/My Website/FilmJunkiez/.env 
       # - run:
       #     name: Wait for Database
       #     command: |
