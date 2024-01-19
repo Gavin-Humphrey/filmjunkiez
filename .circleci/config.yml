@@ -4,8 +4,8 @@ jobs:
   build-and-test-app:
     docker:
       - image: docker/compose:latest
-      
-    working_directory: /FilmJunkiez 
+
+    working_directory: /FilmJunkiez/filmjunkiez 
 
     steps:
       - checkout
