@@ -15,6 +15,9 @@ jobs:
             ls -la /app/.env
 
       - run:
+          name: Copy .env file
+          command: cp /app/.env.example /app/.env
+      - run:
           name: Build and Run
           command: |
             cp -r /Users/gmworld/My\ Website/FilmJunkiez/* /app
