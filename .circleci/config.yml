@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: docker/compose:latest
 
-    working_directory: /FilmJunkiez/filmjunkiez 
+    working_directory: /app 
 
     steps:
       - checkout
