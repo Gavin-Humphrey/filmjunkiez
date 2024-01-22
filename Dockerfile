@@ -7,11 +7,13 @@ ENV PYTHONUNBUFFERED 1
 ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
 
 # Set the working directory
-WORKDIR /app  
-# /FilmJunkiez/filmjunkiez
+WORKDIR /app 
 
-COPY .env /app/.env
+RUN adduser -D app
 
+RUN adduser app wheel
+
+COPY .env /app/.env 
 
 # Copy the requirements file
 COPY requirements.txt .
@@ -22,16 +24,12 @@ COPY ./manage.py .
 # Install build dependencies
 RUN apk update && apk add --no-cache build-base libffi-dev openssl-dev postgresql-dev
 
-####
-# Install dockerize
-RUN wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz \
-    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz \
-    && rm dockerize-linux-amd64-v0.6.1.tar.gz
-
-# Upgrade pip and install required packages
+#Upgrade pip and install required packages
 RUN pip install --upgrade pip --no-cache-dir \
     && pip install -r requirements.txt \
-    && pip install psycopg2-binary==2.9.9
+    && pip install psycopg2-binary==2.9.9 
+
+ENV PATH="/py/bin:$PATH"  
 
 # Copy the application code
 COPY . .
@@ -40,10 +38,9 @@ COPY . .
 RUN python manage.py collectstatic --noinput
 
 # Add a non-root user
-RUN adduser -D myuser
+#RUN adduser -D myuser
 
 # Grant write access to the media and staticfiles directories
-#RUN chmod -R 777 /FilmJunkiez/filmjunkiez/media /FilmJunkiez/filmjunkiez/staticfiles
 RUN chmod -R 777 /app/media /app/staticfiles
 
 
@@ -51,11 +48,9 @@ RUN chmod -R 777 /app/media /app/staticfiles
 EXPOSE ${PORT}
 
 # Use CMD to start the Gunicorn server
-#CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
+CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
 
 ####
-CMD dockerize -wait tcp://$PROD_DB_HOST:$DEV_DB_PORT -timeout 300s \
-    gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
-
-
+#  CMD dockerize -wait tcp://db:$DEV_DB_PORT -timeout 300s \
+#      gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
 

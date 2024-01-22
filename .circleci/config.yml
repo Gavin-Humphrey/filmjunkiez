@@ -1,73 +1,112 @@
 version: 2.1
 
 jobs:
-  build-and-test-app:
+  build-and-test-django-app:
     docker:
-      - image: docker/compose:latest
-    working_directory: /app
+      - image: circleci/python:3.9.7-buster
     steps:
       - checkout
-     
-      # - run:
-      #     name: Wait for Database
-      #     command: |
-      #       dockerize -wait tcp://db:5432 -timeout 1m -wait-retry-interval 10s -env /app/.env python /app/wait_for_db.py
-      # - run:
-      #     name: Verify Docker Compose Configuration
-      #     command: docker-compose config
-
+      - run: sleep 60
+      - run:
+          name: Remove existing venv directory
+          command: rm -rf venv
+      - run:
+          name: Set up Python virtual environment
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+      - run:
+          name: Install Python dependencies
+          command: |
+            pip install -r requirements.txt
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: Set DOCKERIZED variable
+          command: echo "DOCKERIZED=true" >> $BASH_ENV && source $BASH_ENV
+      - run:
+          name: Check sys.path
+          command: python -c "import sys; print(sys.path)"
+      - run:
+          name: Set PYTHONPATH
+          command: echo "PYTHONPATH=$(pwd)/venv/lib/python3.12/site-packages" >> $BASH_ENV && source $BASH_ENV
+      - run:
+          name: Verify Django Installation
+          command: python -m django --version
+      - run:
+          name: Check Directory Contents
+          command: |
+            pwd
+            ls -la
+            echo $PYTHONPATH
       - run:
           name: Database Initialization
-          command: docker-compose up -d db
+          command: docker run -e DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DEV_DB_PORT}/${DATABASE_NAME} --name postgres -p ${PORT}:${PORT} -d postgres:latest
+      # - run:
+      #     name: Wait for PostgreSQL
+      #     command: dockerize -wait tcp://localhost:${PORT} -timeout 1m
       - run:
-          name: Wait for Database to be Ready
-          command: docker-compose run --rm django sh -c "echo Database is ready"
+          name: Production Database Migrations
+          command: docker-compose run --env-file env django python manage.py migrate
+      - run:
+          name: Collect Static Files
+          command: docker-compose run --env-file env django python manage.py collectstatic --noinput
+
+      # Copy manage.py into the working directory
+      - run:
+          name: Copy manage.py
+          command: cp /app/manage.py .
+
+      # Copy Dockerfile into the working directory
+      - run:
+          name: Copy Dockerfile
+          command: cp /app/Dockerfile .
+
+      - setup_remote_docker
 
       - run:
-          name: Network Accessibility
-          command: docker-compose run --rm django python manage.py check_network_access
+          name: Check DOCKER_LOGIN
+          command: echo ${DOCKER_LOGIN}
+          no_output_timeout: 15s
 
       - run:
-          name: Print Environment Variables
+          name: Check DOCKER_USERNAME
+          command: echo ${DOCKER_USERNAME}
+          no_output_timeout: 15s
+
+      - run:
+          name: Containerize
           command: |
-            echo "Using environment variables:"
-            echo "DATABASE_URL=${DATABASE_URL}"
-            echo "DOCKER_USERNAME=${DOCKER_USERNAME}"
-            echo "DOCKER_PASSWORD=${DOCKER_PASSWORD}"
-            docker-compose run --rm django env
+            docker build -t filmjunkiez .
+            echo "export DOCKER_IMAGE_TAG=${DOCKER_USERNAME}/filmjunkiez" >> $BASH_ENV
+            source $BASH_ENV
 
-      - run:
-          name: Build and Test
-          command: docker-compose run --rm django pytest
-
-      - run:
-          name: Check CircleCI Configuration
-          command: circleci config validate
-
-      - run:
-          name: Introduce Additional Logging
-          command: docker-compose run --rm django python manage.py log_info
-
-  deploy:
-    docker:
-      - image: docker/compose:latest
-
+  deploy-to-heroku:
+    machine: true
     steps:
       - checkout
+      - run:
+          name: "Debug: Check DEPLOYED_APP_NAME"
+          command: echo "DEPLOYED_APP_NAME=${DEPLOYED_APP_NAME}"
 
       - run:
-          name: Deploy to Heroku
+          name: Build and push Docker image to Heroku
           command: |
-            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin registry.heroku.com
-            docker-compose build
-            docker-compose push
-            heroku container:release web -a $DEPLOYED_APP_NAME
+            curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${DEPLOYED_APP_NAME} web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${DEPLOYED_APP_NAME} web
 
 workflows:
   version: 2
-  build_and_deploy:
+  build:
     jobs:
-      - build-and-test-app
-      - deploy:
+      - build-and-test-django-app
+      - deploy-to-heroku:
           requires:
-            - build-and-test-app
+            - build-and-test-django-app
+          filters:
+            branches:
+              only: master
