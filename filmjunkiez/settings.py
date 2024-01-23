@@ -124,7 +124,7 @@ if 'test' in sys.argv:
 if DOCKERIZED:
     DATABASES = {
         'default': dj_database_url.config(
-            default=config('DATABASE_URL', default=default_db_url)
+            default=config('HEROKU_PG_DB_URL', default=default_db_url)
         )
     }
     DATABASES['default']['CONN_MAX_AGE'] = 600
