@@ -13,7 +13,7 @@ RUN adduser -D app
 
 RUN adduser app wheel
 
-COPY .env /app/.env 
+#COPY .env /app/.env 
 
 # Copy the requirements file
 COPY requirements.txt .
