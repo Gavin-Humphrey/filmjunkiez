@@ -58,7 +58,7 @@ jobs:
       # Copy Dockerfile into the working directory
       - run:
           name: Copy Dockerfile
-          command: cp /FilmJunkiez/filmjunkiez/Dockerfile .
+          command: cp /Dockerfile .
 
       - setup_remote_docker
 
