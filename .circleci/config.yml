@@ -54,22 +54,10 @@ jobs:
           name: Collect Static Files
           command: docker-compose run --env-file env django python manage.py collectstatic --noinput
 
-      # Verifying Dockerfile path
-      - run:
-          name: Verify Dockerfile Path
-          command: |
-            ls -l  # List the contents of the root directory
-            ls -l /app  # List the contents of the /app directory
-            ls -l /filmjunkiez  # List the contents of the /filmjunkiez directory
-            ls -l /filmjunkiez/FilmJunkiez/Dockerfile  # List the Dockerfile in the specified path
-            ls -l /FilmJunkiez/filmjunkiez/Dockerfile  # List the Dockerfile in the specified path
-
-
-
       # Copy Dockerfile into the working directory
       - run:
           name: Copy Dockerfile
-          command: cp /Dockerfile .
+          command: cp /app/Dockerfile .
 
       - setup_remote_docker
 
