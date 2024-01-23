@@ -54,11 +54,6 @@ jobs:
           name: Collect Static Files
           command: docker-compose run --env-file env django python manage.py collectstatic --noinput
 
-      # Copy Dockerfile into the working directory
-      - run:
-          name: Copy Dockerfile
-          command: cp /app/Dockerfile .
-
       - setup_remote_docker
 
       - run:
