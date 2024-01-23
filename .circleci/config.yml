@@ -58,11 +58,12 @@ jobs:
       - run:
           name: Verify Dockerfile Path
           command: |
-            ls -l /  # List the contents of the root directory
+            ls -l  # List the contents of the root directory
             ls -l /app  # List the contents of the /app directory
             ls -l /filmjunkiez  # List the contents of the /filmjunkiez directory
-            ls -l /filmjunkiez/Dockerfile  # List the Dockerfile in the specified path
+            ls -l /filmjunkiez/FilmJunkiez/Dockerfile  # List the Dockerfile in the specified path
             ls -l /FilmJunkiez/filmjunkiez/Dockerfile  # List the Dockerfile in the specified path
+
 
 
       # Copy Dockerfile into the working directory
