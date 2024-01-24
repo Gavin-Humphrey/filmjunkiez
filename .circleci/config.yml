@@ -4,6 +4,8 @@ jobs:
   build-and-test-django-app:
     docker:
       - image: circleci/python:3.9.7-buster
+    environment:
+      CI: true
     steps:
       - checkout
       - run: sleep 60
@@ -41,9 +43,9 @@ jobs:
             pwd
             ls -la
             echo $PYTHONPATH
-      # - run:
-      #     name: Database Initialization
-      #     command: docker run -e DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DEV_DB_PORT}/${DATABASE_NAME} --name postgres -p ${PORT}:${PORT} -d postgres:latest
+      #- run:
+          #name: Database Initialization
+          #command: docker run -e DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DEV_DB_PORT}/${DATABASE_NAME} --name postgres -p ${PORT}:${PORT} -d postgres:latest
       # - run:
       #     name: Wait for PostgreSQL
       #     command: dockerize -wait tcp://localhost:${PORT} -timeout 1m

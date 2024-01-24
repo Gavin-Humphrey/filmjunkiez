@@ -108,33 +108,30 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 default_db_url = config('DEFAULT_DATABASE_URL', default='')
 
-"""DATABASES = {
-        'default': dj_database_url.config(
-            default=config('DATABASE_URL', default=default_db_url)
-        )
-    }
-DATABASES['default']['CONN_MAX_AGE'] = 600
-#######
-if 'test' in sys.argv:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }"""
-
 if DOCKERIZED:
+    # Use locally configured PostgreSQL for Docker development
     DATABASES = {
         'default': dj_database_url.config(
-            default=config('HEROKU_PG_DB_URL', default=default_db_url)
+            default=config('HEROKU_POSTGRESQL_COBALT_URL', default=default_db_url)
         )
     }
     DATABASES['default']['CONN_MAX_AGE'] = 600
-else:
+elif 'CI' in os.environ:
+    # Use SQLite for tests in CircleCI
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'NAME': ':memory:',
         }
     }
+else:
+    # Use Heroku PostgreSQL for deployment
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=config('HEROKU_POSTGRESQL_COBALT_URL', default=default_db_url)
+        )
+    }
+    DATABASES['default']['CONN_MAX_AGE'] = 600
 
 
 # Password validation
