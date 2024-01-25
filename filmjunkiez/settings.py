@@ -148,7 +148,7 @@ if DOCKERIZED:
     # Use locally configured PostgreSQL for Docker development
     DATABASES = {
         'default': dj_database_url.config(
-            default=config('HEROKU_POSTGRESQL_COBALT_URL', default=default_db_url)
+            default=config('DATABASE_URL', default=default_db_url)
         )
     }
     DATABASES['default']['CONN_MAX_AGE'] = 600
