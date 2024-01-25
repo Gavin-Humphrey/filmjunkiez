@@ -105,6 +105,42 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+"""DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
+default_db_url = config('DEFAULT_DATABASE_URL', default='')
+
+if DOCKERIZED:
+    # Use locally configured PostgreSQL for Docker development
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL', default=default_db_url)
+        )
+    }
+    DATABASES['default']['CONN_MAX_AGE'] = 600
+    print("DATABASES Configuration:", DATABASES)
+
+elif 'CI' in os.environ:
+    # Use SQLite for tests in CircleCI
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',
+        }
+    }
+    print("DATABASES Configuration:", DATABASES)
+
+else:
+    # Use Heroku PostgreSQL for deployment
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=config('HEROKU_POSTGRESQL_COBALT_URL', default=default_db_url)
+        )
+    }
+    DATABASES['default']['CONN_MAX_AGE'] = 600
+
+    print("DATABASES Configuration:", DATABASES)"""
+
+
+
 DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 default_db_url = config('DEFAULT_DATABASE_URL', default='')
 
@@ -116,22 +152,14 @@ if DOCKERIZED:
         )
     }
     DATABASES['default']['CONN_MAX_AGE'] = 600
-elif 'CI' in os.environ:
-    # Use SQLite for tests in CircleCI
+
+else: 
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': ':memory:',
         }
     }
-else:
-    # Use Heroku PostgreSQL for deployment
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=config('HEROKU_POSTGRESQL_COBALT_URL', default=default_db_url)
-        )
-    }
-    DATABASES['default']['CONN_MAX_AGE'] = 600
 
 
 # Password validation
