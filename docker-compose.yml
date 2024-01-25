@@ -41,10 +41,10 @@ services:
     networks:
       - filmjunkiez-network
     environment:
-      #- PORT=${PORT}
-      - DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:${DEV_DB_PORT}/${DATABASE_NAME}
-      - PORT=5432
-      #- HEROKU_POSTGRESQL_COBALT_URL=$HEROKU_POSTGRESQL_COBALT_URL
+      - PORT=${PORT}
+      - DATABASE_URL=$DATABASE_URL
+      #- PORT=5432
+      #- HEROKU_POSTGRESQL_AQUA_URLL=$HEROKU_POSTGRESQL_AQUA_URL
       - DOCKERIZED=1 
     
 networks:
