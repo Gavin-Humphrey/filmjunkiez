@@ -39,8 +39,8 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 DEBUG = False
 
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'film-junkiez-be8d3d00a54d.herokuapp.com', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{config("DEPLOYED_APP_NAME", default="default_app_name")}.herokuapp.com']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{config("DEPLOYED_APP_NAME", default="default_app_name")}.herokuapp.com']
+#ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = []
 # ALLOWED_HOSTS.extend(
 #     filter(
@@ -187,6 +187,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
  ]
+
+CSRF_TRUSTED_ORIGINS = ["https://film-junkiez-be8d3d00a54d.herokuapp.com"]
 
 sentry_dsn = config('FILM_JUNKIEZ_SENTRY_DSN', default=None)
 
