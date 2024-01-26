@@ -116,7 +116,6 @@ if DOCKERIZED:
         )
     }
     DATABASES['default']['CONN_MAX_AGE'] = 600
-    print("DATABASES Configuration:", DATABASES)
 
 elif 'CI' in os.environ:
     # Use SQLite for tests in CircleCI
@@ -126,7 +125,6 @@ elif 'CI' in os.environ:
             'NAME': ':memory:',
         }
     }
-    print("DATABASES Configuration:", DATABASES)
 
 else:
     # Use Heroku PostgreSQL for deployment
@@ -136,9 +134,6 @@ else:
         )
     }
     DATABASES['default']['CONN_MAX_AGE'] = 600
-
-    print("DATABASES Configuration:", DATABASES)
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
