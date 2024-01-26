@@ -9,7 +9,8 @@ services:
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_NAME=${DATABASE_NAME}
-          
+      #- POSTGRES_PASSWORD=${DATABASE_PASSWORD} 
+
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"] 
       interval: 10s
@@ -42,7 +43,7 @@ services:
       - filmjunkiez-network
     environment:
       - PORT=${PORT}
-      - DATABASE_URL=$DATABASE_URL
+      - DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:${DEV_DB_PORT}/${DATABASE_NAME}
       #- PORT=5432
       #- HEROKU_POSTGRESQL_AQUA_URLL=$HEROKU_POSTGRESQL_AQUA_URL
       - DOCKERIZED=1 
