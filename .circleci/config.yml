@@ -53,6 +53,9 @@ jobs:
           name: Production Database Migrations
           command: docker-compose run --env-file env django python manage.py migrate
       - run:
+          name: Pytest
+          command: pytest
+      - run:
           name: Collect Static Files
           command: docker-compose run --env-file env django python manage.py collectstatic --noinput
 
