@@ -191,8 +191,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
  ]
 
-#CSRF_TRUSTED_ORIGINS = ["https://film-junkiez-be8d3d00a54d.herokuapp.com"] #
-CSRF_TRUSTED_ORIGINS = ["https://film-junkiez.herokuapp.com"]
+CSRF_TRUSTED_ORIGINS = ["https://film-junkiez-be8d3d00a54d.herokuapp.com"] #
+#CSRF_TRUSTED_ORIGINS = ["https://film-junkiez.herokuapp.com"]
 
 sentry_dsn = config('FILM_JUNKIEZ_SENTRY_DSN', default=None)
 
