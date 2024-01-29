@@ -91,8 +91,6 @@ jobs:
           command: |
             curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container: heroku config:set DISABLE_COLLECTSTATIC=1 -a ${DEPLOYED_APP_NAME} 
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container: heroku run python manage.py migrate -a ${DEPLOYED_APP_NAME} 
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${DEPLOYED_APP_NAME} web
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${DEPLOYED_APP_NAME} web
 
