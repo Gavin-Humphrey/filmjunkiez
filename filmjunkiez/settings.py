@@ -175,7 +175,7 @@ else:
     #STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
     STORAGES = {
         "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+            "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
         },
 }
 
