@@ -172,12 +172,8 @@ if 'CI' in os.environ:
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 else:
     #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    #STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-    STORAGES = {
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
-        },
-}
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
 
 
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
