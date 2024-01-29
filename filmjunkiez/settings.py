@@ -168,7 +168,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 
 MEDIA_URL = "/media/"
