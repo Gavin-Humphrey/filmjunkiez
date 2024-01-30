@@ -38,9 +38,9 @@ DEBUG = False
 
 CSRF_COOKIE_SECURE = True
 
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'film-junkiez-be8d3d00a54d.herokuapp.com', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'film-junkiez-be8d3d00a54d.herokuapp.com', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{config("DEPLOYED_APP_NAME", default="default_app_name")}.herokuapp.com']
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = []
 # ALLOWED_HOSTS.extend(
 #     filter(
@@ -165,16 +165,14 @@ STATIC_URL = "/static/"
 
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'#
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-"""if 'CI' in os.environ:
+if 'CI' in os.environ:
     # Use Django's built-in static file serving during development
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 else:
     #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage' """
-
-
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage' 
 
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 
