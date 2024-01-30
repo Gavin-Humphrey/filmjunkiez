@@ -5,3 +5,8 @@ static/img/film_videos/103bf708-d16b-4c83-b151-b93164a12300_AEtfsYD.mov
 .env
 /.enves
 .enves
+/static
+/media
+/staticfiles
+/print_db_params.py
+/.pytest_cache
