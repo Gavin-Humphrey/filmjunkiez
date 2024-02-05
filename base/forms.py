@@ -8,8 +8,6 @@ from .models import  Film, Review, User
 
 
 
-
-
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
@@ -30,7 +28,6 @@ class FilmForm(ModelForm):
         exclude = ["host", "participants", "average_rating", "category"]
 
 
-
 class ReviewForm(ModelForm):
     rating = forms.ChoiceField(
         initial=1,
@@ -47,3 +44,12 @@ class ReviewForm(ModelForm):
     class Meta:
         model = Review
         fields = ("rating", "body",)
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    username = forms.CharField(max_length=100)
+    email = forms.EmailField()
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField(widget=forms.Textarea)
+    

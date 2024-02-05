@@ -18,7 +18,7 @@ class TestViews(TestCase):
             response = self.client.post(reverse('register-user'))
 
             self.assertEqual(response.status_code, 302)  
-            self.assertRedirects(response, expected_url=reverse('home'))
+            self.assertRedirects(response, expected_url=reverse('login'))
 
 
     @patch('django.contrib.auth.forms.AuthenticationForm')

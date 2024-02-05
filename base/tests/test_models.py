@@ -73,8 +73,7 @@ class FilmModelTest(TestCase):
         except ValueError:
             # If a ValueError is raised, there's no image, and the test passes
             pass
-
-   
+  
 
 class ReviewModelTest(TestCase):
     def setUp(self):

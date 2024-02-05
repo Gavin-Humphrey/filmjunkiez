@@ -1,10 +1,9 @@
-
 {% extends 'main.html' %}
 
 {% block content %}
 <main class="profile-page layout layout--2">
   <div class="container">
-    <!-- Book Start -->
+    <!-- Film Start -->
     <div class="film">
       <div class="film__top">
         <div class="film__topLeft">
@@ -55,7 +54,7 @@
         </div>
       </div>
 
-      <div class="film__box scroll"><!--Added filmListFilm__box-->
+      <div class="film__box scroll">
         <div class="film__header scroll">
           <div class="film__info">
             <div class='film__hosted'>
@@ -63,7 +62,7 @@
               <h3>{{film.title}}</h3> 
             </div>
 
-            <!--------THIS IS WHERE WE ARE TRYING TO FIX. FROM HERE....---------->
+            <!--------THIS IS WHERE I'M TRYING TO FIX. FROM HERE....---------->
             <!---Add film image-->
             
             {% if film.image %}
@@ -82,8 +81,8 @@
             <!--------------TO HERE----------------->
 
             <!---->
-            <div class="filmListFilm__review__director-rating"><!--filmListFilm__review__author-rating-->
-              <div class="filmListFilm__review__director"> <!--filmListFilm__review__author-->
+            <div class="filmListFilm__review__director-rating">
+              <div class="filmListFilm__review__director"> 
                 <p>Producer</p>
                 <h4>{{ film.director }}</h4> 
               </div>
@@ -163,7 +162,6 @@
       <div class="film__message">
         <form action="{% url 'film' film.id %}" method="POST">
             {% csrf_token %}
-            <!----oooooooooooooo-->
             <!-- Display star rating -->
             <div class="filmListFilm__rating">
               <!--=========Star Rating==========-->
@@ -179,16 +177,11 @@
               </div>
             </div>
           
-          
-          
-            <!------oooooooooooooo-->
-            <textarea name="body" placeholder="Write your review here..."></textarea>
+              <textarea name="body" placeholder="Write your review here..."></textarea>
             <button type="submit">Submit Review</button>
           
         </form>
       </div>
-
-      <!--====================================--->
 
     </div>
     <!-- Film End -->

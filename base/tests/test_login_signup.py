@@ -1,65 +1,60 @@
-from django import setup
 from base.models import User
 from django.test import TestCase
 from django.urls import reverse
+
+from django.utils.http import urlsafe_base64_encode
+from base.tokens import account_activation_token
+from django.utils.encoding import force_bytes
+from django.test import override_settings
+from django.conf import settings
 from .helper import assert_common_elements
 
 
 
 
-# The 3 test functions behave as expected, it now depends on individual choice
-# 1
-"""class LoginSignupTestCase(TestCase):
+class RegistrationTestCase(TestCase):
     def setUp(self):
-        user_info = User.objects.create(
-            username= "FakeUser",
-            email= "fakeusermail@user.com",
-            password= "Fake1234",
+        # Set EMAIL_BACKEND to console backend for testing
+        self._old_email_backend = settings.EMAIL_BACKEND
+        settings.EMAIL_BACKEND = "FilmJunkiezEmailApp.backends.email_backend.EmailBackend"
 
-        )  
-        User.objects.get_or_create(user_info)
-    def test_render_login_form(self):
-        response = self.client.get(reverse("login"))
-        markup = response.content.decode("utf-8")
-        assert response.status_code == 200
-        assert "<h3>Login</h3>" in markup
+        # Define user data for registration
+        self.user_data = {
+            'user': 'testuser',
+            'username': 'testuser',
+            'email': 'testuser@example.com',
+            'password1': 'testpassword',
+            'password2': 'testpassword',
+        }
 
+    def tearDown(self):
+        # Restore the original EMAIL_BACKEND after the test
+        settings.EMAIL_BACKEND = self._old_email_backend
 
+    @override_settings(EMAIL_BACKEND = "FilmJunkiezEmailApp.backends.email_backend.EmailBackend")
+    def test_successful_registration_redirects_to_login(self):
+        # Existing test code
+        response = self.client.post(reverse('register-user'), data=self.user_data)
+        self.assertEqual(response.status_code, 200)  # In case of successful registration
 
-    def test_render_register_user_form(self):
-        response = self.client.get(reverse("register-user"))
-        markup = response.content.decode("utf-8")
-        assert response.status_code == 200
-        assert "<h3>Register</h3>" in markup"""
+        # Check if the response has a status code of 200
+        self.assertEqual(response.status_code, 200)
 
-
-
-# 2
-"""class LoginSignupTestCase(TestCase):
-    def test_render_login_form(self):
-        response = self.client.get(reverse("login"))
-        markup = response.content.decode("utf-8")
-        assert response.status_code == 200
-        assert "Login" in markup
-        # Check for the presence of the form fields in the login form
-        assert 'name="username"' in markup
-        assert 'name="password"' in markup
-
-    def test_render_register_user_form(self):
-        response = self.client.get(reverse("register-user"))
-        markup = response.content.decode("utf-8")
-        assert response.status_code == 200
-        assert "Register" in markup
-        # Check for the presence of the form fields in the register user form
-        assert 'name="name"' in markup
-        assert 'name="username"' in markup
-        assert 'name="email"' in markup
-        assert 'name="password1"' in markup
-        assert 'name="password2"' in markup"""
+    def test_activation_view(self):
+        # Manually create a user to simulate the activation process
+        user = User.objects.create(username='testuser', email='test@example.com', is_active=False)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        token = account_activation_token.make_token(user)
+        
+        # Call the activation view with the generated uid and token
+        response = self.client.get(reverse('activate', kwargs={'uidb64': uid, 'token': token}))
+        
+        # Check if activation is successful (status code 302 for redirect)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, expected_url=reverse('login'))
 
 
-# 3
-class LoginSignupTestCase(TestCase):
+class LoginTestCase(TestCase):
     assert_common_elements = assert_common_elements
 
     def test_render_login_form(self):
@@ -68,19 +63,3 @@ class LoginSignupTestCase(TestCase):
         assert response.status_code == 200
         assert "Login" in markup
         self.assert_common_elements(markup, ['name="username"', 'name="password"'])
-
-    def test_render_register_user_form(self):
-        response = self.client.get(reverse("register-user"))
-        markup = response.content.decode("utf-8")
-        assert response.status_code == 200
-        assert "Register" in markup
-        expected_elements = [
-            'name="name"',
-            'name="username"',
-            'name="email"',
-            'name="password1"',
-            'name="password2"',
-        ]
-        self.assert_common_elements(markup, expected_elements)
-
-

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from ast import Import
 from email.policy import default
 from pathlib import Path
 import os
@@ -20,6 +21,8 @@ from django.core.management.utils import get_random_secret_key
 
 import sys
 import dj_database_url
+from FilmJunkiezEmailApp.backends.email_backend import EmailBackend
+
 
 
 
@@ -41,18 +44,12 @@ CSRF_COOKIE_SECURE = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'film-junkiez-be8d3d00a54d.herokuapp.com', f'{os.environ.get("DEPLOYED_APP_NAME")}.herokuapp.com']
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{config("DEPLOYED_APP_NAME", default="default_app_name")}.herokuapp.com']
 #ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = []
-# ALLOWED_HOSTS.extend(
-#     filter(
-#         None,
-#         os.environ.get('ALLOWED_HOSTS', '').SPLIT(','),
-#     )
-# )
 
 # Application definition
 INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.admin",
+
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -61,6 +58,7 @@ INSTALLED_APPS = [
 
     "base.apps.BaseConfig",
     "user_follow.apps.UserFollowConfig",
+
     "rest_framework", 
     "corsheaders", 
 ]
@@ -95,6 +93,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "filmjunkiez.context_processors.website_email", #
             ],
         },
     },
@@ -109,7 +108,7 @@ DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 default_db_url = config('DEFAULT_DATABASE_URL', default='')
 
 if DOCKERIZED:
-    # Use locally configured PostgreSQL for Docker development
+    # Locally configured PostgreSQL for Docker development
     DATABASES = {
         'default': dj_database_url.config(
             default=config('DATABASE_URL', default=default_db_url)
@@ -118,7 +117,7 @@ if DOCKERIZED:
     DATABASES['default']['CONN_MAX_AGE'] = 600
 
 elif 'CI' in os.environ:
-    # Use SQLite for tests in CircleCI
+    # SQLite for tests in CircleCI
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -127,13 +126,14 @@ elif 'CI' in os.environ:
     }
 
 else:
-    # Use Heroku PostgreSQL for deployment
+    # Heroku PostgreSQL for deployment
     DATABASES = {
         'default': dj_database_url.config(
             default=config('HEROKU_POSTGRESQL_AQUA_URL', default=default_db_url)
         )
     }
     DATABASES['default']['CONN_MAX_AGE'] = 600
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -168,6 +168,7 @@ if 'CI' in os.environ:
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 else:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage" 
 
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 
@@ -196,3 +197,18 @@ sentry_sdk.init(
     traces_sample_rate=1.0,
     send_default_pii=True,
 )
+
+LOGIN_REDIRECT_URL = '/base/thank_you.html'
+
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "FilmJunkiezEmailApp.backends.email_backend.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587  
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False 
+EMAIL_FROM = config('WEBSITE_EMAIL')
+EMAIL_HOST_USER = config('WEBSITE_EMAIL')
+EMAIL_HOST_PASSWORD = config('WEBSITE_EMAIL_PASSWORD')
+
+PASSWORD_RESET_TIMEOUT = 15000
+    

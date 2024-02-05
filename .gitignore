@@ -4,9 +4,22 @@ static/img/film_videos/103bf708-d16b-4c83-b151-b93164a12300_AEtfsYD.mov
 /.env
 .env
 /.enves
+.enves/
 .enves
-/static
-/media
-/staticfiles
+static/
+media/
+staticfiles/
 /print_db_params.py
 /.pytest_cache
+__pycache__/
+/var
+var/
+
+# Work on these later/ accidental commits
+echo "static" >> .gitignore
+echo "media" >> .gitignore
+echo "staticfiles" >> .gitignore
+echo "print_db_params.py" >> .gitignore
+
+*.sqlite3
+*.sqlite

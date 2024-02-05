@@ -20,10 +20,13 @@ urlpatterns = [
 
     path("categories", views.categoriesPage, name="categories"),
 
-    #path("create-message/<str:pk>/", views.createMessage, name="create-message"),
-    #path("update-message/<str:pk>/", views.room, name="update-message"),
     path("delete-review/<str:pk>/", views.deleteReview, name="delete-review"),
    
-    path("activity", views.activityPage, name="activity")
+    path("activity", views.activityPage, name="activity"),
+
+    path('activate/<str:uidb64>/<str:token>/', views.activate, name='activate'),
+
+    path('contact', views.contact, name='contact'),
+
     
 ]

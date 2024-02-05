@@ -1027,7 +1027,7 @@ a {
   grid-column: span 2;
   width: 96%; 
   margin: 0.7rem;
-  max-width: 120rem; /* JUST ADDED FOR TEST. Can remove if you like. Doesan't affect layout*/
+  max-width: 120rem; /* JUST ADDED FOR TEST. Temporary. Doesan't affect layout*/
 }
 
 
@@ -1059,7 +1059,13 @@ a {
 .film-details__layout__boxTitle svg {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-main);
+  fill: var(--color-light) !important;
+}
+
+.film-details__layout__boxTitle svg:hover {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: var(--color-main) !important;
 }
 
 .film-details__layout__boxTitle h3 {
@@ -1197,8 +1203,6 @@ a {
 }
 
 /*==================*/
-
-
 
 /* Responsive styles */
 @media (max-width: 760px) {
@@ -1421,7 +1425,13 @@ a {
 .film__topLeft svg {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-light);
+  fill: var(--color-light) !important;
+}
+
+.film__topLeft svg:hover {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: var(--color-main) !important; /**/
 }
 
 .film__topRight {
@@ -1431,6 +1441,10 @@ a {
 
 .film__topRight svg {
   fill: var(--color-main-light);
+}
+
+.film__topRight svg:hover {
+  fill: var(--color-main) !important; /**/
 }
 
 .film__header {
@@ -1609,8 +1623,6 @@ a {
   font-size: small;
 }
 
-
-
 /*======*/
 
 /* Responsive styles */
@@ -1767,9 +1779,6 @@ a {
   color: var(--color-rating-orange); 
 }
 
-
-
-
 /*==============================*/
 
 .film__conversation {
@@ -1841,7 +1850,6 @@ a {
 .film__message > form > textarea::placeholder {
   color: var(--color-light-gray);
 }
-
 
 /* Review Textarea and Submit Button */
 .film__message form {
