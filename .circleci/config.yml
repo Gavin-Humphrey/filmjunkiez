@@ -54,7 +54,14 @@ jobs:
           command: docker-compose run --env-file env django python manage.py migrate
       - run:
           name: Pytest
-          command: pytest
+          command: |
+            steps:
+      - checkout
+      - run:
+          name: Run Tests
+          command: |
+            export APP_EMAIL=$WEBSITE_EMAIL
+            pytest
       - run:
           name: Collect Static Files
           command: docker-compose run --env-file env django python manage.py collectstatic --noinput

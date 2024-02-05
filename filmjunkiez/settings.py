@@ -206,9 +206,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False 
-EMAIL_FROM = config('WEBSITE_EMAIL')
-EMAIL_HOST_USER = config('WEBSITE_EMAIL')
-EMAIL_HOST_PASSWORD = config('WEBSITE_EMAIL_PASSWORD')
+EMAIL_FROM = config('WEBSITE_EMAIL', default='backup@example.com')
+EMAIL_HOST_USER = config('WEBSITE_EMAIL', default='backup@example.com')
+EMAIL_HOST_PASSWORD = config('WEBSITE_EMAIL_PASSWORD', default='Backuppassword')
 
 PASSWORD_RESET_TIMEOUT = 15000
     

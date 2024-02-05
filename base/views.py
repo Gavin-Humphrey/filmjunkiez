@@ -350,7 +350,7 @@ def contact(request):
                 f'Contact Form Submission - {subject}',
                 f'Name: {name}\nUsername: {username}\nEmail: {email}\nSubject: {subject}\nMessage: {message}',
                 'noreply@film.junkiez.com', 
-                [config('WEBSITE_EMAIL')],  
+                [config('WEBSITE_EMAIL', default='backup@example.com')],  
                 fail_silently=False,
             )
             return render(request, 'base/thank_you.html', {'name': name})
