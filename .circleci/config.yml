@@ -52,11 +52,7 @@ jobs:
       - run:
           name: Production Database Migrations
           command: docker-compose run --env-file env django python manage.py migrate
-      - run:
-          name: Pytest
-          command: |
-            steps:
-      - checkout
+  
       - run:
           name: Run Tests
           command: |
