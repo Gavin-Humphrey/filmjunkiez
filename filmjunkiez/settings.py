@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from ast import Import
-from email.policy import default
+#from ast import Import
+#from email.policy import default
 from pathlib import Path
 import os
 from decouple import config, Csv
