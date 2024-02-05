@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.urls import reverse
 from base.models import User, Category, Film, Review 
 from base.forms import FilmForm
@@ -49,8 +49,7 @@ class FilmViewTest(TestCase):
     def test_film_view(self):
         # Log in the user
         #self.client.login(email='hostuser@example.com', password='testpassword')
-        client = Client()
-        client.force_login(self.user)
+        self.client.force_login(self.user)
 
         response = self.client.get(reverse('film', args=[self.film.id]))
 
@@ -73,8 +72,7 @@ class FilmViewTest(TestCase):
 
     def test_film_details(self):
         #self.client.login(username='hostuser@example.com', password='testpassword')
-        client = Client()
-        client.force_login(self.user)
+        self.client.force_login(self.user)
 
         response = self.client.get(reverse('film-details', args=[self.film.id]))
         #markup = response.content.decode("utf-8")
@@ -97,8 +95,7 @@ class FilmViewTest(TestCase):
     def test_updates_film(self):
         # Log in as the film host
         #self.client.login(email='hostuser@example.com', password='testpassword')
-        client = Client()
-        client.force_login(self.user)
+        self.client.force_login(self.user)
 
         # Get the initial film instance
         initial_film = Film.objects.get(id=self.film.id)
