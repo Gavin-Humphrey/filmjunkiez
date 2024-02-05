@@ -19,19 +19,18 @@
         </div>
       </div>
       <div class="layout__body">
-         <!--<form class="form" action="" method="POST" enctype="multipart/form-data">-->
-          <form class="form" action="{% if film.id %}{% url 'update-film' pk=film.id %}{% else %}{% url 'create-film' %}{% endif %}" method="POST" enctype="multipart/form-data"> 
+        <form class="form" action="{% if film.id %}{% url 'update-film' pk=film.id %}{% else %}{% url 'create-film' %}{% endif %}" method="POST" enctype="multipart/form-data"> 
           {% csrf_token %}
           <div class="form__group">
             <label for="{{ form.category.id_for_label }}">Category</label>
             <select name="category" id="{{ form.category.id_for_label }}">
-                {% for category in categories %}
-                    <option value="{{ category.title }}" {% if category.title == form.category.value|lower %}selected{% endif %}>
-                        {{ category.title }}
-                    </option>
-                {% endfor %}
+              {% for category in categories %}
+                  <option value="{{ category.title }}" {% if category.title == form.category.value|lower %}selected{% endif %}>
+                      {{ category.title }}
+                  </option>
+              {% endfor %}
             </select>
-        </div>
+          </div>
 
          {% for field in form %}
            {% if field.name != 'category' %}  
@@ -47,11 +46,10 @@
            <button class="btn btn--main" type="submit">Submit</button>
          </div>
        </form>
-       
-     
+           
       </div>
     </div>
-    </div>
+    <!--</div>-->
   </div>
 </main>
 

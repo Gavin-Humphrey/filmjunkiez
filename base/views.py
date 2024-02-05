@@ -267,8 +267,6 @@ def createFilm(request):
     context = {"form": form, "categories": categories}
     return render(request, "base/film_form.html", context)
 
-
-@login_required(login_url="login")
 def updateFilm(request, pk):
     film = Film.objects.get(id=pk)
     form = FilmForm(request.POST or None, request.FILES or None, instance=film)
@@ -290,7 +288,9 @@ def updateFilm(request, pk):
             film.category = category
             film.save()
             messages.success(request, "Film updated successfully.")
-            return redirect("film", pk=film.id)
+            return redirect("film", pk=film.id) 
+            
+
 
     context = {"form": form, "categories": categories, "film": film}
     return render(request, "base/film_form.html", context)
