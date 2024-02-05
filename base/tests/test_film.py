@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.urls import reverse
 from base.models import User, Category, Film, Review 
 from base.forms import FilmForm
@@ -48,7 +48,9 @@ class FilmViewTest(TestCase):
 
     def test_film_view(self):
         # Log in the user
-        self.client.login(email='hostuser@example.com', password='testpassword')
+        #self.client.login(email='hostuser@example.com', password='testpassword')
+        client = Client()
+        client.force_login(self.user)
 
         response = self.client.get(reverse('film', args=[self.film.id]))
 
@@ -70,7 +72,9 @@ class FilmViewTest(TestCase):
 
 
     def test_film_details(self):
-        self.client.login(username='hostuser@example.com', password='testpassword')
+        #self.client.login(username='hostuser@example.com', password='testpassword')
+        client = Client()
+        client.force_login(self.user)
 
         response = self.client.get(reverse('film-details', args=[self.film.id]))
         #markup = response.content.decode("utf-8")
@@ -92,7 +96,9 @@ class FilmViewTest(TestCase):
 
     def test_updates_film(self):
         # Log in as the film host
-        self.client.login(email='hostuser@example.com', password='testpassword')
+        #self.client.login(email='hostuser@example.com', password='testpassword')
+        client = Client()
+        client.force_login(self.user)
 
         # Get the initial film instance
         initial_film = Film.objects.get(id=self.film.id)
@@ -145,32 +151,6 @@ class FilmViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertHTMLNotEqual(response.content.decode('utf-8'), f'value="{initial_title}"')
         self.assertIn(response.status_code, [200, 302])
-
-
-    """def test_film_delete(self):
-        self.client.login(username='testuser', password='testpassword')
-        response = self.client.post(reverse('delete-film', args=[self.film.id]), follow=True)
-        markup = response.content.decode('utf-8')
-
-
-        expected_film_title = 'Test Film'
-        assert expected_film_title in markup, f"<p>Are you sure you want to delete: {expected_film_title}?</p>" """
-        #self.assertIn(f'Are you sure you want to delete: {self.film}?', response.content.decode('utf-8'))
-
-        #self.assertContains(response, '<input class="btn btn--main" type="submit" value="Confirm" />', html=True)
-
-
-
-
-    """def test_film_delete(self):
-        self.client.login(username='testuser', password='testpassword')
-        response = self.client.post(reverse('delete-film', args=[self.film.id]), follow=True)
-
-        # Check if the film title is present in the response content
-        self.assertContains(response, 'Are you sure you want to delete:?')
-        post_response = self.client.post(reverse('delete-film', args=[self.film.id]), follow=True)
-        self.assertRedirects(post_response, reverse('delete-film'), status_code=302)"""
-
 
 
     def test_film_delete(self):
