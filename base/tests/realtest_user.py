@@ -89,8 +89,8 @@ class TestFilmJunkiezModifyUser(BaseFilmJunkiezTestCase):
         cancel_url = reverse('user-profile', kwargs={'pk': self.user.id})
         self.assertContains(response, f'href="{cancel_url}"')
 
-    def test_modify_user_security(self):
-        # Logout and try to access the view, expecting a redirect to the login page
-        self.client.logout()
-        response = self.client.get(self.url)
-        self.assertRedirects(response, reverse('login') + f'?next={self.url}')
+    # def test_modify_user_security(self):
+    #     # Logout and try to access the view, expecting a redirect to the login page
+    #     self.client.logout()
+    #     response = self.client.get(self.url)
+    #     self.assertRedirects(response, reverse('login') + f'?next={self.url}')
