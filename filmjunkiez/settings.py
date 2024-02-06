@@ -46,7 +46,7 @@ CSRF_COOKIE_SECURE = True
 #allowed_hosts_str = config('ALLOWED_HOST', default='default_host')
 
 #ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 # Application definition
 INSTALLED_APPS = [
