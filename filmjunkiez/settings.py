@@ -48,11 +48,11 @@ CSRF_COOKIE_SECURE = True
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '.herokuapp.com']
 #ALLOWED_HOSTS = ['.herokuapp.com']
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost', cast=lambda v: [s.strip() for s in v.split(',')])
 DEVELOPMENT_HOSTS = config('DEVELOPMENT_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
 if DEBUG:
-    ALLOWED_HOSTS.extend(DEVELOPMENT_HOSTS + ['localhost', '127.0.0.1'])  
+    ALLOWED_HOSTS.extend(DEVELOPMENT_HOSTS + ['127.0.0.1'])  
 else:
     ALLOWED_HOSTS.append('.herokuapp.com')
 
