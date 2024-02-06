@@ -3,6 +3,8 @@ from django.urls import reverse
 from base.models import User
 from base.models import Film, Category, Review
 
+
+
 class HomeViewTest(TestCase):
     def setUp(self):
         # Create test data (categories, films, etc.)

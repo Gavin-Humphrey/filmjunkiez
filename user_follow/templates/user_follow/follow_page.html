@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<main class="follow-page__layout"><!---create-film layout----->
-  <div class="follow-page__container"><!----container---->
-    <div class="follow-page__layout__box"><!----layout__box----->
-      <div class="follow-page__layout__boxHeader"><!----layout__boxHeader---->
-        <div class="follow-page__layout__boxTitle"><!---------->
+<main class="follow-page__layout">
+  <div class="follow-page__container">
+    <div class="follow-page__layout__box">
+      <div class="follow-page__layout__boxHeader">
+        <div class="follow-page__layout__boxTitle">
           <a href="{% url 'user-profile' user.id%}">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>arrow-left</title>
@@ -21,11 +21,8 @@
       </div>
       <!--++++++++++++++++++++++-->
 
-      
-    
-
-     <div class="follow-page__layout__body"><!--categories-page layout__body-->
-        <form action="" method="POST" class="follow__search"><!--header__search-->
+     <div class="follow-page__layout__body">
+        <form action="" method="POST" class="follow__search">
           {% csrf_token %}
           <label>
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -35,7 +32,7 @@
               ></path>
             </svg>
             <input name="followed_user" placeholder="Enter username" />
-            <div class="follow-bt-submit"><!--input-group-append-->
+            <div class="follow-bt-submit">
               <button class="btn follow-btn--main" id="button-addon2" type="submit">Follow</button>
             </div>
           </label>
