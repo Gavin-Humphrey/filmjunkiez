@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 #from ast import Import
 #from email.policy import default
+from email.policy import default
 from pathlib import Path
 import os
 from decouple import config, Csv
@@ -41,20 +42,8 @@ DEBUG = False
 
 CSRF_COOKIE_SECURE = True
 
-#ALLOWED_HOSTS = ['film-junkiez-be8d3d00a54d.herokuapp.com']
-#allowed_hosts_str = config('ALLOWED_HOST', default='default_host')
-
-#ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '.herokuapp.com']
 #ALLOWED_HOSTS = ['.herokuapp.com']
-
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')], default='default_value')
-DEVELOPMENT_HOSTS = config('DEVELOPMENT_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
-
-if DEBUG:
-    ALLOWED_HOSTS.extend(DEVELOPMENT_HOSTS + ['localhost', '127.0.0.1'])  
-else:
-    ALLOWED_HOSTS.append('.herokuapp.com')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
 
 # Application definition
