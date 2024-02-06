@@ -37,16 +37,16 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = bool(int(os.environ.get('DEBUG', 0)))
-DEBUG = True
+DEBUG = False
 
 CSRF_COOKIE_SECURE = True
 
 #ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST')]
 #ALLOWED_HOSTS = ['film-junkiez-be8d3d00a54d.herokuapp.com']
-allowed_hosts_str = config('ALLOWED_HOST', default='default_host')
+#allowed_hosts_str = config('ALLOWED_HOST', default='default_host')
 
-ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
-
+#ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
