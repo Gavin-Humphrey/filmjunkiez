@@ -37,11 +37,12 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = bool(int(os.environ.get('DEBUG', 0)))
-DEBUG = True
+DEBUG = False
 
 CSRF_COOKIE_SECURE = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com']
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 # Application definition
 INSTALLED_APPS = [
