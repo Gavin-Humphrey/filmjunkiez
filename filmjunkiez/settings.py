@@ -166,7 +166,7 @@ STATIC_URL = "/static/"
 if 'CI' in os.environ:
     # Use Django's built-in static file serving during development
     #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 else:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage" """
