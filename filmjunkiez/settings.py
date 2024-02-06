@@ -45,7 +45,7 @@ CSRF_COOKIE_SECURE = True
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', f'{config("DEPLOYED_APP_NAME", default="default_app_name")}.herokuapp.com']
 #ALLOWED_HOSTS = ['*']
 #ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST')]
-ALLOWED_HOSTS = ['film-junkiez-be8d3d00a54d.herokuapp.com' ]
+ALLOWED_HOSTS = ['film-junkiez.herokuapp.com']
 
 # Application definition
 INSTALLED_APPS = [
