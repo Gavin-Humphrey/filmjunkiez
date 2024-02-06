@@ -163,13 +163,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-if 'CI' in os.environ:
+"""if 'CI' in os.environ:
     # Use Django's built-in static file serving during development
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 else:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage" 
-
+    #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage" """
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'##
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 
 MEDIA_URL = "/media/"
