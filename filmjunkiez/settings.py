@@ -38,7 +38,7 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = bool(int(os.environ.get('DEBUG', 0)))
-DEBUG = False
+DEBUG = True
 
 CSRF_COOKIE_SECURE = True
 
