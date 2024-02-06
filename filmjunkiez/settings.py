@@ -52,7 +52,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.spl
 DEVELOPMENT_HOSTS = config('DEVELOPMENT_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
 if DEBUG:
-    ALLOWED_HOSTS.extend(DEVELOPMENT_HOSTS + ['127.0.0.1'])  
+    ALLOWED_HOSTS.extend(DEVELOPMENT_HOSTS + ['localhost', '127.0.0.1'])  
 else:
     ALLOWED_HOSTS.append('.herokuapp.com')
 
