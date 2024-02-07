@@ -42,7 +42,6 @@ DEBUG = False
 
 CSRF_COOKIE_SECURE = True
 
-#ALLOWED_HOSTS = ['.herokuapp.com']
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=lambda v: [s.strip() for s in v.split(',')])
 
 
