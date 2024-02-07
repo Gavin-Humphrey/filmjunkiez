@@ -1,3 +1,6 @@
+![Logo](static/img/film_junkiez_logo.png)
+
+
 <details>
 <summary><strong>Table of Contents</strong></summary>
 
