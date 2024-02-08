@@ -4,8 +4,8 @@ jobs:
   build-and-test-django-app:
     docker:
       - image: circleci/python:3.9.7-buster
-    environment:
-      CI: true
+    #environment:
+      #CI: true
     steps:
       - checkout
       - run: sleep 60

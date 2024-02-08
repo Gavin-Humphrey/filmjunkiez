@@ -99,7 +99,7 @@ WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 DOCKERIZED = config("DOCKERIZED", default=False, cast=bool)
 default_db_url = config("DEFAULT_DATABASE_URL", default="")
 
-if DOCKERIZED:
+"""if DOCKERIZED:
     # Locally configured PostgreSQL for Docker development
     DATABASES = {
         "default": dj_database_url.config(
@@ -124,7 +124,15 @@ else:
             default=config("HEROKU_POSTGRESQL_AQUA_URL", default=default_db_url)
         )
     }
-    DATABASES["default"]["CONN_MAX_AGE"] = 600
+    DATABASES["default"]["CONN_MAX_AGE"] = 600 """
+
+DATABASES = {
+        "default": dj_database_url.config(
+            default=config("HEROKU_POSTGRESQL_AQUA_URL", default=default_db_url)
+        )
+    }
+DATABASES["default"]["CONN_MAX_AGE"] = 600
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -158,13 +166,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_URL = "/static/"
-if "CI" in os.environ:
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+"""if "CI" in os.environ:
     # Use Django's built-in static file serving during development
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    #STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 else:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage" 
+    #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"  """
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 
 MEDIA_URL = "/media/"
