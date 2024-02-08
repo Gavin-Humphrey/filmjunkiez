@@ -124,7 +124,7 @@ else:
             default=config("HEROKU_POSTGRESQL_AQUA_URL", default=default_db_url)
         )
     }
-    DATABASES["default"]["CONN_MAX_AGE"] = 600 
+    DATABASES["default"]["CONN_MAX_AGE"] = 600
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -162,8 +162,8 @@ if "CI" in os.environ:
     # Use Django's built-in static file serving during development
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 else:
-    #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"  
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 
 MEDIA_URL = "/media/"

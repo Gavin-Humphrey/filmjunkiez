@@ -43,12 +43,6 @@ jobs:
             pwd
             ls -la
             echo $PYTHONPATH
-      #- run:
-          #name: Database Initialization
-          #command: docker run -e DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DEV_DB_PORT}/${DATABASE_NAME} --name postgres -p ${PORT}:${PORT} -d postgres:latest
-      # - run:
-      #     name: Wait for PostgreSQL
-      #     command: dockerize -wait tcp://localhost:${PORT} -timeout 1m
       - run:
           name: Production Database Migrations
           command: docker-compose run --env-file env django python manage.py migrate
@@ -58,28 +52,6 @@ jobs:
           command: |
             export APP_EMAIL=$WEBSITE_EMAIL
             pytest
-      - run:
-          name: Collect Static Files
-          command: docker-compose run --env-file env django python manage.py collectstatic --noinput
-
-      - setup_remote_docker
-
-      - run:
-          name: Check DOCKER_LOGIN
-          command: echo ${DOCKER_LOGIN}
-          no_output_timeout: 15s
-
-      - run:
-          name: Check DOCKER_USERNAME
-          command: echo ${DOCKER_USERNAME}
-          no_output_timeout: 15s
-
-      - run:
-          name: Containerize
-          command: |
-            docker build -t filmjunkiez .
-            echo "export DOCKER_IMAGE_TAG=${DOCKER_USERNAME}/filmjunkiez" >> $BASH_ENV
-            source $BASH_ENV
 
   deploy-to-heroku:
     machine: true
@@ -96,6 +68,11 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${DEPLOYED_APP_NAME} web
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${DEPLOYED_APP_NAME} web
+            
+      - run:
+          name: Collect Static Files
+          command: |
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku run -a ${DEPLOYED_APP_NAME} python manage.py collectstatic --noinput
 
 workflows:
   version: 2
