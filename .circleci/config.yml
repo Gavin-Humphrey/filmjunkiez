@@ -74,6 +74,10 @@ jobs:
           command: |
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku run -a ${DEPLOYED_APP_NAME} python manage.py collectstatic --noinput
 
+      - run:
+          name: display app name
+          command: echo $DEPLOYED_APP_NAME
+
 workflows:
   version: 2
   build:
