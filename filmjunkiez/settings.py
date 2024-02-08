@@ -158,13 +158,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_URL = "/static/"
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-"""if "CI" in os.environ:
+if "CI" in os.environ:
     # Use Django's built-in static file serving during development
-    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    #STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 else:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage" """
+    #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage" 
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 
 MEDIA_URL = "/media/"
