@@ -1,7 +1,6 @@
 from .models import UserFollows
 
 
-
 def get_follows(user):
 
     follows = UserFollows.objects.filter(user=user)

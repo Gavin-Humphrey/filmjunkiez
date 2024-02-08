@@ -1,27 +1,25 @@
-from xml.etree.ElementInclude import include
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import  Film, Review, User
-
-
+from .models import Film, Review, User
 
 
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['name', 'username', 'email', 'password1', 'password2']
+        fields = ["name", "username", "email", "password1", "password2"]
 
 
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['avatar', 'name', 'username', 'email', 'bio']
+        fields = ["avatar", "name", "username", "email", "bio"]
 
 
 class FilmForm(ModelForm):
     image = forms.ImageField(label="Image", required=False)
+
     class Meta:
         model = Film
         fields = "__all__"
@@ -39,11 +37,15 @@ class ReviewForm(ModelForm):
             (3, "3 stars"),
             (4, "4 stars"),
             (5, "5 stars"),
-        )
+        ),
     )
+
     class Meta:
         model = Review
-        fields = ("rating", "body",)
+        fields = (
+            "rating",
+            "body",
+        )
 
 
 class ContactForm(forms.Form):
@@ -52,4 +54,3 @@ class ContactForm(forms.Form):
     email = forms.EmailField()
     subject = forms.CharField(max_length=100)
     message = forms.CharField(widget=forms.Textarea)
-    

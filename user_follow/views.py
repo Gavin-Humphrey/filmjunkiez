@@ -10,8 +10,6 @@ from django.views.generic import DeleteView
 from base.models import User
 
 
-
-
 @login_required
 def follows_page(request):
 
@@ -54,7 +52,7 @@ def follows_page(request):
         "followed_by": followed_by,
         "title": "follows",
     }
-    return render(request, 'user_follow/follow_page.html', context)
+    return render(request, "user_follow/follow_page.html", context)
 
 
 class UnfollowUser(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

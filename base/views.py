@@ -2,13 +2,13 @@ import logging
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError 
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
 from .models import Category, Film, Review, User
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from .forms import RegisterForm, FilmForm, UserForm, ContactForm 
+from .forms import RegisterForm, FilmForm, UserForm, ContactForm
 from user_follow.models import UserFollows
-from django.contrib.auth.forms import AuthenticationForm 
+from django.contrib.auth.forms import AuthenticationForm
 from .decorators import is_superuser, staff_required, user_not_authenticated
 from django.shortcuts import get_object_or_404
 from django.db.models import Avg
@@ -28,12 +28,10 @@ from django.core.mail import EmailMessage
 logger = logging.getLogger(__name__)
 
 
-
-
 def my_view(request):
-    origin = request.META.get('HTTP_ORIGIN')
+    origin = request.META.get("HTTP_ORIGIN")
     response = HttpResponse("Hello, World!")
-    response['Access-Control-Allow-Origin'] = origin  
+    response["Access-Control-Allow-Origin"] = origin
     return response
 
 
@@ -47,27 +45,41 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        messages.success(request, "Your email has been confirmed! Now you can log in to your account." )
-        return redirect('login')
+        messages.success(
+            request,
+            "Your email has been confirmed! Now you can log in to your account.",
+        )
+        return redirect("login")
     else:
         messages.error(request, "Activation link is invalid!")
-    return redirect('home')
+    return redirect("home")
+
 
 def activateEmail(request, user, to_email):
     mail_subject = "Activate your user account."
-    message = render_to_string("base/email_template.html", {
-        'user': user.username,
-        'domain': get_current_site(request).domain,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        'token': account_activation_token.make_token(user),
-        "protocol": 'https' if request.is_secure() else 'http'
-    })
+    message = render_to_string(
+        "base/email_template.html",
+        {
+            "user": user.username,
+            "domain": get_current_site(request).domain,
+            "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+            "token": account_activation_token.make_token(user),
+            "protocol": "https" if request.is_secure() else "http",
+        },
+    )
     email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
-        messages.success(request, f'Hi {user}, an activation link has been sent to {to_email}, please click on it to confirm and complete your registration. \nYou may need to check your spam folder.')
+        messages.success(
+            request,
+            f"Hi {user}, an activation link has been sent to {to_email}, please click on it to confirm and complete your registration. \nYou may need to check your spam folder.",
+        )
     else:
-        messages.error(request, f"There's a problem sending email to {to_email}, check if you typed it correctly.")
-    
+        messages.error(
+            request,
+            f"There's a problem sending email to {to_email}, check if you typed it correctly.",
+        )
+
+
 @user_not_authenticated
 def registerUser(request):
     if request.method == "POST":
@@ -76,8 +88,8 @@ def registerUser(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            activateEmail(request, user, form.cleaned_data.get('email'))
-            return redirect('login') 
+            activateEmail(request, user, form.cleaned_data.get("email"))
+            return redirect("login")
 
         else:
             for error in list(form.errors.values()):
@@ -87,14 +99,13 @@ def registerUser(request):
         form = RegisterForm()
 
     return render(
-        request=request,
-        template_name='base/login_signup.html',
-        context={"form": form}
+        request=request, template_name="base/login_signup.html", context={"form": form}
     )
+
 
 def loginPage(request):
     page = "login"
-    
+
     if request.user.is_authenticated:
         return redirect("home")
 
@@ -122,50 +133,61 @@ def logout_view(request):
     logout(request)
     return redirect("home")
 
+
 @login_required(login_url="login")
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
-    #films = Film.objects.filter(host=user) # Fetches all films associated with the user, by filtering the Film objects where the host field matches the specific user object
-    films = user.film_set.all()# Fetches all films associated with the user using the reverse relation
-    #film_posts = Review.objects.filter(user=user)
+    # films = Film.objects.filter(host=user) # Fetches all films associated with the user, by filtering the Film objects where the host field matches the specific user object
+    films = (
+        user.film_set.all()
+    )  # Fetches all films associated with the user using the reverse relation
+    # film_posts = Review.objects.filter(user=user)
     film_posts = user.review_set.all()
-    categories = Category.objects.all()  
-    context = {"user": user, "films": films, "film_posts": film_posts, "categories": categories}
+    categories = Category.objects.all()
+    context = {
+        "user": user,
+        "films": films,
+        "film_posts": film_posts,
+        "categories": categories,
+    }
     return render(request, "base/profile.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def modifyUser(request):
     user = request.user
     form = UserForm(instance=user)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = UserForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
-            return redirect('user-profile', pk=user.id)
+            return redirect("user-profile", pk=user.id)
 
-    return render(request, 'base/modify_user.html', {'form': form})
+    return render(request, "base/modify_user.html", {"form": form})
 
 
 def home(request):
-    q = request.GET.get("q") if request.GET.get("q") != None else "" # The line below makes this search query a bit more concise, by using the second argument, "", to specify the default value to use if "q" is not present in the URL. 
-    #q = request.GET.get("q", "")
+    q = (
+        request.GET.get("q") if request.GET.get("q") != None else ""
+    )  # The line below makes this search query a bit more concise, by using the second argument, "", to specify the default value to use if "q" is not present in the URL.
+    # q = request.GET.get("q", "")
     films = Film.objects.filter(
-        Q(category__title__icontains=q) | 
-        Q(title__icontains=q) |
-        Q(description__icontains=q)
-        ) # We then provide the film queryset with q, which is the search. Remember queryset is the way of retirving data from the database
-    categories = Category.objects.all()#[:3]
+        Q(category__title__icontains=q)
+        | Q(title__icontains=q)
+        | Q(description__icontains=q)
+    )  # We then provide the film queryset with q, which is the search. Remember queryset is the way of retirving data from the database
+    categories = Category.objects.all()  # [:3]
     film_count = films.count()
     film_reviews = Review.objects.filter(Q(film__category__title__icontains=q))
     context = {
         "films": films,
         "categories": categories,
         "film_count": film_count,
-        "film_reviews": film_reviews
+        "film_reviews": film_reviews,
     }
     return render(request, "base/home.html", context)
+
 
 @login_required(login_url="login")
 def film(request, pk):
@@ -173,11 +195,18 @@ def film(request, pk):
     reviews = film.review_set.all()
     participants = film.participants.all()
     # Check if the user is following the host
-    following_host = request.user.is_authenticated and request.user != film.host \
-                     and UserFollows.objects.filter(followed_user=film.host, user=request.user).exists()   
+    following_host = (
+        request.user.is_authenticated
+        and request.user != film.host
+        and UserFollows.objects.filter(
+            followed_user=film.host, user=request.user
+        ).exists()
+    )
     # Check if the user has already rated the film
-    #user_rated = Review.objects.filter(user=request.user, film=film).exists()
-    user_rated = Review.objects.filter(user=request.user if request.user.is_authenticated else None, film=film).exists()
+    # user_rated = Review.objects.filter(user=request.user, film=film).exists()
+    user_rated = Review.objects.filter(
+        user=request.user if request.user.is_authenticated else None, film=film
+    ).exists()
 
     if request.method == "POST":
         if following_host:
@@ -187,16 +216,13 @@ def film(request, pk):
             if rating and body:
                 if not user_rated:
                     review = Review.objects.create(
-                        user=request.user,
-                        film=film,
-                        rating=rating,
-                        body=body
+                        user=request.user, film=film, rating=rating, body=body
                     )
                     film.participants.add(request.user)
                     # Recalculate average rating and update the film model
                     film.calculate_average_rating()
                     film.save()
-                    #messages.success(request, "Review successfully added!")
+                    # messages.success(request, "Review successfully added!")
                     return redirect("film", pk=film.id)
                 else:
                     messages.error(request, "You have already rated this film.")
@@ -206,28 +232,32 @@ def film(request, pk):
                     user=request.user,
                     film=film,
                     rating=None,  # or any default value for rating
-                    body=body
+                    body=body,
                 )
                 messages.success(request, "Review successfully added!")
                 return redirect("film", pk=film.id)
             else:
                 messages.error(request, "Both rating and review are required.")
         else:
-            messages.error(request, "You need to follow the film's host to submit a review.")
-            
+            messages.error(
+                request, "You need to follow the film's host to submit a review."
+            )
+
     # Recalculate average rating
-    average_rating = Review.objects.filter(film=film).aggregate(Avg('rating'))['rating__avg']
+    average_rating = Review.objects.filter(film=film).aggregate(Avg("rating"))[
+        "rating__avg"
+    ]
 
     # If the user has not rated, show a prompt message
-    #if not user_rated:
-        #messages.info(request, "You haven't rated this film yet. Please rate it below.")
+    # if not user_rated:
+    # messages.info(request, "You haven't rated this film yet. Please rate it below.")
     context = {
-        "film": film, 
-        "film_reviews": reviews, 
-        "participants": participants, 
-        "average_rating": average_rating, 
-        "video_url": film.video.url if film.video else None 
-        }
+        "film": film,
+        "film_reviews": reviews,
+        "participants": participants,
+        "average_rating": average_rating,
+        "video_url": film.video.url if film.video else None,
+    }
     return render(request, "base/film.html", context)
 
 
@@ -259,7 +289,7 @@ def createFilm(request):
             release_date=request.POST.get("release_date"),
             duration=request.POST.get("duration"),
             image=image,
-            video=video
+            video=video,
         )
         film.save()
 
@@ -267,13 +297,14 @@ def createFilm(request):
     context = {"form": form, "categories": categories}
     return render(request, "base/film_form.html", context)
 
+
 def updateFilm(request, pk):
     film = Film.objects.get(id=pk)
     form = FilmForm(request.POST or None, request.FILES or None, instance=film)
     categories = Category.objects.all()
 
     if request.user != film.host:
-        #return HttpResponse("You do not have the permission to do this")
+        # return HttpResponse("You do not have the permission to do this")
         messages.error(request, "You do not have the permission to do this")
         return redirect("film", pk=film.id)
 
@@ -288,12 +319,11 @@ def updateFilm(request, pk):
             film.category = category
             film.save()
             messages.success(request, "Film updated successfully.")
-            return redirect("film", pk=film.id) 
-            
-
+            return redirect("film", pk=film.id)
 
     context = {"form": form, "categories": categories, "film": film}
     return render(request, "base/film_form.html", context)
+
 
 @login_required(login_url="login")
 def deleteFilm(request, pk):
@@ -315,7 +345,7 @@ def deleteReview(request, pk):
         return HttpResponse("You do not have the permission to do this")
     if request.method == "POST":
         review.delete()
-        return redirect("film",  film.id)
+        return redirect("film", film.id)
     context = {"obj": review}
     return render(request, "base/delete.html", context)
 
@@ -331,30 +361,31 @@ def categoriesPage(request):
 @login_required(login_url="login")
 def activityPage(request):
     film_reviews = Review.objects.all()
-    context = {"film_reviews": film_reviews} 
+    context = {"film_reviews": film_reviews}
     return render(request, "base/activity.html", context)
+
 
 # Contact to become film host
 def contact(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
             # Process the form data and send email
-            name = form.cleaned_data['name']
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            subject = form.cleaned_data['subject']
-            message = form.cleaned_data['message']
+            name = form.cleaned_data["name"]
+            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
+            subject = form.cleaned_data["subject"]
+            message = form.cleaned_data["message"]
 
             send_mail(
-                f'Contact Form Submission - {subject}',
-                f'Name: {name}\nUsername: {username}\nEmail: {email}\nSubject: {subject}\nMessage: {message}',
-                'noreply@film.junkiez.com', 
-                [config('WEBSITE_EMAIL', default='backup@example.com')],  
+                f"Contact Form Submission - {subject}",
+                f"Name: {name}\nUsername: {username}\nEmail: {email}\nSubject: {subject}\nMessage: {message}",
+                "noreply@film.junkiez.com",
+                [config("WEBSITE_EMAIL", default="backup@example.com")],
                 fail_silently=False,
             )
-            return render(request, 'base/thank_you.html', {'name': name})
+            return render(request, "base/thank_you.html", {"name": name})
     else:
         form = ContactForm()
 
-    return render(request, 'base/contact.html', {'form': form})
+    return render(request, "base/contact.html", {"form": form})

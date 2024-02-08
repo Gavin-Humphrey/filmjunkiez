@@ -124,8 +124,12 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"db_table": "auth_user",},
-            managers=[("objects", django.contrib.auth.models.UserManager()),],
+            options={
+                "db_table": "auth_user",
+            },
+            managers=[
+                ("objects", django.contrib.auth.models.UserManager()),
+            ],
         ),
         migrations.CreateModel(
             name="Category",
@@ -201,7 +205,9 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"ordering": ["-updated", "-created"],},
+            options={
+                "ordering": ["-updated", "-created"],
+            },
         ),
         migrations.CreateModel(
             name="Review",
@@ -243,6 +249,8 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"ordering": ["-updated", "-created"],},
+            options={
+                "ordering": ["-updated", "-created"],
+            },
         ),
     ]

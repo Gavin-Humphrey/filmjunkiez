@@ -19,6 +19,6 @@ def trigger_error(request):
     except Exception as e:
         # Capture the exception and send it to Sentry
         capture_exception(e)
-        return HttpResponse("An error occurred. Check your Sentry dashboard for details.")
-
-
+        return HttpResponse(
+            "An error occurred. Check your Sentry dashboard for details."
+        )

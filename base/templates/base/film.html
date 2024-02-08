@@ -1,5 +1,7 @@
 {% extends 'main.html' %}
 
+{% load static %}
+
 {% block content %}
 <main class="profile-page layout layout--2">
   <div class="container">
@@ -193,10 +195,10 @@
         {% for user in participants %}
         <a href="{%  url 'user-profile' user.id %}" class="participant">
           <div class="avatar avatar--medium">
-            
+            <img src="{{user.avatar.url}}" />
           </div>
           <p>
-            {{user.name}}
+            <!--{{user.name}}--> <!--commented the name of the user-->
             <span>@{{user.username}}</span>
           </p>
         </a>
@@ -207,7 +209,7 @@
   </div>
 
 </main>
-<script src="js/script.js"></script>
+<script src="{% static 'js/script.js' %}"></script><!--js/script.js-->
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
