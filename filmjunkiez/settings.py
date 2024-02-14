@@ -184,7 +184,8 @@ if "CI" in os.environ or DEBUG:
     # Use local filesystem storage for testing
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 else:
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+    #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
     # Use Google Cloud Storage for media files in production
     DEFAULT_FILE_STORAGE = "filmjunkiez.gcloud.GoogleCloudMediaFileStorage"
