@@ -164,14 +164,6 @@ STATIC_URL = "/static/"
 
 # Media files (user-uploaded files)
 MEDIA_URL = "/media/"
-
-# Conditionally set STATIC_ROOT based on the environment
-"""if "CI" in os.environ or DEBUG:
-    # During development or CI, a local directory is used for static files
-    STATIC_ROOT = str(BASE_DIR / "staticfiles")
-else:
-    # In production, STATIC_ROOT will be defined by the web server (e.g., whitenoise or Nginx)
-    #STATIC_ROOT = "/var/www/static/" """
     
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 # Base directory of media files (user-uploaded files)
@@ -184,8 +176,7 @@ if "CI" in os.environ or DEBUG:
     # Use local filesystem storage for testing
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 else:
-    #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
     # Use Google Cloud Storage for media files in production
     DEFAULT_FILE_STORAGE = "filmjunkiez.gcloud.GoogleCloudMediaFileStorage"
