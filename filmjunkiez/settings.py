@@ -184,6 +184,10 @@ else:
     # Define the name of your Google Cloud Storage bucket
     GS_BUCKET_NAME = config("GS_BUCKET_NAME", default="DEFAULT_GS_BUCKET_NAME")
 
+    GOOGLE_APPLICATION_CREDENTIALS = config("GOOGLE_APPLICATION_CREDENTIALS", default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS")
+    
+    GS_PROJECT_ID = config("GS_PROJECT_ID", default="DEFAULT_GS_PROJECT_ID")
+
     # Media URL for production
     MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
 
