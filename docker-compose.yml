@@ -47,7 +47,6 @@ services:
       - PORT=5432
       - HEROKU_POSTGRESQL_AQUA_URLL=$HEROKU_POSTGRESQL_AQUA_URL
       - DOCKERIZED=0
-    
 networks:
   filmjunkiez-network:
     driver: bridge

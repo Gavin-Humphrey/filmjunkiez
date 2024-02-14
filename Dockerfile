@@ -29,7 +29,7 @@ RUN pip install --upgrade pip --no-cache-dir \
     && pip install -r requirements.txt \
     && pip install psycopg2-binary==2.9.9 
 
-ENV PATH="/py/bin:$PATH"  
+ENV PATH="/py/bin:$PATH" 
 
 # Copy the application code
 COPY . .
@@ -43,14 +43,9 @@ RUN python manage.py collectstatic --noinput
 # Grant write access to the media and staticfiles directories
 RUN chmod -R 777 /app/media /app/staticfiles
 
-
 # Expose the required ports
 EXPOSE ${PORT}
 
 # Use CMD to start the Gunicorn server
 CMD gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
-
-####
-#  CMD dockerize -wait tcp://db:$DEV_DB_PORT -timeout 300s \
-#      gunicorn filmjunkiez.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
-
+ 

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "storages",
     "base.apps.BaseConfig",
     "user_follow.apps.UserFollowConfig",
     "rest_framework",
@@ -157,18 +158,44 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-STATIC_URL = "/static/"
-if "CI" in os.environ:
-    # Use Django's built-in static file serving during development
-    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
-else:
-    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-STATIC_ROOT = str(BASE_DIR / "staticfiles")
 
+# Static files (CSS, JavaScript, images)
+STATIC_URL = "/static/"
+
+# Media files (user-uploaded files)
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = str(BASE_DIR / "media")
+# Conditionally set STATIC_ROOT based on the environment
+if "CI" in os.environ or DEBUG:
+    # During development or CI, a local directory is used for static files
+    STATIC_ROOT = str(BASE_DIR / "staticfiles")
+else:
+    # In production, STATIC_ROOT will be defined by the web server (e.g., whitenoise or Nginx)
+    STATIC_ROOT = "/var/www/static/"
+
+# Base directory of media files (user-uploaded files)
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+if "CI" in os.environ or DEBUG:
+    # Use Django's built-in static file serving during development
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
+    # Use local filesystem storage for testing
+    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+else:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
+    # Use Google Cloud Storage for media files in production
+    DEFAULT_FILE_STORAGE = "filmjunkiez.gcloud.GoogleCloudMediaFileStorage"
+
+    # Define the name of your Google Cloud Storage bucket
+    GS_BUCKET_NAME = config("GS_BUCKET_NAME", default="DEFAULT_GS_BUCKET_NAME")
+
+    # Media URL for production
+    MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
+
+    # Define the directory structure for uploaded files
+    UPLOAD_ROOT = "media/uploads/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
