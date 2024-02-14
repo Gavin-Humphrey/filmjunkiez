@@ -166,13 +166,14 @@ STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
 # Conditionally set STATIC_ROOT based on the environment
-if "CI" in os.environ or DEBUG:
+"""if "CI" in os.environ or DEBUG:
     # During development or CI, a local directory is used for static files
     STATIC_ROOT = str(BASE_DIR / "staticfiles")
 else:
     # In production, STATIC_ROOT will be defined by the web server (e.g., whitenoise or Nginx)
-    STATIC_ROOT = "/var/www/static/"
-
+    #STATIC_ROOT = "/var/www/static/" """
+    
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
 # Base directory of media files (user-uploaded files)
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
