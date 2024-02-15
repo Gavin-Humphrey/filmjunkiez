@@ -34,6 +34,8 @@ ENV PATH="/py/bin:$PATH"
 # Copy the application code
 COPY . .
 
+COPY $GOOGLE_APPLICATION_CREDENTIALS /app/$GOOGLE_APPLICATION_CREDENTIALS
+
 # Run collectstatic
 RUN python manage.py collectstatic --noinput
 

@@ -14,7 +14,11 @@ staticfiles/
 __pycache__/
 /var
 var/
-
+test_read_credentials.py/
+/test_read_credentials.py
+test_read_credentials.py
+credentials.json
+credentials.json/
 # Work on these later/ accidental commits
 echo "static" >> .gitignore
 echo "media" >> .gitignore

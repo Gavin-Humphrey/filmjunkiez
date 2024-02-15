@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 # from ast import Import
 # from email.policy import default
-from email.policy import default
 from pathlib import Path
 import os
 from decouple import config, Csv
@@ -23,6 +22,8 @@ from django.core.management.utils import get_random_secret_key
 import sys
 import dj_database_url
 from FilmJunkiezEmailApp.backends.email_backend import EmailBackend
+from google.oauth2 import service_account
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -178,21 +179,24 @@ if "CI" in os.environ or DEBUG:
 else:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
+    #GOOGLE_APPLICATION_CREDENTIALS = config("GOOGLE_APPLICATION_CREDENTIALS", default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS")
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, config("GOOGLE_APPLICATION_CREDENTIALS", default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS")))
+
     # Use Google Cloud Storage for media files in production
     DEFAULT_FILE_STORAGE = "filmjunkiez.gcloud.GoogleCloudMediaFileStorage"
 
-    # Define the name of your Google Cloud Storage bucket
-    GS_BUCKET_NAME = config("GS_BUCKET_NAME", default="DEFAULT_GS_BUCKET_NAME")
-
-    GOOGLE_APPLICATION_CREDENTIALS = config("GOOGLE_APPLICATION_CREDENTIALS", default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS")
-    
     GS_PROJECT_ID = config("GS_PROJECT_ID", default="DEFAULT_GS_PROJECT_ID")
+
+     # Define the name of your Google Cloud Storage bucket
+    GS_BUCKET_NAME = config("GS_BUCKET_NAME", default="DEFAULT_GS_BUCKET_NAME")
 
     # Media URL for production
     MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
 
     # Define the directory structure for uploaded files
     UPLOAD_ROOT = "media/uploads/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
