@@ -181,7 +181,7 @@ else:
 
     #GOOGLE_APPLICATION_CREDENTIALS = config("GOOGLE_APPLICATION_CREDENTIALS", default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS")
     GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, config("GOOGLE_APPLICATION_CREDENTIALS", default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS")))
+    os.path.join(BASE_DIR, config("GOOGLE_APPLICATION_CREDENTIALS"))) #, default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS"
 
     # Use Google Cloud Storage for media files in production
     DEFAULT_FILE_STORAGE = "filmjunkiez.gcloud.GoogleCloudMediaFileStorage"

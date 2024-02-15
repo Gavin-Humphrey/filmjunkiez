@@ -70,9 +70,6 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${DEPLOYED_APP_NAME} web
 
       - run:
-          name: Set Google Cloud Service Account Credentials
-          command: echo $GOOGLE_APPLICATION_CREDENTIALS_BASE64 | base64 --decode > credential.json
-      - run:
           name: Collect Static Files
           command: |
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku run -a ${DEPLOYED_APP_NAME} python manage.py collectstatic --noinput
