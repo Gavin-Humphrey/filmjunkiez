@@ -36,6 +36,7 @@ COPY . .
 
 COPY $GOOGLE_APPLICATION_CREDENTIALS /app/$GOOGLE_APPLICATION_CREDENTIALS
 
+
 # Run collectstatic
 RUN python manage.py collectstatic --noinput
 

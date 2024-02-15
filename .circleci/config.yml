@@ -70,6 +70,18 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${DEPLOYED_APP_NAME} web
 
       - run:
+          name: Copy credentials file
+          command: cp $GOOGLE_APPLICATION_CREDENTIALS $HOME/
+
+      - run:
+          name: Set environment variable
+          command: echo "GOOGLE_APPLICATION_CREDENTIALS=\"$HOME/$GOOGLE_APPLICATION_CREDENTIALS\"" >> $BASH_ENV
+
+      - run:
+          name: Authenticate with gcloud
+          command: gcloud auth activate-service-account --key-file $HOME/$GOOGLE_APPLICATION_CREDENTIALS
+
+      - run:
           name: Collect Static Files
           command: |
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku run -a ${DEPLOYED_APP_NAME} python manage.py collectstatic --noinput
