@@ -71,8 +71,7 @@ jobs:
 
       - run:
           name: Set Google Cloud Service Account Credentials
-          command: echo "GOOGLE_APPLICATION_CREDENTIALS=$(cat $GOOGLE_APPLICATION_CREDENTIALS)" >> $BASH_ENV && source $BASH_ENV
-
+          command: echo $GOOGLE_APPLICATION_CREDENTIALS_BASE64 | base64 --decode > credential.json
       - run:
           name: Collect Static Files
           command: |
