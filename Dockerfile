@@ -25,6 +25,8 @@ COPY ./manage.py .
 # Install build dependencies
 RUN apk update && apk add --no-cache build-base libffi-dev openssl-dev postgresql-dev
 
+RUN pip install setuptools
+
 #Upgrade pip and install required packages
 RUN pip install --upgrade pip --no-cache-dir \
     && pip install -r requirements.txt \
