@@ -34,7 +34,7 @@ services:
     user: app
     volumes:
       - .:/app 
-    working_dir: /app
+    #working_dir: /app
     ports:
       - "${PORT}:${PORT}"
     depends_on:
