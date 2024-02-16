@@ -22,7 +22,8 @@ from django.core.management.utils import get_random_secret_key
 import sys
 import dj_database_url
 from FilmJunkiezEmailApp.backends.email_backend import EmailBackend
-from google.oauth2 import service_account
+#from google.oauth2 import service_account
+from .dropbox_storage import DropboxMediaFileStorage
 
 
 
@@ -53,7 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "storages",
+    #"storages",
     "base.apps.BaseConfig",
     "user_follow.apps.UserFollowConfig",
     "rest_framework",
@@ -170,6 +171,8 @@ STATIC_ROOT = str(BASE_DIR / "staticfiles")
 # Base directory of media files (user-uploaded files)
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+#GOOGLE_APPLICATION_CREDENTIALS=config('GOOGLE_APPLICATION_CREDENTIALS', default="")
+
 if "CI" in os.environ or DEBUG:
     # Use Django's built-in static file serving during development
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
@@ -180,8 +183,12 @@ else:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
     #GOOGLE_APPLICATION_CREDENTIALS = config("GOOGLE_APPLICATION_CREDENTIALS", default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS")
-    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, config("GOOGLE_APPLICATION_CREDENTIALS", default=''))) #, default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS"
+    #GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    #os.path.join(BASE_DIR, config("GOOGLE_APPLICATION_CREDENTIALS", default=''))) #, default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS"
+
+    """GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    config("GOOGLE_APPLICATION_CREDENTIALS", default=''))
+
 
     # Use Google Cloud Storage for media files in production
     DEFAULT_FILE_STORAGE = "filmjunkiez.gcloud.GoogleCloudMediaFileStorage"
@@ -195,7 +202,11 @@ else:
     MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
 
     # Define the directory structure for uploaded files
-    UPLOAD_ROOT = "media/uploads/"
+    UPLOAD_ROOT = "media/uploads/" """
+
+    DEFAULT_FILE_STORAGE = 'filmjunkiez.dropbox_storage.DropboxMediaFileStorage'
+    DROPBOX_ACCESS_TOKEN = config("DROPBOX_ACCESS_TOKEN", default='')
+
 
 
 # Default primary key field type

@@ -6,14 +6,15 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
 
+ENV DROPBOX_ACCESS_TOKEN $DROPBOX_ACCESS_TOKEN
+
+
 # Set the working directory
 WORKDIR /app 
 
 RUN adduser -D app
 
 RUN adduser app wheel
-
-#COPY .env /app/.env 
 
 # Copy the requirements file
 COPY requirements.txt .
@@ -33,9 +34,6 @@ ENV PATH="/py/bin:$PATH"
 
 # Copy the application code
 COPY . .
-
-COPY $GOOGLE_APPLICATION_CREDENTIALS /app/$GOOGLE_APPLICATION_CREDENTIALS
-
 
 # Run collectstatic
 RUN python manage.py collectstatic --noinput
