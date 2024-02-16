@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    #"storages",
     "base.apps.BaseConfig",
     "user_follow.apps.UserFollowConfig",
     "rest_framework",
@@ -171,7 +170,6 @@ STATIC_ROOT = str(BASE_DIR / "staticfiles")
 # Base directory of media files (user-uploaded files)
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-#GOOGLE_APPLICATION_CREDENTIALS=config('GOOGLE_APPLICATION_CREDENTIALS', default="")
 
 if "CI" in os.environ or DEBUG:
     # Use Django's built-in static file serving during development
@@ -182,30 +180,10 @@ if "CI" in os.environ or DEBUG:
 else:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
-    #GOOGLE_APPLICATION_CREDENTIALS = config("GOOGLE_APPLICATION_CREDENTIALS", default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS")
-    #GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    #os.path.join(BASE_DIR, config("GOOGLE_APPLICATION_CREDENTIALS", default=''))) #, default="DEFAULT_GOOGLE_APPLICATION_CREDENTIALS"
-
-    """GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    config("GOOGLE_APPLICATION_CREDENTIALS", default=''))
-
-
-    # Use Google Cloud Storage for media files in production
-    DEFAULT_FILE_STORAGE = "filmjunkiez.gcloud.GoogleCloudMediaFileStorage"
-
-    GS_PROJECT_ID = config("GS_PROJECT_ID", default="DEFAULT_GS_PROJECT_ID")
-
-     # Define the name of your Google Cloud Storage bucket
-    GS_BUCKET_NAME = config("GS_BUCKET_NAME", default="DEFAULT_GS_BUCKET_NAME")
-
-    # Media URL for production
-    MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
-
-    # Define the directory structure for uploaded files
-    UPLOAD_ROOT = "media/uploads/" """
-
     DEFAULT_FILE_STORAGE = 'filmjunkiez.dropbox_storage.DropboxMediaFileStorage'
+
     DROPBOX_ACCESS_TOKEN = config("DROPBOX_ACCESS_TOKEN", default='')
+
     # Define the Dropbox folder for uploaded files
     DROPBOX_MEDIA_FOLDER = 'media/uploads/'
 
