@@ -206,6 +206,8 @@ else:
 
     DEFAULT_FILE_STORAGE = 'filmjunkiez.dropbox_storage.DropboxMediaFileStorage'
     DROPBOX_ACCESS_TOKEN = config("DROPBOX_ACCESS_TOKEN", default='')
+    # Define the Dropbox folder for uploaded files
+    DROPBOX_MEDIA_FOLDER = 'media/uploads/'
 
 
 
