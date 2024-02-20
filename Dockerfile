@@ -7,7 +7,6 @@ ENV PYTHONUNBUFFERED 1
 ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
 
 
-
 # Set the working directory
 WORKDIR /app 
 
