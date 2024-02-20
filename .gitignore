@@ -1,3 +1,6 @@
+.gitignore
+# Ignore dependencies
+/node_modules
 static/img/film_videos/103bf708-d16b-4c83-b151-b93164a12300_AEtfsYD.mov
 /log
 /static/img/film_videos/103bf708-d16b-4c83-b151-b93164a12300_AEtfsYD.mov
@@ -20,6 +23,7 @@ test_read_credentials.py
 credentials.json
 filmjunkiez-gcs-credentials.json/
 filmjunkiez-gcs-credentials.json
+
 # Work on these later/ accidental commits
 echo "static" >> .gitignore
 echo "media" >> .gitignore
@@ -28,3 +32,11 @@ echo "print_db_params.py" >> .gitignore
 
 *.sqlite3
 *.sqlite
+
+dropbox_storage.py
+dropbox_storage.py/
+get_dropbox_refresh_token.py
+csrf_token.py
+gcloud.py
+
+logging.yml

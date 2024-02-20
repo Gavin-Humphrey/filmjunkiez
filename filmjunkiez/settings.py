@@ -22,9 +22,9 @@ from django.core.management.utils import get_random_secret_key
 import sys
 import dj_database_url
 from FilmJunkiezEmailApp.backends.email_backend import EmailBackend
-#from google.oauth2 import service_account
-from .dropbox_storage import DropboxMediaFileStorage
 
+# from google.oauth2 import service_account
+from .dropbox_storage import DropboxMediaFileStorage
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -165,11 +165,16 @@ STATIC_URL = "/static/"
 
 # Media files (user-uploaded files)
 MEDIA_URL = "/media/"
-    
+
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 # Base directory of media files (user-uploaded files)
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": config("CLOUDINARY_API_KEY"),
+    "API_SECRET": config("CLOUDINARY_API_SECRET"),
+}
 
 if "CI" in os.environ or DEBUG:
     # Use Django's built-in static file serving during development
@@ -179,16 +184,9 @@ if "CI" in os.environ or DEBUG:
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 else:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-    #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-    #DEFAULT_FILE_STORAGE = 'filmjunkiez.dropbox_storage.DropboxMediaFileStorage'
-
-    #DROPBOX_ACCESS_TOKEN = config("DROPBOX_ACCESS_TOKEN", default='')
-
-    # Define the Dropbox folder for uploaded files
-    #DROPBOX_MEDIA_FOLDER = 'media/uploads/'
-
-
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
