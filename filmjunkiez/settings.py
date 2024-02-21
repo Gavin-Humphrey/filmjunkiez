@@ -184,10 +184,13 @@ if "CI" in os.environ or DEBUG:
 else:
     #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
     #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+    STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
 
-    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
-    #DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
