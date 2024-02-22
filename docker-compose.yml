@@ -42,6 +42,10 @@ services:
     networks:
       - filmjunkiez-network
     environment:
+      - SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
+      - CLOUDINARY_CLOUD_NAME=$CLOUDINARY_CLOUD_NAME
+      - CLOUDINARY_API_KEY=$CLOUDINARY_API_KEY
+      - CLOUDINARY_API_SECRET=$CLOUDINARY_API_SECRET
       #- PORT=${PORT}
       #- DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:${DEV_DB_PORT}/${DATABASE_NAME}
       - PORT=5432

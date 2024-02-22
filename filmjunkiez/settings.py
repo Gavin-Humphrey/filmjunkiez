@@ -167,11 +167,11 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 
-"""# Media files (user-uploaded files)
+# Media files (user-uploaded files)
 MEDIA_URL = "/media/"
 
 # Base directory of media files (user-uploaded files)
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")"""
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME", default=""),
@@ -181,11 +181,6 @@ CLOUDINARY_STORAGE = {
 print(CLOUDINARY_STORAGE)
 
 if "CI" in os.environ or DEBUG:
-    # Media files (user-uploaded files)
-    MEDIA_URL = "/media/"
-
-    # Base directory of media files (user-uploaded files)
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
     # Use Django's built-in static file serving during development
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
