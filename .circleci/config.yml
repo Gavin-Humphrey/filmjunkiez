@@ -74,6 +74,11 @@ jobs:
           #command: echo "DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN" >> $BASH_ENV
 
       - run:
+          name: SENTRY Credentials
+          command: |
+            echo "FILM_JUNKIEZ_SENTRY_DSN: $FILM_JUNKIEZ_SENTRY_DSN"
+
+      - run:
           name: Collect Static Files
           command: |
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku run -a ${DEPLOYED_APP_NAME} python manage.py collectstatic --noinput
