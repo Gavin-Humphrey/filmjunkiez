@@ -165,32 +165,37 @@ USE_TZ = True
 # Static files (CSS, JavaScript, images)
 STATIC_URL = "/static/"
 
-# Media files (user-uploaded files)
-MEDIA_URL = "/media/"
-
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 
+"""# Media files (user-uploaded files)
+MEDIA_URL = "/media/"
+
 # Base directory of media files (user-uploaded files)
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")"""
 
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME", default=""),
     "API_KEY": config("CLOUDINARY_API_KEY", default=""),
     "API_SECRET": config("CLOUDINARY_API_SECRET", default=""),
 }
+print(CLOUDINARY_STORAGE)
 
 if "CI" in os.environ or DEBUG:
+    # Media files (user-uploaded files)
+    MEDIA_URL = "/media/"
+
+    # Base directory of media files (user-uploaded files)
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
     # Use Django's built-in static file serving during development
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
     # Use local filesystem storage for testing
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 else:
-    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
     STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
     #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     
-    #DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
