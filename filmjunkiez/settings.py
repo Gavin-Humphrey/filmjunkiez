@@ -174,9 +174,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Configure Cloudinary using the CLOUDINARY_URL environment variable
 cloudinary.config(
-    cloud_name=config("CLOUDINARY_CLOUD_NAME"),
-    api_key=config("CLOUDINARY_API_KEY"),
-    api_secret=config("CLOUDINARY_API_SECRET"),
+    cloud_name=config("CLOUDINARY_CLOUD_NAME", "default_value"),
+    api_key=config("CLOUDINARY_API_KEY", "default_value"),
+    api_secret=config("CLOUDINARY_API_SECRET", "default_value"),
 )
 
 # DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
