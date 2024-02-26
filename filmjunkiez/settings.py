@@ -22,7 +22,6 @@ from django.core.management.utils import get_random_secret_key
 import sys
 import dj_database_url
 from FilmJunkiezEmailApp.backends.email_backend import EmailBackend
-#from .dropbox_storage import DropboxMediaFileStorage
 import cloudinary
 import cloudinary_storage
 
@@ -54,8 +53,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'cloudinary_storage',###
-    'cloudinary',###
+    "cloudinary_storage",
+    "cloudinary",
     "base.apps.BaseConfig",
     "user_follow.apps.UserFollowConfig",
     "rest_framework",
@@ -173,12 +172,14 @@ MEDIA_URL = "/media/"
 # Base directory of media files (user-uploaded files)
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME", default=""),
-    "API_KEY": config("CLOUDINARY_API_KEY", default=""),
-    "API_SECRET": config("CLOUDINARY_API_SECRET", default=""),
-}
-print(CLOUDINARY_STORAGE)
+# Configure Cloudinary using the CLOUDINARY_URL environment variable
+cloudinary.config(
+    cloud_name=config("CLOUDINARY_CLOUD_NAME"),
+    api_key=config("CLOUDINARY_API_KEY"),
+    api_secret=config("CLOUDINARY_API_SECRET"),
+)
+
+# DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 if "CI" in os.environ or DEBUG:
     # Use Django's built-in static file serving during development
@@ -188,9 +189,10 @@ if "CI" in os.environ or DEBUG:
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 else:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-    #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
     DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

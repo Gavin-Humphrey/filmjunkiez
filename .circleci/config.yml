@@ -69,9 +69,9 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${DEPLOYED_APP_NAME} web
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${DEPLOYED_APP_NAME} web
 
-      #- run:
-          #name: Set Dropbox access token
-          #command: echo "DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN" >> $BASH_ENV
+      - run:
+          name: Set Cloudinary URL
+          command: echo "CLOUDINARY_URL=$CLOUDINARY_URL" >> $BASH_ENV
 
       - run:
           name: SENTRY Credentials

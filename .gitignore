@@ -17,12 +17,15 @@ staticfiles/
 __pycache__/
 /var
 var/
-test_read_credentials.py/
-/test_read_credentials.py
-test_read_credentials.py
+read_credentials.py/
+/read_credentials.py
+read_credentials.py
 credentials.json
 filmjunkiez-gcs-credentials.json/
 filmjunkiez-gcs-credentials.json
+dropbox_storage.py
+dropbox_storage.py/
+/dropbox_storage.py
 
 # Work on these later/ accidental commits
 echo "static" >> .gitignore
@@ -38,5 +41,7 @@ dropbox_storage.py/
 get_dropbox_refresh_token.py
 csrf_token.py
 gcloud.py
-
+print_db_params.py
+print_db_params.py/
+/print_db_params.py
 logging.yml

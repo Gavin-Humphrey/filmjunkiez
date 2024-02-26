@@ -1,10 +1,9 @@
-# Use the official Python Alpine image as a base image
 FROM python:3.10-alpine
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-#ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
+ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
 
 # Set the working directory
 WORKDIR /app 

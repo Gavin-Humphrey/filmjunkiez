@@ -34,7 +34,7 @@ services:
     user: app
     volumes:
       - .:/app 
-    #working_dir: /app
+    working_dir: /app
     ports:
       - "${PORT}:${PORT}"
     depends_on:
@@ -46,11 +46,12 @@ services:
       - CLOUDINARY_CLOUD_NAME=$CLOUDINARY_CLOUD_NAME
       - CLOUDINARY_API_KEY=$CLOUDINARY_API_KEY
       - CLOUDINARY_API_SECRET=$CLOUDINARY_API_SECRET
+      - CLOUDINARY_URL=$CLOUDINARY_URL
       #- PORT=${PORT}
       #- DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:${DEV_DB_PORT}/${DATABASE_NAME}
       - PORT=5432
       - HEROKU_POSTGRESQL_AQUA_URLL=$HEROKU_POSTGRESQL_AQUA_URL
-      - DOCKERIZED=0
+      - DOCKERIZED=1
 networks:
   filmjunkiez-network:
     driver: bridge
