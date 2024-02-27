@@ -40,7 +40,9 @@ RUN python manage.py collectstatic --noinput
 #RUN adduser -D myuser
 
 # Grant write access to the media and staticfiles directories
-RUN chmod -R 777 /app/media /app/staticfiles
+#RUN chmod -R 777 /app/media /app/staticfiles
+RUN chmod -R 755 /app/staticfiles
+RUN chmod -R 777 /app/media
 
 # Expose the required ports
 EXPOSE ${PORT}
