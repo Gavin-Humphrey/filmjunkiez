@@ -5,6 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV SENTRY_DSN $FILM_JUNKIEZ_SENTRY_DSN
 
+
 # Set the working directory
 WORKDIR /app 
 
@@ -33,8 +34,8 @@ ENV PATH="/py/bin:$PATH"
 # Copy the application code
 COPY . .
 
-# Run collectstatic
-RUN python manage.py collectstatic --noinput
+# Copy staticfiles
+#COPY ./staticfiles /app/staticfiles
 
 # Add a non-root user
 #RUN adduser -D myuser

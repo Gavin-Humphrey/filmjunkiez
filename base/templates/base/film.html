@@ -106,7 +106,7 @@
           <p>Film Host</p>
           <a href="{% url 'user-profile' film.host.id %}" class="film__author">
             <div class="avatar avatar--small">
-              <img src="{{film.host.avatar.url}}" />
+              <img src="{{film.host.avatar.url}}" /> <!--To be modif-->
             </div>           
             <span>@{{film.host.username}}</span>
           </a>
@@ -209,7 +209,7 @@
   </div>
 
 </main>
-<script src="{% static 'js/script.js' %}"></script><!--js/script.js-->
+<script src="{% static 'js/script.js' %}"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>

@@ -22,15 +22,13 @@ from django.core.management.utils import get_random_secret_key
 import sys
 import dj_database_url
 from FilmJunkiezEmailApp.backends.email_backend import EmailBackend
+from filmjunkiez.storage import CloudinaryMediaStorage
 import cloudinary
 import cloudinary_storage
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
@@ -97,7 +95,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 
 # Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DOCKERIZED = config("DOCKERIZED", default=False, cast=bool)
 default_db_url = config("DEFAULT_DATABASE_URL", default="")
@@ -159,10 +156,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-# Static files (CSS, JavaScript, images)
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 
@@ -171,7 +165,7 @@ MEDIA_URL = "/media/"
 
 # Base directory of media files (user-uploaded files)
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
+#TEST_RUNNER = "django.test.runner.DiscoverRunner"
 # Configure Cloudinary using the CLOUDINARY_URL environment variable
 cloudinary.config(
     cloud_name=config("CLOUDINARY_CLOUD_NAME", "default_value"),
@@ -179,23 +173,18 @@ cloudinary.config(
     api_secret=config("CLOUDINARY_API_SECRET", "default_value"),
 )
 
-# DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-
 if "CI" in os.environ or DEBUG:
     # Use Django's built-in static file serving during development
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
-
     # Use local filesystem storage for testing
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 else:
-    #STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # Use whitenoise for serving static files in production
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
-    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+    # Use custom Cloudinary storage for user-uploaded files
+    DEFAULT_FILE_STORAGE = "filmjunkiez.storage.CloudinaryMediaStorage"
 
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

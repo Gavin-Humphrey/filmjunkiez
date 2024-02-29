@@ -10,7 +10,7 @@ filmjunkiez/*/*/*/__pycache__/
 # .env/
 # .venv/
 # venv/
-
+.venv
 # data/
 
 node_modules
