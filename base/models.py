@@ -41,7 +41,8 @@ class Category(models.Model):
 
 
 class Film(models.Model):
-    host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    host = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
@@ -93,14 +94,14 @@ class Film(models.Model):
                 hasattr(self, "_original_image")
                 and self.image.name != self._original_image
             ):
-                # Apply image processing logic
+
                 img = ImageOps.contain(
                     Image.open(self.image.path), (200, 200), method=3
                 )
                 img.save(self.image.path)
 
             # Store the original image filename after the save
-            self._original_image = self.image.name  # Store filename, not full path
+            self._original_image = self.image.name  # Store filename
 
         # Call the parent save method to save other fields
         super().save(*args, **kwargs)

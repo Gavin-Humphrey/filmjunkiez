@@ -2,7 +2,12 @@ import logging
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
+from django.http import (
+    HttpResponse,
+    HttpResponseRedirect,
+    HttpResponseServerError,
+    JsonResponse,
+)
 from .models import Category, Film, Review, User
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -279,21 +284,29 @@ def createFilm(request):
         category, created = Category.objects.get_or_create(title=category_title)
         image = request.FILES.get("image", None)
         video = request.FILES.get("video")
-        film = Film(
-            host=request.user,
-            category=category,
-            title=request.POST.get("title"),
-            description=request.POST.get("description"),
-            director=request.POST.get("director"),
-            lead=request.POST.get("lead"),
-            release_date=request.POST.get("release_date"),
-            duration=request.POST.get("duration"),
-            image=image,
-            video=video,
-        )
-        film.save()
 
-        return redirect("home")
+        if video is not None and video.size > 10 * 1024 * 1024:
+            messages.error(request, "Video file size exceeds 10MB limit.")
+        elif image is None and video is None:
+            messages.error(request, "Please upload at least an image.")
+        elif image is None:
+            messages.error(request, "Please upload an image.")
+        else:
+            film = Film(
+                host=request.user,
+                category=category,
+                title=request.POST.get("title"),
+                description=request.POST.get("description"),
+                director=request.POST.get("director"),
+                lead=request.POST.get("lead"),
+                release_date=request.POST.get("release_date"),
+                duration=request.POST.get("duration"),
+                image=image,
+                video=video,
+            )
+            film.save()
+
+            return redirect("home")
     context = {"form": form, "categories": categories}
     return render(request, "base/film_form.html", context)
 

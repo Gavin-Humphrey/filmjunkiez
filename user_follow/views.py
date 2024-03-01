@@ -12,6 +12,8 @@ from base.models import User
 
 @login_required
 def follows_page(request):
+    q = request.GET.get("q") if request.GET.get("q") != None else ""
+    ####
 
     if request.method == "POST":
         form = FollowForm(request.POST)
@@ -35,17 +37,18 @@ def follows_page(request):
                         )
             except User.DoesNotExist:
                 messages.error(
-                    request, f'The user {form.data["followed_user"]} does not exist.'
+                    request,
+                    f'A user with username: {form.data["followed_user"]} does not exist.',
                 )
     else:
         form = FollowForm()
 
-    user_follows = UserFollows.objects.filter(user=request.user).order_by(
-        "followed_user"
-    )
-    followed_by = UserFollows.objects.filter(followed_user=request.user).order_by(
-        "user"
-    )
+    user_follows = UserFollows.objects.filter(
+        user=request.user, followed_user__username__icontains=q
+    ).order_by("followed_user")
+    followed_by = UserFollows.objects.filter(
+        followed_user=request.user, user__username__icontains=q
+    ).order_by("user")
     context = {
         "form": form,
         "user_follows": user_follows,
