@@ -2,26 +2,23 @@
 {% for film in films %}
 <div class="filmListFilm">
     <div class="filmListFilm__header">
-      {% if film.host.id %} <!---->
+      {% if film.host.id %} 
     <a href="{% url 'user-profile' film.host.id %}" class="filmListFilm__author">
       <div class="avatar avatar--small">
-        <img src="{{film.host.avatar.url}}" /> 
+        <img src="{{film.host.get_avatar_url}}" /> 
       </div>
       <span>@{{film.host.username}}</span>
     </a>
-    {% else %} <!--added from here-->
+    {% else %} 
 
     <span class="filmListFilm__author">
       <div class="avatar avatar--small">
-        <img src="{{film.host.avatar.url}}" /> 
+        <img src="{{ film.host.get_avatar_url }}" /> 
       </div>
       <span>@{{film.host.username}}</span>
   </span>
   {% endif %}
-    <!--to here--->
-    <!--image added-->
-  
-    <!----->
+    
       <div class="filmListFilm__actions">
         <span>{{film.created|timesince}}</span>
       </div>

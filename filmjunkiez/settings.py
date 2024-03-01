@@ -95,7 +95,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "filmjunkiez.wsgi.application"
 
 # Database
-
+# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 DOCKERIZED = config("DOCKERIZED", default=False, cast=bool)
 default_db_url = config("DEFAULT_DATABASE_URL", default="")
 
@@ -156,7 +156,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 
@@ -165,7 +165,8 @@ MEDIA_URL = "/media/"
 
 # Base directory of media files (user-uploaded files)
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-#TEST_RUNNER = "django.test.runner.DiscoverRunner"
+
+
 # Configure Cloudinary using the CLOUDINARY_URL environment variable
 cloudinary.config(
     cloud_name=config("CLOUDINARY_CLOUD_NAME", "default_value"),
@@ -176,6 +177,7 @@ cloudinary.config(
 if "CI" in os.environ or DEBUG:
     # Use Django's built-in static file serving during development
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
     # Use local filesystem storage for testing
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 else:
@@ -207,7 +209,7 @@ sentry_sdk.init(
 
 LOGIN_REDIRECT_URL = "/base/thank_you.html"
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 EMAIL_BACKEND = "FilmJunkiezEmailApp.backends.email_backend.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587

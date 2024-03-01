@@ -52,7 +52,7 @@
                     <div class="follows-list__box">
                       <div class="avatar avatar--small">
                         <a href="{% url 'user-profile' follow.followed_user.id %}" >
-                        <img src="{{ follow.followed_user.avatar.url }}"
+                        <img src="{{ follow.followed_user.get_avatar_url }}"
                         alt="{{ follow.followed_user}} profile picture"> 
                       </div> 
                         <span>{{ follow.followed_user.username }}</span>
@@ -81,8 +81,8 @@
                     <div class="followed-list__box">
                       <div class="avatar avatar--small">
                         <a href="{% url 'user-profile' follow.user.id %}" >
-                        <img src="{{ follow.user.avatar.url }}"
-                        alt="{{ follow.user.avatar.url }} profile picture">
+                        <img src="{{ follow.user.get_avatar_url }}"
+                        alt="{{ follow.user.username }} profile picture">
                       </div> 
                       <span>{{ follow.user.username }}</span>
                     </a>

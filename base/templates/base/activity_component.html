@@ -8,7 +8,7 @@
       <div class="activities__boxHeader filmListFilm__header">
         <a href="{% url 'user-profile' review.user.id %}" class="filmListFilm__author">
           <div class="avatar avatar--small">
-            <img src="{{review.user.avatar.url}}" /> <!---To be modif-->
+            <img src="{{review.user.get_avatar_url}}" /> 
           </div>
           <div ><!---->
           <p>

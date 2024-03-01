@@ -106,7 +106,7 @@
           <p>Film Host</p>
           <a href="{% url 'user-profile' film.host.id %}" class="film__author">
             <div class="avatar avatar--small">
-              <img src="{{film.host.avatar.url}}" /> <!--To be modif-->
+              <img src="{{ film.host.get_avatar_url }}" /> <!--To be modif-->
             </div>           
             <span>@{{film.host.username}}</span>
           </a>
@@ -128,7 +128,7 @@
                 <div class="thread__author">
                   <a href="{% url 'user-profile' review.user.id %}" class="thread__authorInfo">
                     <div class="avatar avatar--small">
-                      <img src="{{review.user.avatar.url}}" />
+                      <img src="{{ review.user.get_avatar_url }}" />
                     </div>
                     <span>@{{review.user.username}}</span>
                   </a>
@@ -195,7 +195,7 @@
         {% for user in participants %}
         <a href="{%  url 'user-profile' user.id %}" class="participant">
           <div class="avatar avatar--medium">
-            <img src="{{user.avatar.url}}" />
+            <img src="{{ user.get_avatar_url }}" />
           </div>
           <p>
             <!--{{user.name}}--> <!--commented the name of the user-->

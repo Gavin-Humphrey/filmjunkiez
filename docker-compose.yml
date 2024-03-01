@@ -34,7 +34,7 @@ services:
     user: app
     volumes:
       - .:/app 
-      - static_volume:/app/staticfiles  ####
+      - static_volume:/app/staticfiles  #
     working_dir: /app
     ports:
       - "${PORT}:${PORT}"
@@ -59,4 +59,4 @@ networks:
 
 volumes:
   postgres_data:
-  static_volume: ####
+  static_volume: #
