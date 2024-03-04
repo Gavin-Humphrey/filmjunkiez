@@ -224,9 +224,9 @@ Pour utiliser Cloudinary pour le stockage et la manipulation d'images/vidéos, v
 
   [Inscrivez-vous](https://cloudinary.com/) pour un compte Cloudinary si ce n'est pas déjà fait.
   Obtenez vos identifiants API Cloudinary (nom du cloud, clé API, secret API).
-  Définissez les variables d'environnement suivantes dans votre environnement (développement local, CI/CD) :
-    - CLOUDINARY_CLOUD_NAME : Le nom de votre cloud Cloudinary  
-    - CLOUDINARY_API_KEY : Votre clé API Cloudinary  
+  Définissez les variables d'environnement suivantes dans votre environnement (développement local, CI/CD) :  
+    - CLOUDINARY_CLOUD_NAME : Le nom de votre cloud Cloudinary    
+    - CLOUDINARY_API_KEY : Votre clé API Cloudinary    
     - CLOUDINARY_API_SECRET : Votre secret API Cloudinary
   
 </details><br>
