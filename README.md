@@ -12,6 +12,7 @@
   - [CI/CD (Continuous Integration and Continuous Deployment)](#cicd-continuous-integration-and-continuous-deployment)
     - [CircleCI](#circleci)
     - [Sentry](#sentry)
+    - [Cloudinary](#cloudinary)
   - [Deployment](#deployment)
   - [Author](#author)
 
@@ -36,6 +37,7 @@ Ensure you have the following installed before proceeding:
 - [Git](https://git-scm.com/)
 - [Sentry](https://sentry.io/)
 - [PostgreSQL](https://www.postgresql.org/)
+- [Cloudinary](https://cloudinary.com/)
 - [Docker](https://www.docker.com/)
 - [CircleCI](https://circleci.com/)
 - [Heroku](https://www.heroku.com/)
@@ -134,6 +136,7 @@ Gavin Humphrey
   - [CI/CD (Intégration continue et déploiement continu)](#cicd-intégration-continue-et-déploiement-continu)
     - [CircleCI](#circleci)
     - [Sentry](#sentry)
+    - [Cloudinary](#cloudinary)
   - [Déploiement](#déploiement)
   - [Auteur](#auteur)
 
@@ -225,7 +228,7 @@ Pour utiliser Cloudinary pour le stockage et la manipulation d'images/vidéos, v
   [Inscrivez-vous](https://cloudinary.com/) pour un compte Cloudinary si ce n'est pas déjà fait.
   Obtenez vos identifiants API Cloudinary (nom du cloud, clé API, secret API).
   Définissez les variables d'environnement suivantes dans votre environnement (développement local, CI/CD) :<br>
-    
+
     - CLOUDINARY_CLOUD_NAME : Le nom de votre cloud Cloudinary    
     - CLOUDINARY_API_KEY : Votre clé API Cloudinary    
     - CLOUDINARY_API_SECRET : Votre secret API Cloudinary
