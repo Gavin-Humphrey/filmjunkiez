@@ -73,11 +73,11 @@ Follow these steps to configure CircleCI:
 
 Create a CircleCI account and connect your GitHub account.
 Create a new project and select your GitHub repository.
-Add the required environment variables to the CircleCI project settings:
-DOCKER_USERNAME: Your Docker Hub username
-DOCKER_LOGIN: Your Docker Hub login email
-HEROKU_APP_NAME: The name of your Heroku application
-HEROKU_TOKEN: Your Heroku API key
+Add the required environment variables to the CircleCI project settings:  
+DOCKER_USERNAME: Your Docker Hub username  
+DOCKER_LOGIN: Your Docker Hub login email  
+HEROKU_APP_NAME: The name of your Heroku application  
+HEROKU_TOKEN: Your Heroku API key  
 Push a new commit to your repository to trigger a new build on CircleCI.
 
 </details>
@@ -100,13 +100,14 @@ Add the generated code to the settings.py file.
 <details>
 <summary><strong>Cloudinary Configuration</strong></summary>
 To use Cloudinary for image/video storage and manipulation, you need to set up Cloudinary credentials in your Django application:
-
+  
   [Sign up](https://cloudinary.com/) for a Cloudinary account if you haven't already.
   Obtain your Cloudinary API credentials (Cloud name, API Key, API Secret).
-  Set the following environment variables in your environment (local development, CI/CD):
-    - CLOUDINARY_CLOUD_NAME: Your Cloudinary cloud name
-    - CLOUDINARY_API_KEY: Your Cloudinary API key
-    - CLOUDINARY_API_SECRET: Your Cloudinary API secret
+  Set the following environment variables in your environment (local development, CI/CD):<br>
+  
+    - CLOUDINARY_CLOUD_NAME: Your Cloudinary cloud name  
+    - CLOUDINARY_API_KEY: Your Cloudinary API key  
+    - CLOUDINARY_API_SECRET: Your Cloudinary API secret  
   
 </details><br>
 
@@ -195,11 +196,11 @@ Suivez ces étapes pour configurer CircleCI :
 
 Créez un compte CircleCI et connectez votre compte GitHub.
 Créez un nouveau projet et sélectionnez votre dépôt GitHub.
-Ajoutez les variables d'environnement requises aux paramètres du projet CircleCI :
-DOCKER_USERNAME : Votre nom d'utilisateur Docker Hub
-DOCKER_LOGIN : Votre adresse e-mail de connexion Docker Hub
-HEROKU_APP_NAME : Le nom de votre application Heroku
-HEROKU_TOKEN : Votre clé API Heroku
+Ajoutez les variables d'environnement requises aux paramètres du projet CircleCI :<br>
+DOCKER_USERNAME : Votre nom d'utilisateur Docker Hub  
+DOCKER_LOGIN : Votre adresse e-mail de connexion Docker Hub  
+HEROKU_APP_NAME : Le nom de votre application Heroku  
+HEROKU_TOKEN : Votre clé API Heroku  
 Poussez un nouveau commit à votre dépôt pour déclencher une nouvelle construction sur CircleCI.
 </details>
 <details>
@@ -224,8 +225,8 @@ Pour utiliser Cloudinary pour le stockage et la manipulation d'images/vidéos, v
   [Inscrivez-vous](https://cloudinary.com/) pour un compte Cloudinary si ce n'est pas déjà fait.
   Obtenez vos identifiants API Cloudinary (nom du cloud, clé API, secret API).
   Définissez les variables d'environnement suivantes dans votre environnement (développement local, CI/CD) :
-    - CLOUDINARY_CLOUD_NAME : Le nom de votre cloud Cloudinary
-    - CLOUDINARY_API_KEY : Votre clé API Cloudinary
+    - CLOUDINARY_CLOUD_NAME : Le nom de votre cloud Cloudinary  
+    - CLOUDINARY_API_KEY : Votre clé API Cloudinary  
     - CLOUDINARY_API_SECRET : Votre secret API Cloudinary
   
 </details><br>
