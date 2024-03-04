@@ -13,7 +13,6 @@ from base.models import User
 @login_required
 def follows_page(request):
     q = request.GET.get("q") if request.GET.get("q") != None else ""
-    ####
 
     if request.method == "POST":
         form = FollowForm(request.POST)

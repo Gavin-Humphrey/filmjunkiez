@@ -34,14 +34,7 @@ ENV PATH="/py/bin:$PATH"
 # Copy the application code
 COPY . .
 
-# Copy staticfiles
-#COPY ./staticfiles /app/staticfiles
-
-# Add a non-root user
-#RUN adduser -D myuser
-
 # Grant write access to the media and staticfiles directories
-#RUN chmod -R 777 /app/media /app/staticfiles
 RUN chmod -R 755 /app/staticfiles
 RUN chmod -R 777 /app/media
 

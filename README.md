@@ -79,7 +79,9 @@ DOCKER_LOGIN: Your Docker Hub login email
 HEROKU_APP_NAME: The name of your Heroku application
 HEROKU_TOKEN: Your Heroku API key
 Push a new commit to your repository to trigger a new build on CircleCI.
+
 </details>
+
 <details>
 <summary><strong>Sentry</strong></summary>
 This application uses Sentry for error tracking. To configure Sentry:
@@ -94,7 +96,22 @@ pip install sentry-sdk
 Add the generated code to the settings.py file.
 
 </details>
+
+<details>
+<summary><strong>Cloudinary Configuration</strong></summary>
+To use Cloudinary for image/video storage and manipulation, you need to set up Cloudinary credentials in your Django application:
+
+  [Sign up](https://cloudinary.com/) for a Cloudinary account if you haven't already.
+  Obtain your Cloudinary API credentials (Cloud name, API Key, API Secret).
+  Set the following environment variables in your environment (local development, CI/CD):
+    - CLOUDINARY_CLOUD_NAME: Your Cloudinary cloud name
+    - CLOUDINARY_API_KEY: Your Cloudinary API key
+    - CLOUDINARY_API_SECRET: Your Cloudinary API secret
+  
+</details><br>
+
 <strong>Deployment</strong><br>
+
 This app is deployed on Heroku at https://film-junkiez-be8d3d00a54d.herokuapp.com/.
 
 <strong>Author</strong>
@@ -140,6 +157,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 - [Git](https://git-scm.com/)
 - [Sentry](https://sentry.io/)
 - [PostgreSQL](https://www.postgresql.org/)
+- [Cloudinary](https://cloudinary.com/)
 - [Docker](https://www.docker.com/)
 - [CircleCI](https://circleci.com/)
 - [Heroku](https://www.heroku.com/)
@@ -197,11 +215,24 @@ Installez le package Python Sentry SDK :
 pip install sentry-sdk
 Ajoutez le code généré au fichier settings.py.
 
-</details><br><br>
+</details>
+
+<details>
+<summary><strong>Configuration de Cloudinary</summary></strong>
+Pour utiliser Cloudinary pour le stockage et la manipulation d'images/vidéos, vous devez configurer les identifiants Cloudinary dans votre application Django :
+
+  [Inscrivez-vous](https://cloudinary.com/) pour un compte Cloudinary si ce n'est pas déjà fait.
+  Obtenez vos identifiants API Cloudinary (nom du cloud, clé API, secret API).
+  Définissez les variables d'environnement suivantes dans votre environnement (développement local, CI/CD) :
+    - CLOUDINARY_CLOUD_NAME : Le nom de votre cloud Cloudinary
+    - CLOUDINARY_API_KEY : Votre clé API Cloudinary
+    - CLOUDINARY_API_SECRET : Votre secret API Cloudinary
+  
+</details><br>
 
 <strong>Déploiement</strong><br>
 Le projet est déployé sur Heroku à l'adresse https://film-junkiez-be8d3d00a54d.herokuapp.com/.<br><br>
-<strong>Auteur</strong><br>
+<strong>Auteur</strong>
 Gavin Humphrey
 
 <small>Tous droits réservés.</small>
