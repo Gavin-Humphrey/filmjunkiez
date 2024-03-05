@@ -8,6 +8,8 @@ from django.http import (
     HttpResponseServerError,
     JsonResponse,
 )
+from django.core.exceptions import ValidationError
+from datetime import datetime
 from .models import Category, Film, Review, User
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -280,6 +282,29 @@ def createFilm(request):
     categories = Category.objects.all()
 
     if request.method == "POST":
+        description = request.POST.get("description")
+        if not description:
+            messages.error(request, "Please enter the description of the film.")
+            return redirect("create-film")
+
+        release_date_str = request.POST.get("release_date")
+        if release_date_str:
+            try:
+                release_date_format = datetime.strptime(release_date_str, "%Y-%m-%d")
+            except ValueError:
+                messages.error(
+                    request, "Invalid release date format. Please use YYYY-MM-DD."
+                )
+                return redirect("create-film")
+
+        duration_str = request.POST.get("duration", "")
+        if duration_str:
+            try:
+                duration = int(duration_str)
+            except ValueError:
+                messages.error(request, "Film duration must be a number.")
+                return redirect("create-film")
+
         category_title = request.POST.get("category")
         category, created = Category.objects.get_or_create(title=category_title)
         image = request.FILES.get("image", None)
@@ -296,11 +321,11 @@ def createFilm(request):
                 host=request.user,
                 category=category,
                 title=request.POST.get("title"),
-                description=request.POST.get("description"),
+                description=description,
                 director=request.POST.get("director"),
                 lead=request.POST.get("lead"),
-                release_date=request.POST.get("release_date"),
-                duration=request.POST.get("duration"),
+                release_date=release_date_format if release_date_str else None,
+                duration=duration if duration_str else None,
                 image=image,
                 video=video,
             )
