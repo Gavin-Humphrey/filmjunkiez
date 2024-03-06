@@ -216,7 +216,7 @@ def film(request, pk):
     ).exists()
 
     if request.method == "POST":
-        if following_host:
+        if film.host == request.user or following_host:
             rating = request.POST.get("rating")
             body = request.POST.get("body")
 
@@ -233,18 +233,18 @@ def film(request, pk):
                     return redirect("film", pk=film.id)
                 else:
                     messages.error(request, "You have already rated this film.")
-            elif user_rated:
+            elif film.host == request.user or user_rated:
                 # If the user has already rated, allow submitting a review without a rating
                 review = Review.objects.create(
                     user=request.user,
                     film=film,
-                    rating=None,  # or any default value for rating
+                    rating=None,
                     body=body,
                 )
                 messages.success(request, "Review successfully added!")
                 return redirect("film", pk=film.id)
             else:
-                messages.error(request, "Both rating and review are required.")
+                messages.error(request, "Rating is required before review.")
         else:
             messages.error(
                 request, "You need to follow the film's host to submit a review."

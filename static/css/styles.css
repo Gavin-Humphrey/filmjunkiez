@@ -1489,7 +1489,7 @@ a {
 }
 
 .film__info span { /*=====Film date just added======*/
-  font-size: smaller;
+  font-size: xx-small; 
 } 
 
 
@@ -1625,6 +1625,7 @@ a {
 /*======*/
 
 /* Responsive styles */
+
 @media screen and (max-width: 1300px) {
   .filmListFilm__review__director-rating {
     width: 85%;
@@ -1704,11 +1705,9 @@ a {
   }
 }
 
-
 /*==========*/
 
 /**Filmlist Author**/
-
 
 .film__info h3 {
   /*font-size: 1.8rem;*/
