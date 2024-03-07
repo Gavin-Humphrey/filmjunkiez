@@ -16,7 +16,6 @@
                         </svg>
                     </a>   
                         <h3>{{film.title}}</h3>
-                    <!--</a>-->
                 </div>
 
             </div>
@@ -35,9 +34,7 @@
                
                 {% endif %}      
             </div>
-            <!--<div class="container-box__content">
-                
-            </div>-->
+
         </div>
 
         <div class="film-details__contents">
@@ -58,7 +55,6 @@
         <div class="container-box__description">
             <div class="description__layout__boxHeader"><h3>DETAILS</h3></div> 
             <div class="description__layout__body">
-                <!-- Your content goes here --> 
                 {% if film.image %}
                 <div class="filmDetails__image"></div>
                     <img src="{{ film.image.url }}" alt="{{ film.title }}" />
@@ -68,7 +64,5 @@
             
         </div>
   
-   <!--</div>
-    </div>-->
 </main>
 {% endblock content %}

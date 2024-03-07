@@ -47,7 +47,7 @@
               
             </div>
             <div class="activities__boxContent">
-              <p>replied to post “<a href="{% url 'film' review.film.id %}">{{ film_reviews }}</a>”</p>
+              <p>replied to post “<a href="{% url 'film' review.film.id %}">{{ review.film }}</a>”</p> 
               <div class="activities__boxFilmContent">{{ review.body }}</div>
             </div>
             </div>

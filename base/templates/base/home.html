@@ -3,12 +3,9 @@
 {% block content %}
 <main class="layout layout--3">
   <div class="container">
-    <!-- Topics Start -->
-    {% include "base/categories_component.html" %}
-  
-    <!-- Topics End -->
 
-    <!-- Room List Start -->
+    {% include "base/categories_component.html" %}
+ 
     <div class="filmList">
       <div class="mobile-menu">
         <form action="{% url 'home' %}" method="GET" class="header__search">

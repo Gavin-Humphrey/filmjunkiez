@@ -154,7 +154,7 @@ def userProfile(request, pk):
     context = {
         "user": user,
         "films": films,
-        "film_posts": film_posts,
+        "film_reviews": film_posts,
         "categories": categories,
     }
     return render(request, "base/profile.html", context)

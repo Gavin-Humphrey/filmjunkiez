@@ -4,10 +4,7 @@
 
 <main class="profile-page layout layout--3">
   <div class="container">
-    <!-- Topics Start -->
     {% include 'base/categories_component.html' %}
-    <!-- Topics End -->
-    <!-- Room List Start -->
     <div class="filmList">
       <div class="profile">
         <div class="profile__avatar">
@@ -39,10 +36,9 @@
       </div>
       {% include 'base/feed_component.html' %}
     </div>
-    <!-- Room List End -->
-    <!-- Activities Start -->
+   
     {% include 'base/activity_component.html' %}
-    <!-- Activities End -->
+  
   </div>
 </main>
 {% endblock content %}

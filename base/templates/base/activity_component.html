@@ -1,4 +1,3 @@
-<!-- Activities Start -->
 <div class="activities">
     <div class="activities__header">
       <h2>Recent Activities</h2>
@@ -10,12 +9,12 @@
           <div class="avatar avatar--small">
             <img src="{{review.user.get_avatar_url}}" /> 
           </div>
-          <div ><!---->
+          <div >
           <p>
             @{{review.user.username}}
             <span>{{review.created|timesince}} ago</span>
           </p>
-          </div><!---->
+          </div>
         </a>
 
         {% if review.user == request.user or request.user.is_superuser %}
@@ -39,4 +38,4 @@
     </div>
     {% endfor %}
 </div>
-  <!-- Activities End -->
+ 
