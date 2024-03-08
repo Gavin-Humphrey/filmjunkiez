@@ -1710,11 +1710,19 @@ a {
   .container .layout__box {
     top: calc(50% + 2rem); 
   }
+  .layout {
+    margin-top: 2.4rem;
+    top: calc(50% + 2rem); 
+  }
   /****************/
 }
 
 /*****************/
 @media screen and (max-width: 767px) {
+  .layout {
+    margin-top: 2.4rem;
+    top: calc(50% + 2rem); 
+  }
   .container .layout__box {
     top: calc(50% + 2rem); 
   }
