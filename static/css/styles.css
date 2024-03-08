@@ -1707,33 +1707,20 @@ a {
     font-size: 0.7rem;
   }
   /****************/
-  .container .layout__box {
-    top: calc(50% + 2rem) !important; 
-  }
-  .layout {
-    margin-top: 2.4rem !important;
-    top: calc(50% + 2rem) !important; 
-  }
-  .container {
-    margin-top: 2.4rem !important;
-    top: calc(50% + 2rem) !important; 
+  .header {
+    margin-bottom: 2.4rem !important;
+    bottom: calc(50% + 2rem) !important; 
   }
   /****************/
 }
 
 /*****************/
 @media screen and (max-width: 767px) {
-  .layout {
-    margin-top: 2.4rem !important;
-    top: calc(50% + 2rem) !important; 
+  .header {
+    margin-bottom: 2.4rem !important;
+    bottom: calc(50% + 2rem) !important; 
   }
-  .container .layout__box {
-    top: calc(50% + 2rem) !important; 
-  }
-  .container {
-    margin-top: 2.4rem !important;
-    top: calc(50% + 2rem) !important; 
-  }
+  
 }
 
 /*******************/
