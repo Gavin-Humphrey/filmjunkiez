@@ -1707,18 +1707,18 @@ a {
     font-size: 0.7rem;
   }
   /****************/
-  .header {
-    margin-bottom: 2.4rem !important;
-    bottom: calc(50% + 2rem) !important; 
+  .layout__box {
+    margin-top: 5rem !important;
+    top: calc(50% + 5rem) !important;
   }
   /****************/
 }
 
 /*****************/
 @media screen and (max-width: 767px) {
-  .header {
-    margin-bottom: 2.4rem !important;
-    bottom: calc(50% + 2rem) !important; 
+  .layout__box {
+    margin-top: 5rem !important;
+    top: calc(50% + 5rem) !important;
   }
   
 }
