@@ -1705,7 +1705,7 @@ a {
   .thread__date {
     font-size: 0.7rem;
   }
-  /****************/
+  /****************
   .layout__box {
     margin-top: 10rem !important;
     top: calc(50% + 10rem) !important;
@@ -1714,10 +1714,10 @@ a {
     margin-top: 10rem !important;
     top: calc(50% + 10rem) !important;
   }
-  /****************/
+  ****************/
 }
 
-/*****************/
+/*****************
 @media screen and (max-width: 767px) {
   .layout__box {
     margin-top: 10rem !important;
@@ -1730,7 +1730,7 @@ a {
 }
   
 
-/*******************/
+*******************/
 
 /*==========*/
 
