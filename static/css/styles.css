@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
 :root {
-  --color-main: #b8860b; /*#71c6dd*/
+  --color-main: #b8860b; 
   --color-main-light: #e1f6fb;
   --color-dark: #1D1D1D;
   --color-dark-medium: #4F4F4F;
@@ -24,7 +24,6 @@
   padding: 0;
   box-sizing: border-box;
   text-rendering: optimizeLegibility;
-  /* color: inherit; */
   font-size: inherit;
 }
 
@@ -1708,8 +1707,12 @@ a {
   }
   /****************/
   .layout__box {
-    margin-top: 5rem !important;
-    top: calc(50% + 5rem) !important;
+    margin-top: 10rem !important;
+    top: calc(50% + 10rem) !important;
+  }
+  .layout__boxHeader {
+    margin-top: 10rem !important;
+    top: calc(50% + 10rem) !important;
   }
   /****************/
 }
@@ -1717,11 +1720,15 @@ a {
 /*****************/
 @media screen and (max-width: 767px) {
   .layout__box {
-    margin-top: 5rem !important;
-    top: calc(50% + 5rem) !important;
+    margin-top: 10rem !important;
+    top: calc(50% + 10rem) !important;
   }
-  
+  .layout__boxHeader {
+    margin-top: 10rem !important;
+    top: calc(50% + 10rem) !important;
+  }
 }
+  
 
 /*******************/
 
