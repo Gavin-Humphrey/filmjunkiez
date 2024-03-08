@@ -1707,7 +1707,7 @@ a {
     font-size: 0.7rem;
   }
   /****************/
-  .layout__box {
+  .container .layout__box {
     top: calc(50% + 2rem); 
   }
   /****************/
@@ -1715,7 +1715,7 @@ a {
 
 /*****************/
 @media screen and (max-width: 767px) {
-  .layout__box {
+  .container .layout__box {
     top: calc(50% + 2rem); 
   }
 }
