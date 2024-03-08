@@ -1708,11 +1708,15 @@ a {
   }
   /****************/
   .container .layout__box {
-    top: calc(50% + 2rem); 
+    top: calc(50% + 2rem) !important; 
   }
   .layout {
-    margin-top: 2.4rem;
-    top: calc(50% + 2rem); 
+    margin-top: 2.4rem !important;
+    top: calc(50% + 2rem) !important; 
+  }
+  .container {
+    margin-top: 2.4rem !important;
+    top: calc(50% + 2rem) !important; 
   }
   /****************/
 }
@@ -1720,11 +1724,15 @@ a {
 /*****************/
 @media screen and (max-width: 767px) {
   .layout {
-    margin-top: 2.4rem;
-    top: calc(50% + 2rem); 
+    margin-top: 2.4rem !important;
+    top: calc(50% + 2rem) !important; 
   }
   .container .layout__box {
-    top: calc(50% + 2rem); 
+    top: calc(50% + 2rem) !important; 
+  }
+  .container {
+    margin-top: 2.4rem !important;
+    top: calc(50% + 2rem) !important; 
   }
 }
 
