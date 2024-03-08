@@ -328,6 +328,9 @@ a {
   color: var(--color-light);
 }
 
+/************************************/
+
+/****************************/
 @media screen and (max-width: 800px) {
   .header__search input {
     width: 20rem;
@@ -1703,6 +1706,11 @@ a {
   .thread__date {
     font-size: 0.7rem;
   }
+  /****************/
+  .layout__box .mobile-layout__box {
+    top: 4rem;
+  }
+  /****************/
 }
 
 /*==========*/
