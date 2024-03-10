@@ -18,7 +18,7 @@
           <h3>Create/update Film</h3>
         </div>
       </div>
-      <div class="layout__body">
+      <div class="layout__body"> 
         <form class="form" action="{% if film.id %}{% url 'update-film' pk=film.id %}{% else %}{% url 'create-film' %}{% endif %}" method="POST" enctype="multipart/form-data"> 
           {% csrf_token %}
           <div class="form__group">

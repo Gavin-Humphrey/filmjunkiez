@@ -434,7 +434,7 @@ a {
 }
 /*========== Layout Box ==========*/
 
-/*.layout__box {
+.layout__box {
   width: 90%;
   max-width: 48rem;
   min-height: 40rem;
@@ -446,22 +446,8 @@ a {
   border-radius: 1rem;
   box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-}*/
-/******/
-.layout__box {
-  width: 90%;
-  max-width: 48rem;
-  min-height: 40rem;
-  position: absolute;
-  top: 60%; 
-  left: 50%;
-  transform: translate(-50%, -70%);
-  background-color: var(--color-dark);
-  border-radius: 1rem;
-  box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
 }
-/*********/
+
 
 .layout__boxHeader {
   display: flex;
@@ -877,9 +863,6 @@ a {
   justify-content: space-between;
   align-items: center;
 }
-/**=====***/
-
-/***========*/
 
 .filmListFilm__actions {
   display: flex;
@@ -1720,37 +1703,13 @@ a {
   .thread__date {
     font-size: 0.7rem;
   }
-  /****************
-  .layout__box {
-    margin-top: 10rem !important;
-    top: calc(50% + 10rem) !important;
+  /****************/
+  .layout {
+  margin-top: 10rem; 
   }
-  .layout__boxHeader {
-    margin-top: 10rem !important;
-    top: calc(50% + 10rem) !important;
-  }
-  ****************/
-}
 
-/*****************/
-@media screen and (max-width: 767px) {
-  .layout__box {
-    position: absolute;
-    width: 90%;
-    max-width: 48rem;
-    min-height: 40rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-dark);
-    border-radius: 1rem;
-    box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    top: 60px; 
-  }
+  /****************/
 }
-  
-
-/*******************/
 
 /*==========*/
 

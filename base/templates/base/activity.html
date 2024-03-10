@@ -2,7 +2,7 @@
 
 {% block content %}
     <main class="layout">
-      <div class="container">
+      <div class="container"> 
         <div class="layout__box "> 
           <div class="layout__boxHeader">
             <div class="layout__boxTitle">
@@ -22,7 +22,7 @@
           {% for review in film_reviews %}
           <div class="activities__box">
             <div class="activities__boxHeader filmListFilm__header">
-              <a href="{% url 'user-profile' review.user.id %}" class="filmListFilm__author"><!--class="filmListFilm__author"-->
+              <a href="{% url 'user-profile' review.user.id %}" class="filmListFilm__author">
                 <div class="avatar avatar--small">
                   <img src="{{ review.user.get_avatar_url }}" /> 
                 </div>
