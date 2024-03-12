@@ -1382,12 +1382,7 @@ a {
   fill: var(--color-light);
   cursor: pointer;
 }
-
-
-
 /*==========*/
-
-/*====check here later=====*/
 
 .thread__delete {
   cursor: pointer;
@@ -1417,7 +1412,6 @@ a {
   text-transform: uppercase;
   font-weight: 500;
   color: var(--color-light);
-
 }
 
 .film__topLeft svg {
@@ -1487,8 +1481,8 @@ a {
   justify-content: space-between;
 }
 
-.film__info span { /*=====Film date just added======*/
-  font-size: xx-small; 
+.film__info span {/*==================*/
+  font-size: small; 
 } 
 
 
@@ -1700,7 +1694,8 @@ a {
     font-size: 0.7rem;
   }
   .thread__date {
-    font-size: 0.7rem;
+    /*font-size: 0.7rem;*/
+    font-size: small;
   }
   /****************/
   .layout {
@@ -1752,9 +1747,6 @@ a {
   margin: 1rem 0;
 }
 
-
-
-/*======== Fix this Review rating=========*/
 .filmListFilm__rating {
   position: absolute;
   top: 0;
@@ -1782,7 +1774,6 @@ a {
   color: var(--color-rating-orange); 
 }
 
-/*==============================*/
 
 .film__conversation {
   margin-top: 1rem;
@@ -1827,6 +1818,20 @@ a {
   align-items: center;
   gap: 1.5rem;
   font-size: 1.4rem;
+}
+
+.thread__author > span{
+  display: flex;
+  margin-left: 30rem;
+  font-size: small;
+}
+
+@media screen and (max-width: 700px) {
+  .thread__author > span{
+    display: flex;
+    margin-left: 3rem;
+    font-size: small;
+  }
 }
 
 .thread__authorInfo {
