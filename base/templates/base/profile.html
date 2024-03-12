@@ -1,4 +1,4 @@
-{% extends "main.html" %}
+{% extends "base/main.html" %}
 {% load static %}
 {% block content %}
 
@@ -18,7 +18,15 @@
           {% if request.user == user %}
           <a href="{% url 'modify-user' %}" class="btn btn--main btn--pill">Edit Profile</a>
           {% endif %}
-          <a href="{% url 'follow-page' %}" class="btn btn--main btn--pill">Following</a>
+          <a href="{% url 'follow-page' %}" class="btn btn--main btn--pill">
+          {% if request.user == user %}
+            Follow Page
+          {% elif user_follows %}
+            Following
+          {% else %}
+            Follow
+          {% endif %}
+          </a>
         </div>
 
         <div class="profile__about">

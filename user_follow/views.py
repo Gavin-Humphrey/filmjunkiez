@@ -48,6 +48,7 @@ def follows_page(request):
     followed_by = UserFollows.objects.filter(
         followed_user=request.user, user__username__icontains=q
     ).order_by("user")
+
     context = {
         "form": form,
         "user_follows": user_follows,

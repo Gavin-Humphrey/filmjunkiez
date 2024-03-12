@@ -145,6 +145,9 @@ def logout_view(request):
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
     # films = Film.objects.filter(host=user) # Fetches all films associated with the user, by filtering the Film objects where the host field matches the specific user object
+    user_follows = UserFollows.objects.filter(
+        user=request.user, followed_user=user
+    ).exists()  ##
     films = (
         user.film_set.all()
     )  # Fetches all films associated with the user using the reverse relation
@@ -156,6 +159,7 @@ def userProfile(request, pk):
         "films": films,
         "film_reviews": film_posts,
         "categories": categories,
+        "user_follows": user_follows,  #######
     }
     return render(request, "base/profile.html", context)
 
