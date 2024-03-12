@@ -327,9 +327,6 @@ a {
   color: var(--color-light);
 }
 
-/************************************/
-
-/****************************/
 @media screen and (max-width: 800px) {
   .header__search input {
     width: 20rem;
@@ -637,8 +634,6 @@ a {
 }
 /* Follow and Unfollow ends */
 
-
-/*=======================================*/
 .layout__boxTitle svg {
   width: 1.6rem;
   height: 1.6rem;
@@ -663,13 +658,6 @@ a {
 /*==============================
 =>  forms
 ================================*/
-
-/*===========Checking this out for the form===============*/
-
-
-
-
-/*========================================================*/
 
 .form__group {
   margin-bottom: 2rem;
@@ -1020,15 +1008,12 @@ a {
   }
 }
 
-
 .film-details__container {
   grid-column: span 2;
   width: 96%; 
   margin: 0.7rem;
-  max-width: 120rem; /* JUST ADDED FOR TEST. Temporary. Doesan't affect layout*/
+  max-width: 120rem; 
 }
-
-
 
 .film-details__container-box {
   display: grid;
@@ -1045,7 +1030,6 @@ a {
   align-items: center;
   gap: 1.5rem;
 }
-
 
 .film-details__layout__boxTitle a {
   display: flex;
@@ -1093,7 +1077,6 @@ a {
   object-fit: cover;
 }
 
-
 .container-box__description {
   width: 96%; /*100*/
   margin: 0.7rem; 
@@ -1106,13 +1089,13 @@ a {
   /*padding: 2.8rem;*/
   padding: 1.5rem;
   border-radius: 5px 5px 0 0;
-  background-color: var(--color-dark-medium);
-   
+  background-color: var(--color-dark-medium);  
 }
 
 .container-box__description .description__layout__boxHeader h3 {
   margin: 0; 
 }
+
 .container-box__description .description__layout__body {
   position: relative;
   width: 100%;
@@ -1139,14 +1122,12 @@ a {
   background-color: transparent; 
 }
 
-
 .container-box__description .description__layout__body h3 {
   margin-left: 0.7rem;
   top: 0;
   border-radius: 0 0 0.31rem 0.31rem;
   box-sizing: border-box;
 }
-
 
 .container-box__description .description__layout__body img {
   /*width: 50%%;*/
@@ -1485,7 +1466,6 @@ a {
   font-size: small; 
 } 
 
-
 /**Film image**/
 
 .filmListFilm__box {
@@ -1514,8 +1494,6 @@ a {
   object-fit: cover; 
 }
 
-
-
 @media screen and (max-width:500px) {
   .filmListFilm__image img {
     max-width: 150px;
@@ -1525,7 +1503,6 @@ a {
     /*padding-top: 2.5rem;*/
   }
 }
-
 
 /*.filmListFilm__image {
   position: absolute;
@@ -1544,7 +1521,6 @@ a {
   /*object-fit: cover;*/ /* Ensure the image covers the container *
   object-fit: cover;
 }
-
 
 .filmListFilm__description {
   position: absolute;
@@ -1574,7 +1550,6 @@ a {
   color: var(--color-main);
   bottom: 0;
 }*/
-
 
 /* This is good but trying the responsive snippet*/
 /*.filmListFilm__review__author p {
@@ -1614,7 +1589,6 @@ a {
   margin: 0;
   font-size: small;
 }
-
 /*======*/
 
 /* Responsive styles */
@@ -1664,8 +1638,10 @@ a {
     width: 50%;
     /*font-size: 1.1rem;*/
   }
-  .film__info span { 
-    font-size: xx-small;
+  .film__info > span { 
+    display: flex;
+    margin-left: 3rem;
+    font-size: x-small; /*=============HERE===============*/
   } 
   .film__hosted p {
     font-size: 1rem;
@@ -1699,9 +1675,8 @@ a {
   }
   /****************/
   .layout {
-  margin-top: 10rem; 
+  margin-top: 3rem; 
   }
-
   /****************/
 }
 
@@ -1819,7 +1794,7 @@ a {
   gap: 1.5rem;
   font-size: 1.4rem;
 }
-
+/**==================*/
 .thread__author > span{
   display: flex;
   margin-left: 30rem;
@@ -1827,13 +1802,13 @@ a {
 }
 
 @media screen and (max-width: 700px) {
-  .thread__author > span{
+  .thread__author > span{ /**===========HERE=============**/
     display: flex;
     margin-left: 3rem;
-    font-size: small;
+    font-size: x-small;
   }
 }
-
+/*===============*/
 .thread__authorInfo {
   display: flex;
   align-items: center;
