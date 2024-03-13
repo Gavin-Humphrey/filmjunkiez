@@ -399,9 +399,9 @@ a {
 =>  Layout
 ================================*/
 
-.layout {
+/*.layout {
   margin-top: 2.4rem;
-}
+}*/
 
 .layout > .container {
   display: flex;
@@ -430,20 +430,6 @@ a {
   flex-basis: 25%;
 }
 /*========== Layout Box ==========*/
-
-/*.layout__box {
-  width: 90%;
-  max-width: 48rem;
-  min-height: 40rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -45%);
-  background-color: var(--color-dark);
-  border-radius: 1rem;
-  box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}*/
 
 .layout__box {
   width: 90%;
@@ -758,7 +744,7 @@ a {
 .categories__header h2 {
   text-transform: uppercase;
   font-weight: 500;
-  color: whitesmoke;
+  color: var(--color-light);
 }
 
 .categories__list {
@@ -832,7 +818,7 @@ a {
 
 .filmList__header p {
   font-weight: 500;
-  color: rgba(245, 245, 245, 0.621);  /* color: var(--color-dark-light);   */
+  color: var(--color-gray);
 }
 
 
@@ -1032,8 +1018,8 @@ a {
 .film-details__container-box {
   display: grid;
   grid-template-rows: auto 1fr; 
-  max-height: 100vh; /*height:450px;*/
-  width: 100%; /*96*/
+  max-height: 100vh; 
+  width: 100%; 
   border-radius: 0 0 5px 5px;
   background-color: var(--color-dark);
   padding: 10px;
@@ -1092,7 +1078,7 @@ a {
 }
 
 .container-box__description {
-  width: 96%; /*100*/
+  width: 96%; 
   margin: 0.7rem; 
 }
 
@@ -1100,7 +1086,6 @@ a {
   display: grid;
   place-items: center;
   overflow: auto;
-  /*padding: 2.8rem;*/
   padding: 1.5rem;
   border-radius: 5px 5px 0 0;
   background-color: var(--color-dark-medium);  
@@ -1144,10 +1129,8 @@ a {
 }
 
 .container-box__description .description__layout__body img {
-  /*width: 50%%;*/
   height: 20rem;
   object-fit: cover;
-  /*object-position: top left;*/
   border-radius: 0 0 0.31rem 0.31rem;
   position: sticky;
   top: 0;
@@ -1219,7 +1202,6 @@ a {
     width: calc(100% - 20px); 
     margin-top: 10px;
     margin-bottom: 10px;
-    /*padding: 10px;*/ 
     box-sizing: border-box; 
   }
   
@@ -1227,7 +1209,6 @@ a {
     width: calc(99% - 20px); 
     padding: 0 10px; 
     box-sizing: border-box; 
-    /*margin-left: 0;*/
     margin: 0;
   }
 
@@ -1457,7 +1438,6 @@ a {
   padding-left: 2rem;
   padding-right: 2rem;
   height: 80.5vh;
-  /* overflow-y: auto; */
   padding-bottom: 0;
 }
 
@@ -1596,7 +1576,6 @@ a {
   }
   .film__info h3 {
     width: 50%;
-    /*font-size: 1.1rem;*/
   }
   .film__info > span { 
     font-size: x-small; 
@@ -1614,13 +1593,13 @@ a {
     display: flex;
     justify-content: space-between;
     gap: 8rem;
-    width: 85%;
-    /*width: auto;*/
-    
+    width: 85%;    
   }
+
   .filmListFilm__review__author h4 {
     font-size: 0.7rem
   }
+
   .filmListFilm__review__average-rating p {
     font-size: 0.7rem;
   }
@@ -1628,11 +1607,6 @@ a {
     font-size: x-small;
     margin-left: 5rem;
   }
-  /****************/
-  /*.layout {**=======CHECK HERE=========*
-  margin-top: 3rem; 
-  }*/
-  /****************/
 }
 
 /*==========*/
@@ -1640,7 +1614,6 @@ a {
 /**Filmlist Author**/
 
 .film__info h3 {
-  /*font-size: 1.8rem;*/
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--color-main);
@@ -1694,7 +1667,7 @@ a {
 
 .rating label {
   cursor: pointer;
-  color: #ccc;
+  color: var(--color-light);
   margin: 0 5px;
 }
 
