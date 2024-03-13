@@ -93,11 +93,8 @@ class Film(models.Model):
             if (
                 hasattr(self, "_original_image")
                 and self.image.name != self._original_image
-            ):
-
-                img = ImageOps.contain(
-                    Image.open(self.image.path), (200, 200), method=3
-                )
+                ):
+                img = Image.open(self.image.path)
                 img.save(self.image.path)
 
             # Store the original image filename after the save

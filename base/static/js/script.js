@@ -67,3 +67,13 @@ if (photoInput)
 // Scroll to Bottom
 const conversationThread = document.querySelector(".room__box");
 if (conversationThread) conversationThread.scrollTop = conversationThread.scrollHeight;
+
+
+
+const image = document.querySelector('.filmListFilm__image img');
+
+if (image.naturalWidth < 250 && image.naturalHeight < 150) {
+  image.style.objectFit = 'contain';
+} else {
+  image.style.objectFit = 'cover';
+}
