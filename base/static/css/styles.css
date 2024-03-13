@@ -431,7 +431,7 @@ a {
 }
 /*========== Layout Box ==========*/
 
-.layout__box {
+/*.layout__box {
   width: 90%;
   max-width: 48rem;
   min-height: 40rem;
@@ -439,6 +439,20 @@ a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -45%);
+  background-color: var(--color-dark);
+  border-radius: 1rem;
+  box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}*/
+
+.layout__box {
+  width: 90%;
+  max-width: 48rem;
+  min-height: 40rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%);
   background-color: var(--color-dark);
   border-radius: 1rem;
   box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
@@ -1041,13 +1055,13 @@ a {
 .film-details__layout__boxTitle svg {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-light) !important;
+  fill: var(--color-light);
 }
 
 .film-details__layout__boxTitle svg:hover {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-main) !important;
+  fill: var(--color-main);
 }
 
 .film-details__layout__boxTitle h3 {
@@ -1398,13 +1412,13 @@ a {
 .film__topLeft svg {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-light) !important;
+  fill: var(--color-light);
 }
 
 .film__topLeft svg:hover {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-main) !important; /**/
+  fill: var(--color-main); 
 }
 
 .film__topRight {
@@ -1417,7 +1431,7 @@ a {
 }
 
 .film__topRight svg:hover {
-  fill: var(--color-main) !important; /**/
+  fill: var(--color-main); 
 }
 
 .film__header {
@@ -1462,8 +1476,9 @@ a {
   justify-content: space-between;
 }
 
-.film__info span {/*==================*/
-  font-size: small; 
+.film__info > span {
+  font-size: small;
+  color: var(--color-gray);
 } 
 
 /**Film image**/
@@ -1472,90 +1487,35 @@ a {
   display: flex;
   justify-content: center;
   position: absolute;
-  left: 0;
-  width: 100%;
-}
-
-.filmListFilm__image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 7rem; 
-  left: 0; 
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 150px;
+  border: 2px solid var(--color-bg);
+  overflow: hidden;
+  box-sizing: border-box; 
 }
 
 .filmListFilm__image img {
-  left: 0;
-  width: 200px;
-  height: 200px; 
+  width: 100%; 
+  height: 100%;
   object-fit: cover; 
 }
 
-@media screen and (max-width:500px) {
-  .filmListFilm__image img {
-    max-width: 150px;
-    width: 100%;
-    max-height: 80px;
-    padding-left: 20px;
-    /*padding-top: 2.5rem;*/
+@media screen and (max-width: 700px) {
+  .filmListFilm__box {
+    width: 150px;
+    height: 120px;
   }
+
+  .filmListFilm__image img {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+  }
+  
 }
-
-/*.filmListFilm__image {
-  position: absolute;
-  top: 1.25rem;
-  left: 35%;
-  transform: translateX(-50%);
-  width: 15rem;
-  height: 15rem;
-  border-radius: 5%;
-  overflow: hidden;
-}
-
-.filmListFilm__image img {
-  width: 100%;
-  height: 100%;
-  /*object-fit: cover;*/ /* Ensure the image covers the container *
-  object-fit: cover;
-}
-
-.filmListFilm__description {
-  position: absolute;
-  top: 0;
-  left: 45%;
-  width: calc(55% - 15rem); /*Adjust width calculation*
-  padding: 10px;
-  box-sizing: border-box;
-  font-size: small;
-  /*font-weight: bolder;*
-  color: var(--color-light);
-}*/
-
-/**Film Details  Inside film**/
-/*.filmListFilm__review__author {
-  position: absolute;
-  bottom: 0;
-}*/
-
-/*.filmListFilm__review__author span{
-  position: absolute;
-  margin-left: 46%;
-  padding: 10px;
-  box-sizing: border-box;
-  font-size: small;
-  font-weight: bolder;
-  color: var(--color-main);
-  bottom: 0;
-}*/
-
-/* This is good but trying the responsive snippet*/
-/*.filmListFilm__review__author p {
-  margin-left: 70rem;
-  font-size: smaller;
-}*/
 
 .filmListFilm__review__director-rating {
   display: flex;
@@ -1632,16 +1592,14 @@ a {
     height: 2rem;
   }
   .film__info h3 , .film__info p {
-    font-size: 0.8rem !important;/**/
+    font-size: 0.8rem;
   }
   .film__info h3 {
     width: 50%;
     /*font-size: 1.1rem;*/
   }
   .film__info > span { 
-    display: flex;
-    margin-left: 3rem;
-    font-size: x-small; /*=============HERE===============*/
+    font-size: x-small; 
   } 
   .film__hosted p {
     font-size: 1rem;
@@ -1651,10 +1609,7 @@ a {
   .film__hosted span {
     font-size: 1.1rem;
   }
-  /*.film__categories  {
-    /*font-size: 1rem;
-    font-size: x-small !important;
-  }*/
+  
   .filmListFilm__review__author-rating {
     display: flex;
     justify-content: space-between;
@@ -1670,13 +1625,13 @@ a {
     font-size: 0.7rem;
   }
   .thread__date {
-    /*font-size: 0.7rem;*/
-    font-size: small;
+    font-size: x-small;
+    margin-left: 5rem;
   }
   /****************/
-  .layout {
+  /*.layout {**=======CHECK HERE=========*
   margin-top: 3rem; 
-  }
+  }*/
   /****************/
 }
 
@@ -1795,17 +1750,18 @@ a {
   font-size: 1.4rem;
 }
 /**==================*/
-.thread__author > span{
+
+.thread__date {
   display: flex;
-  margin-left: 30rem;
+  margin-left: 20rem;
   font-size: small;
+  color: var(--color-gray);
 }
 
 @media screen and (max-width: 700px) {
-  .thread__author > span{ /**===========HERE=============**/
-    display: flex;
-    margin-left: 3rem;
+  .thread__date {
     font-size: x-small;
+    margin-left: 5rem;
   }
 }
 /*===============*/

@@ -67,7 +67,7 @@
             
             {% if film.image %}
             <div class="filmListFilm__box">
-              <div class="filmListFilm__image">
+              <div class="filmListFilm__image image-card">
                 <a href="{% url 'film-details' film.id %}">
                   <img src="{{ film.image.url }}" alt="{{ film.title }}" />
                 </a>
