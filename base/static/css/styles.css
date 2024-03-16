@@ -395,6 +395,37 @@ a {
   fill: var(--color-main);
 }
 
+/*================================
+=> ANNOUNCEMENT
+================================*/
+
+/* Announcement bar styling */
+.announcement-bar {
+  position: fixed;
+  top: 54px;
+  right: 0; 
+  width: auto;
+  background-color: var(--color-main-light);
+  color: var(--color-bg);
+  font-size: small;
+  padding: 0.1rem;
+  text-align: center;
+  white-space: nowrap; 
+  overflow: hidden;
+  animation: move-announcement 20s linear infinite;
+}
+
+@keyframes move-announcement {
+  0% {
+      transform: translateX(100%); 
+  }
+  100% {
+      transform: translateX(calc(-100% - 100vw)); 
+  }
+}
+
+/*==================================*/
+
 /*==============================
 =>  Layout
 ================================*/

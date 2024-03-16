@@ -93,7 +93,7 @@ class Film(models.Model):
             if (
                 hasattr(self, "_original_image")
                 and self.image.name != self._original_image
-                ):
+            ):
                 img = Image.open(self.image.path)
                 img.save(self.image.path)
 
