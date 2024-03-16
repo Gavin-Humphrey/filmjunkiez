@@ -327,9 +327,6 @@ a {
   color: var(--color-light);
 }
 
-/************************************/
-
-/****************************/
 @media screen and (max-width: 800px) {
   .header__search input {
     width: 20rem;
@@ -398,13 +395,44 @@ a {
   fill: var(--color-main);
 }
 
+/*================================
+=> ANNOUNCEMENT
+================================*/
+
+/* Announcement bar styling */
+.announcement-bar {
+  position: fixed;
+  top: 54px;
+  right: 0; 
+  width: auto;
+  background-color: var(--color-main-light);
+  color: var(--color-bg);
+  font-size: small;
+  padding: 0.1rem;
+  text-align: center;
+  white-space: nowrap; 
+  overflow: hidden;
+  animation: move-announcement 20s linear infinite;
+}
+
+@keyframes move-announcement {
+  0% {
+      transform: translateX(100%); 
+  }
+  100% {
+      transform: translateX(calc(-100% - 100vw)); 
+  }
+}
+
+/*==================================*/
+
 /*==============================
 =>  Layout
 ================================*/
 
-.layout {
+/*.layout {
   margin-top: 2.4rem;
-}
+}*/
 
 .layout > .container {
   display: flex;
@@ -441,7 +469,7 @@ a {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -25%);
+  transform: translate(-50%, -46%);
   background-color: var(--color-dark);
   border-radius: 1rem;
   box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
@@ -637,8 +665,6 @@ a {
 }
 /* Follow and Unfollow ends */
 
-
-/*=======================================*/
 .layout__boxTitle svg {
   width: 1.6rem;
   height: 1.6rem;
@@ -663,13 +689,6 @@ a {
 /*==============================
 =>  forms
 ================================*/
-
-/*===========Checking this out for the form===============*/
-
-
-
-
-/*========================================================*/
 
 .form__group {
   margin-bottom: 2rem;
@@ -756,7 +775,7 @@ a {
 .categories__header h2 {
   text-transform: uppercase;
   font-weight: 500;
-  color: whitesmoke;
+  color: var(--color-light);
 }
 
 .categories__list {
@@ -830,7 +849,7 @@ a {
 
 .filmList__header p {
   font-weight: 500;
-  color: rgba(245, 245, 245, 0.621);  /* color: var(--color-dark-light);   */
+  color: var(--color-gray);
 }
 
 
@@ -1020,21 +1039,18 @@ a {
   }
 }
 
-
 .film-details__container {
   grid-column: span 2;
   width: 96%; 
   margin: 0.7rem;
-  max-width: 120rem; /* JUST ADDED FOR TEST. Temporary. Doesan't affect layout*/
+  max-width: 120rem; 
 }
-
-
 
 .film-details__container-box {
   display: grid;
   grid-template-rows: auto 1fr; 
-  max-height: 100vh; /*height:450px;*/
-  width: 100%; /*96*/
+  max-height: 100vh; 
+  width: 100%; 
   border-radius: 0 0 5px 5px;
   background-color: var(--color-dark);
   padding: 10px;
@@ -1046,7 +1062,6 @@ a {
   gap: 1.5rem;
 }
 
-
 .film-details__layout__boxTitle a {
   display: flex;
   align-items: center;
@@ -1057,13 +1072,13 @@ a {
 .film-details__layout__boxTitle svg {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-light) !important;
+  fill: var(--color-light);
 }
 
 .film-details__layout__boxTitle svg:hover {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-main) !important;
+  fill: var(--color-main);
 }
 
 .film-details__layout__boxTitle h3 {
@@ -1093,9 +1108,8 @@ a {
   object-fit: cover;
 }
 
-
 .container-box__description {
-  width: 96%; /*100*/
+  width: 96%; 
   margin: 0.7rem; 
 }
 
@@ -1103,16 +1117,15 @@ a {
   display: grid;
   place-items: center;
   overflow: auto;
-  /*padding: 2.8rem;*/
   padding: 1.5rem;
   border-radius: 5px 5px 0 0;
-  background-color: var(--color-dark-medium);
-   
+  background-color: var(--color-dark-medium);  
 }
 
 .container-box__description .description__layout__boxHeader h3 {
   margin: 0; 
 }
+
 .container-box__description .description__layout__body {
   position: relative;
   width: 100%;
@@ -1139,7 +1152,6 @@ a {
   background-color: transparent; 
 }
 
-
 .container-box__description .description__layout__body h3 {
   margin-left: 0.7rem;
   top: 0;
@@ -1147,12 +1159,9 @@ a {
   box-sizing: border-box;
 }
 
-
 .container-box__description .description__layout__body img {
-  /*width: 50%%;*/
   height: 20rem;
   object-fit: cover;
-  /*object-position: top left;*/
   border-radius: 0 0 0.31rem 0.31rem;
   position: sticky;
   top: 0;
@@ -1224,7 +1233,6 @@ a {
     width: calc(100% - 20px); 
     margin-top: 10px;
     margin-bottom: 10px;
-    /*padding: 10px;*/ 
     box-sizing: border-box; 
   }
   
@@ -1232,7 +1240,6 @@ a {
     width: calc(99% - 20px); 
     padding: 0 10px; 
     box-sizing: border-box; 
-    /*margin-left: 0;*/
     margin: 0;
   }
 
@@ -1382,12 +1389,7 @@ a {
   fill: var(--color-light);
   cursor: pointer;
 }
-
-
-
 /*==========*/
-
-/*====check here later=====*/
 
 .thread__delete {
   cursor: pointer;
@@ -1417,19 +1419,18 @@ a {
   text-transform: uppercase;
   font-weight: 500;
   color: var(--color-light);
-
 }
 
 .film__topLeft svg {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-light) !important;
+  fill: var(--color-light);
 }
 
 .film__topLeft svg:hover {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-main) !important; /**/
+  fill: var(--color-main); 
 }
 
 .film__topRight {
@@ -1442,7 +1443,7 @@ a {
 }
 
 .film__topRight svg:hover {
-  fill: var(--color-main) !important; /**/
+  fill: var(--color-main); 
 }
 
 .film__header {
@@ -1468,7 +1469,6 @@ a {
   padding-left: 2rem;
   padding-right: 2rem;
   height: 80.5vh;
-  /* overflow-y: auto; */
   padding-bottom: 0;
 }
 
@@ -1487,10 +1487,10 @@ a {
   justify-content: space-between;
 }
 
-.film__info span { /*=====Film date just added======*/
-  font-size: xx-small; 
+.film__info > span {
+  font-size: small;
+  color: var(--color-gray);
 } 
-
 
 /**Film image**/
 
@@ -1498,95 +1498,36 @@ a {
   display: flex;
   justify-content: center;
   position: absolute;
-  left: 0;
-  width: 100%;
-}
-
-.filmListFilm__image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 7rem; 
-  left: 0; 
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 150px;
+  border: 2px solid var(--color-bg);
+  overflow: hidden;
+  box-sizing: border-box; 
 }
 
 .filmListFilm__image img {
-  left: 0;
-  width: 200px;
-  height: 200px; 
+  width: 100%; 
+  height: 100%;
   object-fit: cover; 
 }
 
-
-
-@media screen and (max-width:500px) {
-  .filmListFilm__image img {
-    max-width: 150px;
-    width: 100%;
-    max-height: 80px;
-    padding-left: 20px;
-    /*padding-top: 2.5rem;*/
+@media screen and (max-width: 700px) {
+  .filmListFilm__box {
+    top: 0;
+    width: 150px;
+    height: 120px;
   }
+
+  .filmListFilm__image img {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+  }
+  
 }
-
-
-/*.filmListFilm__image {
-  position: absolute;
-  top: 1.25rem;
-  left: 35%;
-  transform: translateX(-50%);
-  width: 15rem;
-  height: 15rem;
-  border-radius: 5%;
-  overflow: hidden;
-}
-
-.filmListFilm__image img {
-  width: 100%;
-  height: 100%;
-  /*object-fit: cover;*/ /* Ensure the image covers the container *
-  object-fit: cover;
-}
-
-
-.filmListFilm__description {
-  position: absolute;
-  top: 0;
-  left: 45%;
-  width: calc(55% - 15rem); /*Adjust width calculation*
-  padding: 10px;
-  box-sizing: border-box;
-  font-size: small;
-  /*font-weight: bolder;*
-  color: var(--color-light);
-}*/
-
-/**Film Details  Inside film**/
-/*.filmListFilm__review__author {
-  position: absolute;
-  bottom: 0;
-}*/
-
-/*.filmListFilm__review__author span{
-  position: absolute;
-  margin-left: 46%;
-  padding: 10px;
-  box-sizing: border-box;
-  font-size: small;
-  font-weight: bolder;
-  color: var(--color-main);
-  bottom: 0;
-}*/
-
-
-/* This is good but trying the responsive snippet*/
-/*.filmListFilm__review__author p {
-  margin-left: 70rem;
-  font-size: smaller;
-}*/
 
 .filmListFilm__review__director-rating {
   display: flex;
@@ -1620,7 +1561,6 @@ a {
   margin: 0;
   font-size: small;
 }
-
 /*======*/
 
 /* Responsive styles */
@@ -1664,14 +1604,13 @@ a {
     height: 2rem;
   }
   .film__info h3 , .film__info p {
-    font-size: 0.8rem !important;/**/
+    font-size: 0.8rem;
   }
   .film__info h3 {
     width: 50%;
-    /*font-size: 1.1rem;*/
   }
-  .film__info span { 
-    font-size: xx-small;
+  .film__info > span { 
+    font-size: x-small; 
   } 
   .film__hosted p {
     font-size: 1rem;
@@ -1681,33 +1620,25 @@ a {
   .film__hosted span {
     font-size: 1.1rem;
   }
-  /*.film__categories  {
-    /*font-size: 1rem;
-    font-size: x-small !important;
-  }*/
+  
   .filmListFilm__review__author-rating {
     display: flex;
     justify-content: space-between;
     gap: 8rem;
-    width: 85%;
-    /*width: auto;*/
-    
+    width: 85%;    
   }
+
   .filmListFilm__review__author h4 {
     font-size: 0.7rem
   }
+
   .filmListFilm__review__average-rating p {
     font-size: 0.7rem;
   }
   .thread__date {
-    font-size: 0.7rem;
+    font-size: x-small;
+    margin-left: 5rem;
   }
-  /****************/
-  .layout {
-  margin-top: 10rem; 
-  }
-
-  /****************/
 }
 
 /*==========*/
@@ -1715,7 +1646,6 @@ a {
 /**Filmlist Author**/
 
 .film__info h3 {
-  /*font-size: 1.8rem;*/
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--color-main);
@@ -1752,9 +1682,6 @@ a {
   margin: 1rem 0;
 }
 
-
-
-/*======== Fix this Review rating=========*/
 .filmListFilm__rating {
   position: absolute;
   top: 0;
@@ -1772,7 +1699,7 @@ a {
 
 .rating label {
   cursor: pointer;
-  color: #ccc;
+  color: var(--color-light);
   margin: 0 5px;
 }
 
@@ -1782,7 +1709,6 @@ a {
   color: var(--color-rating-orange); 
 }
 
-/*==============================*/
 
 .film__conversation {
   margin-top: 1rem;
@@ -1828,7 +1754,22 @@ a {
   gap: 1.5rem;
   font-size: 1.4rem;
 }
+/**==================*/
 
+.thread__date {
+  display: flex;
+  margin-left: 20rem;
+  font-size: small;
+  color: var(--color-gray);
+}
+
+@media screen and (max-width: 700px) {
+  .thread__date {
+    font-size: x-small;
+    margin-left: 5rem;
+  }
+}
+/*===============*/
 .thread__authorInfo {
   display: flex;
   align-items: center;
