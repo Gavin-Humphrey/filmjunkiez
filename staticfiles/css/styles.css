@@ -398,11 +398,9 @@ a {
 /*================================
 => ANNOUNCEMENT
 ================================*/
-
-/* Announcement bar styling */
-.announcement-bar {
-  position: fixed;
-  top: 54px;
+.announcement-bar-container {
+  position: absolute;
+  top: 8%;
   right: 0; 
   width: auto;
   background-color: var(--color-main-light);
@@ -412,15 +410,78 @@ a {
   text-align: center;
   white-space: nowrap; 
   overflow: hidden;
-  animation: move-announcement 20s linear infinite;
+  animation: scroll-announcements 20s linear infinite;
 }
 
-@keyframes move-announcement {
+.announcement-bar {
+  display: flex;
+}
+
+.announcement {
+  margin: 0 1.25rem 0 1.25rem;
+}
+
+@keyframes scroll-announcements {
   0% {
-      transform: translateX(100%); 
+    transform: translateX(100%);
   }
   100% {
-      transform: translateX(calc(-100% - 100vw)); 
+    transform: translateX(calc(-100% - 100vw));
+  }
+}
+
+/*======================================*/
+
+/*=====================================
+=> ADVERT
+=====================================*/
+
+.advert-card {
+  position: fixed;
+  top: 50%;
+  height: 400px; 
+  width: 350px;
+  background-color: var(--color-dark);
+  border: 0.1rem solid var(--color-main);
+  color: var(--color-light);
+  font-size: small;
+  padding: 0.1rem;
+  text-align: center;
+  white-space: nowrap; 
+  overflow: hidden;
+  animation: flash-advert 40s infinite;
+}
+
+@keyframes flash-advert {
+  0%, 50% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.advert__delete {
+  position: absolute;
+  top: 8px; 
+  right: 8px;
+  cursor: pointer;
+}
+
+.advert__delete svg {
+  fill:  var(--color-main-light); 
+  width: 16px; 
+  height: 16px;
+  transition: fill 0.3s ease; 
+}
+
+.advert__delete:hover svg {
+  fill: var(--color-main); 
+}
+
+@media only screen and (max-width: 767px) {
+  .advert-card {
+      display: none; 
   }
 }
 
