@@ -398,7 +398,7 @@ a {
 /*================================
 => ANNOUNCEMENT
 ================================*/
-.announcement-bar {
+.announcement-bar-container {
   position: absolute;
   top: 8%;
   right: 0; 
@@ -411,6 +411,9 @@ a {
   white-space: nowrap; 
   overflow: hidden;
   animation: scroll-announcements 20s linear infinite;
+}
+
+.announcement-bar {
   display: flex;
 }
 
