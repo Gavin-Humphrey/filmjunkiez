@@ -51,6 +51,7 @@ body {
   color: var(--color-light-gray);
   background-color: var(--color-bg);
   min-height: 100vh;
+  /*overflow: hidden;/*========Just added to check the announcement bar=========*/
 }
 
 img {
@@ -398,41 +399,50 @@ a {
 /*================================
 => ANNOUNCEMENT
 ================================*/
+
 .announcement-bar-container {
   position: absolute;
-  top: 8%;
-  right: 0; 
-  width: auto;
-  background-color: var(--color-main-light);
-  color: var(--color-bg);
-  font-size: small;
-  padding: 0.1rem;
+  top: 5.8rem;
+  right: 0;
+  left: 0;
   text-align: center;
-  white-space: nowrap; 
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+/*@media screen and (max-width: 768px) {
+  .announcement-bar-container {
+    position: absolute;
+  }
+}*/
+
+.announcement-bar {
+  white-space: nowrap;
+  display: flex; 
+  color: var(--color-main-light);
+  align-items: center;
   overflow: hidden;
   animation: scroll-announcements 20s linear infinite;
 }
 
-@media screen and (max-width: 700px) {
-  .announcement-bar-container {
-    position: absolute;
-  }
-}
-
-.announcement-bar {
-  display: flex;
-}
 
 .announcement {
-  margin: 0 1.25rem 0 1.25rem;
+  margin: 0 1.25rem;
+  white-space: nowrap;
+  font-size: small;
+
 }
 
 @keyframes scroll-announcements {
   0% {
-    transform: translateX(100%);
+    transform: translateX(100%); 
+  }
+  5% {
+    transform: translateX(90%); 
   }
   100% {
-    transform: translateX(calc(-100% - 100vw));
+    transform: translateX(-100%); 
   }
 }
 

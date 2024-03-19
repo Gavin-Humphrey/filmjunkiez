@@ -46,6 +46,7 @@ function updateAnnouncement(message) {
   announcementBar.innerText = message;
 }
 
+
 //JS for removing ad
 function removeAdvert() {
   var advertCard = document.getElementById('advertCard');

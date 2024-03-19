@@ -46,6 +46,22 @@ function updateAnnouncement(message) {
   announcementBar.innerText = message;
 }
 
+window.addEventListener('resize', function() {
+  var announcementBar = document.getElementById('announcementBar');
+  var body = document.body;
+  
+  if (announcementBar.offsetWidth > window.innerWidth) {
+      body.style.overflowX = 'hidden'; // Prevent horizontal scrollbar
+  } else {
+      body.style.overflowX = ''; // Allow horizontal scrollbar
+  }
+});
+
+
+
+
+
+
 //JS for removing ad
 function removeAdvert() {
   var advertCard = document.getElementById('advertCard');

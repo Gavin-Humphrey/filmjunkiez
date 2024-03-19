@@ -51,6 +51,7 @@ body {
   color: var(--color-light-gray);
   background-color: var(--color-bg);
   min-height: 100vh;
+  /*overflow: hidden;/*========Just added to check the announcement bar=========*/
 }
 
 img {
@@ -398,20 +399,46 @@ a {
 /*================================
 => ANNOUNCEMENT
 ================================*/
-.announcement-bar-container {
-  position: absolute;
+
+/*.announcement-bar-container {
+  position: fixed;
   top: 8%;
   right: 0; 
+  left: 0;
+  width: auto;
+  width: 100%;
+  background-color: var(--color-main-light);
+  color: var(--color-bg);
+  font-size: small;
+  padding: 0.1rem;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: scroll-announcements 20s linear infinite;
+}*/
+
+.announcement-bar {
+  position: absolute;
+  top: 50px;
+  left: 0;
   width: auto;
   background-color: var(--color-main-light);
   color: var(--color-bg);
   font-size: small;
   padding: 0.1rem;
   text-align: center;
-  white-space: nowrap; 
-  overflow: hidden;
+  white-space: nowrap;
+  /*overflow: hidden;*/
+  /*z-index: 1000; /* Ensure the bar appears above other content */
   animation: scroll-announcements 20s linear infinite;
 }
+
+
+/*@media screen and (max-width: 768px) {
+  .announcement-bar-container {
+    position: absolute;
+  }
+}*/
 
 .announcement-bar {
   display: flex;
@@ -421,14 +448,28 @@ a {
   margin: 0 1.25rem 0 1.25rem;
 }
 
-@keyframes scroll-announcements {
+/*@keyframes scroll-announcements {
   0% {
     transform: translateX(100%);
   }
   100% {
-    transform: translateX(calc(-100% - 100vw));
+    transform: translateX(calc(-100% -100vw));
+  }
+}*/
+
+@keyframes scroll-announcements {
+  0% {
+    transform: translateX(100%); /* Start with announcements off-screen to the right */
+  }
+  95% {
+    transform: translateX(-100%); /* Move announcements to the left */
+  }
+  100% {
+    transform: translateX(-100%); /* Ensure it stays off the left edge of the page */
   }
 }
+
+
 
 /*======================================*/
 
@@ -436,7 +477,7 @@ a {
 => ADVERT
 =====================================*/
 
-.advert-card {
+/*.advert-card {
   position: fixed;
   top: 50%;
   height: 400px; 
@@ -483,7 +524,7 @@ a {
   .advert-card {
       display: none; 
   }
-}
+}*/
 
 /*==================================*/
 
