@@ -442,7 +442,7 @@ a {
 => ADVERT
 =====================================*/
 
-.advert-card {
+/*.advert-card {
   position: fixed;
   top: 50%;
   height: 400px; 
@@ -489,7 +489,7 @@ a {
   .advert-card {
       display: none; 
   }
-}
+}*/
 
 /*==================================*/
 
