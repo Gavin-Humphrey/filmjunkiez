@@ -422,16 +422,10 @@ a {
   display: flex; 
   color: var(--color-main-light);
   align-items: center;
+  margin: 0 1.25rem;
+  font-size: large;
   overflow: hidden;
   animation: scroll-announcements 20s linear infinite;
-}
-
-
-.announcement {
-  margin: 0 1.25rem;
-  white-space: nowrap;
-  font-size: small;
-
 }
 
 @keyframes scroll-announcements {
