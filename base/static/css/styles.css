@@ -467,7 +467,6 @@ a {
 }
 
 .advert-card {
-  /*position: relative;*/
   display: flex;
   top: 50%;
   height: 400px; 
@@ -481,7 +480,7 @@ a {
   animation: flash-advert 40s infinite;
   justify-content: center; 
   align-items: center; 
-  left: 0;
+  z-index: 9999;
 }
 
 @keyframes flash-advert {
@@ -492,16 +491,10 @@ a {
     opacity: 0;
   }
 }
-/*============*/
-
-
-
-
-/*==========*/
 
 .advert-text {
   margin-right: 10px;
-  font-size: 45px;
+  font-size: 25px;
   font-weight: bold;
   font-family: "Papyrus", cursive;
   padding: 0;
@@ -527,12 +520,12 @@ a {
   fill: var(--color-main); 
 }
 
-@media only screen and (max-width: 767px) {
+/*@media only screen and (max-width: 767px) {
   .advert-card {
       display: none; 
   }
-}
-/*@media only screen and (max-width: 767px) {
+}*/
+@media only screen and (max-width: 767px) {
   .advert-container {
     position: fixed;
    
@@ -547,7 +540,7 @@ a {
   .advert-text {
     font-size: 20px;
   }
-}*/
+}
 
 /*==================================*/
 
