@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
 :root {
+  --responsive-announcement-width: 150rem;
   --color-main: #b8860b; 
   --color-main-light: #e1f6fb;
   --color-dark: #1D1D1D;
@@ -399,33 +400,27 @@ a {
 /*================================
 => ANNOUNCEMENT
 ================================*/
-
 .announcement-bar-container {
   position: absolute;
   top: 5.8rem;
   right: 0;
   left: 0;
-  text-align: center;
-  white-space: nowrap;
   overflow: hidden;
 }
 
-
-/*@media screen and (max-width: 768px) {
-  .announcement-bar-container {
-    position: absolute;
-  }
-}*/
-
 .announcement-bar {
-  white-space: nowrap;
   display: flex; 
   color: var(--color-main-light);
   align-items: center;
-  margin: 0 1.25rem;
-  font-size: large;
   overflow: hidden;
   animation: scroll-announcements 20s linear infinite;
+}
+
+.announcement {
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 1rem;  
+  font-size: large;
 }
 
 @keyframes scroll-announcements {
@@ -437,6 +432,26 @@ a {
   }
   100% {
     transform: translateX(-100%); 
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .announcement-bar {
+    width: var(--responsive-announcement-width);
+  }
+  .announcement {
+    font-size: medium;
+    margin: 0 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .announcement-bar {
+    width: var(--responsive-announcement-width);
+  }
+  .announcement {
+    font-size: medium;
+    margin: 0 0.5rem; 
   }
 }
 
