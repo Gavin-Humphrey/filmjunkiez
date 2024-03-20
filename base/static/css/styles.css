@@ -461,6 +461,9 @@ a {
 /*=====================================
 => ADVERT
 =====================================*/
+.advert-container {
+  position: fixed; 
+}
 
 .advert-card {
   position: fixed;
@@ -470,6 +473,7 @@ a {
   width: 350px;
   background-color: var(--color-dark);
   border: 0.1rem solid var(--color-main);
+  border-radius: 1rem;
   padding: 0.1rem;
   white-space: nowrap; 
   overflow: hidden;
@@ -501,7 +505,7 @@ a {
   position: absolute;
   top: 8px; 
   right: 8px;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 
 .advert__delete svg {
@@ -515,9 +519,25 @@ a {
   fill: var(--color-main); 
 }
 
-@media only screen and (max-width: 767px) {
+/*@media only screen and (max-width: 767px) {
   .advert-card {
       display: none; 
+  }
+}*/
+@media only screen and (max-width: 767px) {
+  .advert-container {
+    position: fixed;
+   
+  }
+  .advert-card {
+    height: 20rem; 
+    width: 30rem;
+    top: 20%;
+    left: 43%;
+    transform: translate(-50%, -50%);    
+  }
+  .advert-text {
+    font-size: 20px;
   }
 }
 
