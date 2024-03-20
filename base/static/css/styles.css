@@ -16,6 +16,7 @@
   --color-rating-orange: #ffcc00;
 }
 
+
 /*========== base styles ==========*/
 
 * {
@@ -463,18 +464,18 @@ a {
 
 .advert-card {
   position: fixed;
+  display: flex;
   top: 50%;
   height: 400px; 
   width: 350px;
   background-color: var(--color-dark);
   border: 0.1rem solid var(--color-main);
-  color: var(--color-light);
-  font-size: small;
   padding: 0.1rem;
-  text-align: center;
   white-space: nowrap; 
   overflow: hidden;
   animation: flash-advert 40s infinite;
+  justify-content: center; 
+  align-items: center; 
 }
 
 @keyframes flash-advert {
@@ -484,6 +485,16 @@ a {
   25%, 75% {
     opacity: 0;
   }
+}
+
+.advert-text {
+  margin-right: 10px;
+  font-size: 45px;
+  font-weight: bold;
+  font-family: "Papyrus", cursive;
+  padding: 0;
+  margin: 0;
+  color: var(--color-success);
 }
 
 .advert__delete {
