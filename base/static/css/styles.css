@@ -463,10 +463,11 @@ a {
 =====================================*/
 .advert-container {
   position: fixed; 
+  bottom: 0;
 }
 
 .advert-card {
-  position: fixed;
+  /*position: relative;*/
   display: flex;
   top: 50%;
   height: 400px; 
@@ -480,6 +481,7 @@ a {
   animation: flash-advert 40s infinite;
   justify-content: center; 
   align-items: center; 
+  left: 0;
 }
 
 @keyframes flash-advert {
@@ -490,6 +492,12 @@ a {
     opacity: 0;
   }
 }
+/*============*/
+
+
+
+
+/*==========*/
 
 .advert-text {
   margin-right: 10px;
