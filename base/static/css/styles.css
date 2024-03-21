@@ -448,9 +448,9 @@ a {
     top: 0;
     left: 0;
   }
-  /* .announcement-bar {
+  .announcement-bar {
     width: var(--responsive-announcement-width);
-  } */
+  } 
   .announcement {
     /*font-size: medium;*/
     font-size: small;
@@ -465,9 +465,9 @@ a {
     top: 0;
     left: 0;
   }
-  /* .announcement-bar {
+  .announcement-bar {
     width: var(--responsive-announcement-width);
-  } */
+  } 
   .announcement {
     /*font-size: medium;*/
     font-size: small;
