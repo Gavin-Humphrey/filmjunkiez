@@ -403,9 +403,14 @@ a {
 ================================*/
 .announcement-bar-container {
   position: absolute;
-  top: 5.4rem;
-  right: 0;
-  left: 0;
+  /*top: 5.4rem;*/
+  top: 5.8rem;/**/
+  right: 15%;/**/
+  left: 15%;/**/
+  /*left: 0;*/
+  background-color: var(--color-gray);/**/
+  border-radius: 0.5rem;/**/
+  width: 70%;/**/
   overflow: hidden;
 }
 
@@ -413,15 +418,15 @@ a {
   display: flex; 
   color: var(--color-main-light);
   align-items: center;
-  overflow: hidden;
+  /*overflow: hidden;*/
   animation: scroll-announcements 20s linear infinite;
 }
 
 .announcement {
   white-space: nowrap;
   overflow: hidden;
-  margin: 0 1rem;  
-  font-size: medium;
+  margin: 0 1rem; 
+  font-size: small;
 }
 
 @keyframes scroll-announcements {
@@ -441,7 +446,8 @@ a {
     width: var(--responsive-announcement-width);
   }
   .announcement {
-    font-size: medium;
+    /*font-size: medium;*/
+    font-size: small;
     margin: 0 0.5rem;
   }
 }
@@ -451,7 +457,8 @@ a {
     width: var(--responsive-announcement-width);
   }
   .announcement {
-    font-size: medium;
+    /*font-size: medium;*/
+    font-size: small;
     margin: 0 0.5rem; 
   }
 }
