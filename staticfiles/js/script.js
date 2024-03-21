@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-///Announcement
-// JavaScript for updating announcement content
+//Announcement
+//JavaScript for updating announcement content
 function updateAnnouncement(message) {
   var announcementBar = document.getElementById('announcement-bar');
   announcementBar.innerText = message;
