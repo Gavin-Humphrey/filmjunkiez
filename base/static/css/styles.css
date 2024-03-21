@@ -488,8 +488,9 @@ a {
 .advert-card {
   display: flex;
   top: 50%;
-  height: 400px; 
-  width: 350px;
+  margin-left: 4rem;
+  height: 40rem; 
+  width: 32rem;
   background-color: var(--color-dark);
   border: 0.1rem solid var(--color-main);
   border-radius: 1rem;
@@ -512,8 +513,8 @@ a {
 }
 
 .advert-text {
-  margin-right: 10px;
-  font-size: 25px;
+  margin-right: 0.8rem;
+  font-size: 4.2rem;
   font-weight: bold;
   font-family: "Papyrus", cursive;
   padding: 0;
@@ -523,15 +524,15 @@ a {
 
 .advert__delete {
   position: absolute;
-  top: 8px; 
-  right: 8px;
+  top: 0.5rem; 
+  right: 0.5rem;
   /*cursor: pointer;*/
 }
 
 .advert__delete svg {
   fill:  var(--color-main-light); 
-  width: 16px; 
-  height: 16px;
+  width: 1rem; 
+  height: 1rem;
   transition: fill 0.3s ease; 
 }
 
@@ -547,17 +548,18 @@ a {
 @media only screen and (max-width: 767px) {
   .advert-container {
     position: fixed;
+    top: 50%;
+    left: 40%;
    
   }
   .advert-card {
-    height: 20rem; 
+    height: 50rem; 
     width: 30rem;
-    top: 20%;
-    left: 43%;
+   
     transform: translate(-50%, -50%);    
   }
   .advert-text {
-    font-size: 20px;
+    font-size: 3.8rem;
   }
 }
 
