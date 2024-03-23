@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!--<meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
     <!--<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />-->
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon" />
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
@@ -16,9 +15,7 @@
   </head>
 
   <body>
-    {% if request.user.is_authenticated %}
-      {% include "base/announcement.html" %}
-    {% endif %}
+  
     {% include "base/navbar.html" %}
      
     {% if messages %}
@@ -33,4 +30,7 @@
     {% endblock %}
    <script src="{% static 'js/script.js' %}"></script>
   </body>
+  {% if request.user.is_authenticated %}
+  {% include "base/announcement.html" %}
+  {% endif %}
 </html>

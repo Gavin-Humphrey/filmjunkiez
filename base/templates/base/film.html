@@ -57,15 +57,8 @@
 
       <div class="film__box scroll">
         <div class="film__header scroll">
-          <div class="film__info">
-            <div class='film__hosted'>
-              <p>Film Title</p>
-              <h3>{{film.title}}</h3> 
-            </div>
-
-            <!---Add film image-->
-            
-            {% if film.image %}
+          <!-----New image position----->
+          {% if film.image %}
             <div class="filmListFilm__box">
               <div class="filmListFilm__image">
                 <a href="{% url 'film-details' film.id %}">
@@ -77,8 +70,18 @@
               
             </div>
             {% endif %}
+            <!-------------->
+          <div class="film__info">
+            <div class='film__hosted'>
+              <p>Film Title</p>
+              <h3>{{film.title}}</h3> 
+            </div>
 
-            <div class="filmListFilm__review__director-rating">
+            <!---Add film image-->
+            
+            
+            <!-----Former filmListFilm__review__director-rating Position------->
+            <!--<div class="filmListFilm__review__director-rating">
               <div class="filmListFilm__review__director"> 
                 <p>Producer</p>
                 <h4>{{ film.director }}</h4> 
@@ -89,28 +92,43 @@
                   
                 
               </div>
-            </div> 
+            </div> -->
 
             <span>{{film.created|timesince}} ago</span>
           </div>
-
-
+          
+          <!----------------->
          <!---host-->
-        <div class="film__hosted">
-          <p>Film Host</p>
-          <a href="{% url 'user-profile' film.host.id %}" class="film__author">
-            <div class="avatar avatar--small">
-              <img src="{{ film.host.get_avatar_url }}" /> 
-            </div>           
-            <span>@{{film.host.username}}</span>
-          </a>
-        </div>
+          <div class="film__hosted">
+            <p>Film Host</p>
+            <a href="{% url 'user-profile' film.host.id %}" class="film__author">
+              <div class="avatar avatar--small">
+                <img src="{{ film.host.get_avatar_url }}" /> 
+              </div>           
+              <span>@{{film.host.username}}</span>
+            </a>
+          </div>
 
-        <!--Category-->
-        <div class="filmListFilm__categories">
-        <span class="film__categories">{{film.category}}</span>
-      
-        </div> 
+          <!--Category-->
+          <div class="filmListFilm__categories">
+            <span class="film__categories">{{film.category}}</span>
+          </div>  
+
+          <!-------New position filmListFilm__review__director-rating----------->
+         <!----<div class="review-director-rating-container">filmListFilm__review__average-rating-->
+            <div class="filmListFilm-director-rating-container"><!--filmListFilm__review__director-rating-->
+              <div class="filmListFilm-director"> <!--filmListFilm__review__director-->
+                <p>Producer</p>
+                <h4>{{ film.director }}</h4> 
+              </div>
+              <div class="filmListFilm-average-rating"><!--filmListFilm__review__average-rating-->
+                <p>Average Rating</p>
+                <h4>{% if average_rating %}{{ average_rating|floatformat:1 }}/5{% else %}Not yet rated{% endif %}</h4>
+                  
+                
+              </div>
+            </div> 
+         <!--</div>-->
         </div>
 
         <div class="film__conversation">
