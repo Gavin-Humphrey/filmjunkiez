@@ -64,10 +64,8 @@
                 <a href="{% url 'film-details' film.id %}">
                   <img src="{{ film.image.url }}" alt="{{ film.title }}" />
                 </a>
-              </div>
-             
-              <!-- Display film description to the right of the image -->
-              
+              </div>            
+              <!--- Display film description to the right of the image -->             
             </div>
             {% endif %}
             <!-------------->
@@ -76,23 +74,6 @@
               <p>Film Title</p>
               <h3>{{film.title}}</h3> 
             </div>
-
-            <!---Add film image-->
-            
-            
-            <!-----Former filmListFilm__review__director-rating Position------->
-            <!--<div class="filmListFilm__review__director-rating">
-              <div class="filmListFilm__review__director"> 
-                <p>Producer</p>
-                <h4>{{ film.director }}</h4> 
-              </div>
-              <div class="filmListFilm__review__average-rating">
-                <p>Average Rating</p>
-                <h4>{% if average_rating %}{{ average_rating|floatformat:1 }}/5{% else %}Not yet rated{% endif %}</h4>
-                  
-                
-              </div>
-            </div> -->
 
             <span>{{film.created|timesince}} ago</span>
           </div>
@@ -115,20 +96,20 @@
           </div>  
 
           <!-------New position filmListFilm__review__director-rating----------->
-         <!----<div class="review-director-rating-container">filmListFilm__review__average-rating-->
-            <div class="filmListFilm-director-rating-container"><!--filmListFilm__review__director-rating-->
-              <div class="filmListFilm-director"> <!--filmListFilm__review__director-->
-                <p>Producer</p>
-                <h4>{{ film.director }}</h4> 
-              </div>
-              <div class="filmListFilm-average-rating"><!--filmListFilm__review__average-rating-->
-                <p>Average Rating</p>
-                <h4>{% if average_rating %}{{ average_rating|floatformat:1 }}/5{% else %}Not yet rated{% endif %}</h4>
-                  
+         
+          <div class="filmListFilm-director-rating-container">
+            <div class="filmListFilm-director"> 
+              <p>Producer</p>
+              <h4>{{ film.director }}</h4> 
+            </div>
+            <div class="filmListFilm-average-rating"><!--filmListFilm__review__average-rating-->
+              <p>Average Rating</p>
+              <h4>{% if average_rating %}{{ average_rating|floatformat:1 }}/5{% else %}Not yet rated{% endif %}</h4>
                 
-              </div>
-            </div> 
-         <!--</div>-->
+              
+            </div>
+          </div> 
+         
         </div>
 
         <div class="film__conversation">

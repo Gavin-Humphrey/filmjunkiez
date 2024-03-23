@@ -504,7 +504,7 @@ a {
   padding: 0.1rem;
   white-space: nowrap; 
   overflow: hidden;
-  animation: flash-advert 40s infinite;
+  animation: flash-advert 60s infinite;
   justify-content: center; 
   align-items: center; 
   z-index: 9999;
@@ -1612,7 +1612,8 @@ a {
   }
   .film__conversation {
     /*margin-top: 1rem;*/
-    margin-bottom: 4rem;
+    /*margin-bottom: 4rem; /*====Working on here. Check back=======*/
+    margin-bottom: 0;
     height: 30% ;
   }
   .film__info {
@@ -1623,16 +1624,22 @@ a {
   } */
 
   .filmListFilm__box  { 
-    width: 100vw;
+    /*width: 100vw;
     height: 20vh;
-    overflow: hidden;
-
-  }
+    padding-right: 3rem;*/
+    /*padding-right: 2.6rem;
+    /*overflow: hidden;*/
+    width: 90% !important;
+    height: 70% !important;
+    padding-right: 6% !important;    
+    overflow: auto; 
+  } 
+ 
   .filmListFilm__image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-
+ 
   }
 
   .filmListFilm-director-rating-container {
@@ -1642,28 +1649,33 @@ a {
     margin-left: auto;
   }  
 }
-/* @media screen and (max-width: 500px) {
+ @media screen and (max-width: 500px) {
   .film__header {
     top: 4.3rem;
-    padding-right: 2rem;
+    padding-right: 1.4rem;
   }
-}   */
+}   
 
 .film__box {
   padding-left: 2rem;
-  padding-right: 2rem;
+  padding-right: 2rem; 
   min-height: 80.5vh;
   padding-bottom: 0;
 }
 
+
+
 @media screen and (max-width: 500px) {
   .film__box {
-    padding-left: 2.5rem;
-    padding-right: 2rem;
     height: 80.5vh;
     overflow-y: auto;
-    padding-bottom: 0;
   }
+  /*.filmListFilm__box {
+    padding-right: 2.5rem; /*===Working on===
+  }*/
+  /* .filmListFilm__image img {
+    padding-right: 5.5rem;
+  } */
 }
 
 .film__info {
@@ -1681,6 +1693,7 @@ a {
 .filmListFilm__box {
   display: flex;
   justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 50%;
@@ -1688,20 +1701,15 @@ a {
   width: 40rem;
   height: 15rem;
   border: 0.125rem solid var(--color-bg);
-  /*border-radius: 0 0 1rem 1rem;*/
-  overflow: auto;
+  overflow: auto; 
   box-sizing: border-box; 
-  margin: 0;
-  padding: 0;
 }
 
 .filmListFilm__image img {
   width: 100%; 
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 16 / 9;
-  margin: 0;
-  padding: 0;
+  height: auto; 
+  min-height: 100%;
+  object-fit: cover; 
 }
 
 /*@media screen and (max-width: 700px) {
@@ -1772,84 +1780,6 @@ a {
   color: var(--color-main);
 }
 /* Responsive styles */
-
-/* @media screen and (max-width: 1300px) {
-  .filmListFilm__review__director-rating {
-    width: 85%;
-    gap: 15rem;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .filmListFilm__review__director-rating {
-    width: 83%;
-    /*gap: 12rem;
-    gap: 15rem;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  .filmListFilm__review__director-rating {
-    width: 100%;
-    gap: 5rem;
-    padding-right: 5rem;
-    padding-left: 10rem;
-  }
-} 
-
-@media screen and (max-width: 500px) {
-  .filmListFilm__review__director-rating,
-  .filmListFilm__review__director h4, 
-  .filmListFilm__review__average-rating h4,
-  .filmListFilm__review__average-rating p {
-    font-size: smaller;
-  }
-} 
-
-
-
-@media screen and (max-width: 500px) {
-  .avatar.avatar--small img {
-    width: 2rem;
-    height: 2rem;
-  }
-  .film__info h3 , .film__info p {
-    font-size: 0.8rem;
-  }
-  .film__info h3 {
-    width: 50%;
-  }
-  .film__info > span { 
-    font-size: x-small; 
-  } 
-  .film__hosted p {
-    font-size: 1rem;
-    font-weight: 400;
-  }
-
-  .film__hosted span {
-    font-size: 1.1rem;
-  }
-  
-  .filmListFilm__review__author-rating {
-    display: flex;
-    justify-content: space-between;
-    gap: 8rem;
-    width: 85%;    
-  }
-
-  .filmListFilm__review__author h4 {
-    font-size: 0.7rem
-  }
-
-  .filmListFilm__review__average-rating p {
-    font-size: 0.7rem;
-  }
-  .thread__date {
-    font-size: x-small;
-    margin-left: 5rem;
-  }
-}
 
 /*==========*/
 
@@ -1923,7 +1853,8 @@ a {
 
 .film__conversation {
   margin-top: 1rem;
-  margin-bottom: 4rem;
+  /*margin-bottom: 4rem;*/
+  margin-bottom: 0; /*===*/
   height: 64%;
 }
 
@@ -2009,8 +1940,8 @@ a {
 /* Review Textarea and Submit Button */
 .film__message form {
   display: flex;
-  flex-direction: row; /* Display the textarea and button in a row */
-  align-items: flex-start; /* Align items to the start of the container (top) */
+  flex-direction: row; 
+  align-items: flex-start; 
 }
 
 .film__message textarea {
