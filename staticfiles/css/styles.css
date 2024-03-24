@@ -834,6 +834,9 @@ a {
 .layout__boxTitle svg {
   width: 1.6rem;
   height: 1.6rem;
+  fill: var(--color-light);
+}
+.layout__boxTitle svg:hover {
   fill: var(--color-main);
 }
 
