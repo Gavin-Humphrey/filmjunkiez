@@ -389,22 +389,28 @@ a {
   fill: var(--color-dark-light);
 }
 
+
 .dropdown-button {
   background: transparent;
   border: 0;
   outline: 0;
   cursor: pointer;
+  transition: background-color 0.3s; 
+  padding: 0.7rem; 
 }
 
-.dropdown-button:hover {/*===Menu hover effect. May remove later with no effect====*/
-  background-color: var(--color-dark-medium);
+.dropdown-button:hover {
+  background-color: var(--color-dark-medium); 
   border-radius: 5px; 
-  padding: calc(0.5rem - 0.5rem);
+}
+
+.dropdown-button svg {
+  fill: var(--color-main);
 }
 
 .dropdown-button:hover svg {
-  fill: var(--color-main);
-}
+  fill: var(--color-main-light);
+}  
 
 /*================================
 => ANNOUNCEMENT
