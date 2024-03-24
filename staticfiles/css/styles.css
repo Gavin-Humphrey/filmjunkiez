@@ -419,6 +419,7 @@ a {
   position: absolute;
   overflow: hidden;
   width: 70%;
+  /*max-width: 70vh;*/
   top: 5.8rem;
   right: 15%;
   left: 15%;
@@ -452,13 +453,21 @@ a {
 }
 
 /**=======================================**/
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 920px) { /*768px*/
   .announcement-bar-container {
     position: absolute;
     width: 100%;
     top: 0;
     left: 0;
   }
+
+  /* @media only screen and (max-width: 800px) {
+    .announcement-bar-container {
+      width: 75vw !important;
+      top: 9%;
+      left: 12.5% !important;
+    }
+  } */
   .announcement-bar {
     width: var(--responsive-announcement-width);
   } 
@@ -1210,6 +1219,7 @@ a {
   }
   .film-details__layout {
     width: 100%;
+    padding-left: 3rem !important;/*=====WORKING ON NOW Not done yet======*/
   }
 }
 
