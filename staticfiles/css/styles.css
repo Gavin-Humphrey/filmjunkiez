@@ -622,6 +622,14 @@ a {
   overflow: hidden;
 }
 
+@media screen and (max-width: 786px) {
+  .layout__box {
+    top: calc(50% + 3rem);
+    height: 90vh; 
+    overflow-y: auto;
+  }
+}
+
 .layout__boxHeader {
   display: flex;
   padding: 1.5rem;
@@ -1613,7 +1621,7 @@ a {
   .film__conversation {
     /*margin-top: 1rem;*/
     /*margin-bottom: 4rem; /*====Working on here. Check back=======*/
-    margin-bottom: 0;
+    margin-bottom: 0; 
     height: 30% ;
   }
   .film__info {
@@ -1624,11 +1632,6 @@ a {
   } */
 
   .filmListFilm__box  { 
-    /*width: 100vw;
-    height: 20vh;
-    padding-right: 3rem;*/
-    /*padding-right: 2.6rem;
-    /*overflow: hidden;*/
     width: 90% !important;
     height: 70% !important;
     padding-right: 6% !important;    
@@ -1662,8 +1665,6 @@ a {
   min-height: 80.5vh;
   padding-bottom: 0;
 }
-
-
 
 @media screen and (max-width: 500px) {
   .film__box {
@@ -1711,54 +1712,6 @@ a {
   min-height: 100%;
   object-fit: cover; 
 }
-
-/*@media screen and (max-width: 700px) {
-  /*.filmListFilm__box {
-    top: 0;
-    width: 150px;
-    height: 120px;
-  } 
-
-  .filmListFilm__image img {
-    width: 100%; 
-    height: 100%;
-    object-fit: cover; 
-  }
-  
-}*/
-
-/* .filmListFilm__review__director-rating {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  width: 75%;
-}
-
-.filmListFilm__review__director {
-  flex-grow: 1; 
-}
-
-.filmListFilm__review__average-rating {
-  margin-left: auto; 
-  
-}
-
-.filmListFilm__review__director h4, .filmListFilm__review__average-rating h4 {
-  margin: 0;
-  font-size: small;
-  font-weight: bolder;
-  color: var(--color-main);
-
-}
-
-.filmListFilm__review__average-rating p {
-  margin: 0;
-  font-size: small;
-}  */
-/*======*/
 
 .filmListFilm-director-rating-container {
   display: flex;
@@ -1853,9 +1806,9 @@ a {
 
 .film__conversation {
   margin-top: 1rem;
-  /*margin-bottom: 4rem;*/
-  margin-bottom: 0; /*===*/
-  height: 64%;
+  margin-bottom: 0;
+  height: 68vh;
+  overflow-y: auto;
 }
 
 .threads h3 {
@@ -1924,6 +1877,7 @@ a {
 }
 
 .film__message {
+  /*padding: 2rem 2rem 0 2rem;*/
   padding: 2rem;
   position: absolute;
   z-index: 111;
