@@ -1,4 +1,4 @@
-![Logo](static/img/film_junkiez_logo.png)
+![Logo](./base/static/img/film_junkiez_logo.png)
 
 
 <details>
