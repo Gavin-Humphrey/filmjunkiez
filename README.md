@@ -122,8 +122,10 @@ Gavin Humphrey
 
 <small>All rights reserved.</small><br><br>
 
+<br>
 
-********* Version française ********<br><br>
+---
+<br><br>
 
 <details>
 <summary><strong>Table des matières</strong></summary>
