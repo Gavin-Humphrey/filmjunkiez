@@ -632,7 +632,6 @@ a {
 .layout__box {
   width: 90%;
   max-width: 48rem;
-  /*min-height: 40vh;*/
   max-height: 90vh;
   position: absolute;
   left: 50%;
@@ -642,7 +641,9 @@ a {
   background-color: var(--color-dark);
   border-radius: 1rem;
   box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
-  /*overflow: hidden;*/
+ 
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
   
 }
 
@@ -894,6 +895,7 @@ a {
 .form__group textarea,
 .form__group select {
   background: transparent;
+  padding: 0.7rem;
   border: 1px solid var(--color-dark-light);
   border-radius: 3px;
   width: 100%;
@@ -1454,7 +1456,6 @@ a {
 /*==============================
 =>  Auth
 ================================*/
-
 .auth__tagline {
   text-align: center;
   margin-bottom: 3rem;
@@ -2003,4 +2004,27 @@ a {
   font-weight: 500;
   color: var(--color-main);
   font-weight: 1.4rem;
+}
+
+/* Container for the CAPTCHA widget */
+.custom-captcha-container {
+  width: auto; 
+  height: auto; 
+}
+
+.custom-captcha-container img {
+  width: 100px; 
+  height: auto;
+  display: block; 
+}
+
+.error {
+  color: var(--danger-main);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* =====Contact Success Message===== */
+.contact-success-message {
+  margin: 2rem;
 }

@@ -13,7 +13,8 @@ from datetime import datetime
 from .models import Category, Film, Review, User
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from .forms import RegisterForm, FilmForm, UserForm, ContactForm
+from .forms import RegisterForm, FilmForm, UserForm 
+from django_secure_contact_form.forms import ContactForm
 from user_follow.models import UserFollows
 from django.contrib.auth.forms import AuthenticationForm
 from .decorators import is_superuser, staff_required, user_not_authenticated
@@ -159,7 +160,7 @@ def userProfile(request, pk):
         "films": films,
         "film_reviews": film_posts,
         "categories": categories,
-        "user_follows": user_follows,  #######
+        "user_follows": user_follows,  
     }
     return render(request, "base/profile.html", context)
 
@@ -214,7 +215,6 @@ def film(request, pk):
         ).exists()
     )
     # Check if the user has already rated the film
-    # user_rated = Review.objects.filter(user=request.user, film=film).exists()
     user_rated = Review.objects.filter(
         user=request.user if request.user.is_authenticated else None, film=film
     ).exists()
@@ -406,28 +406,34 @@ def activityPage(request):
     context = {"film_reviews": film_reviews}
     return render(request, "base/activity.html", context)
 
-
-# Contact to become film host
 def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            # Process the form data and send email
             name = form.cleaned_data["name"]
-            username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
             subject = form.cleaned_data["subject"]
             message = form.cleaned_data["message"]
+            #custom_field = form.cleaned_data.get("custom_field", "") # Use when customize form
 
-            send_mail(
-                f"Contact Form Submission - {subject}",
-                f"Name: {name}\nUsername: {username}\nEmail: {email}\nSubject: {subject}\nMessage: {message}",
-                "noreply@film.junkiez.com",
-                [config("WEBSITE_EMAIL", default="backup@example.com")],
-                fail_silently=False,
-            )
+            try:
+                send_mail(
+                    f"Contact Form Submission - {subject}",
+                    f"Full Name: {name}\nEmail: {email}\nSubject: {subject}\nMessage: {message}", # Use when customize form # \nCustom Field: {custom_field} 
+                    config("WEBSITE_EMAIL", default="backup@example.com"),  
+                    [config("WEBSITE_EMAIL", default="backup@example.com")], 
+                    fail_silently=False,
+                )
+            except Exception as e:
+                # Log the error and add a form error message
+                logger = logging.getLogger(__name__)
+                logger.error(f"Failed to send email: {e}")
+                form.add_error(None, "There was a problem sending your message. Please try again later.")
+                return render(request, "base/contact.html", {"form": form})
+
             return render(request, "base/thank_you.html", {"name": name})
     else:
         form = ContactForm()
 
     return render(request, "base/contact.html", {"form": form})
+

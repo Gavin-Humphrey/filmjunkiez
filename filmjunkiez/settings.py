@@ -57,6 +57,9 @@ INSTALLED_APPS = [
     "user_follow.apps.UserFollowConfig",
     "rest_framework",
     "corsheaders",
+
+    'django_secure_contact_form',  # plugin 
+    'captcha',  # Required for the CAPTCHA field 
 ]
 
 AUTH_USER_MODEL = "base.User"
@@ -220,3 +223,14 @@ EMAIL_HOST_USER = config("WEBSITE_EMAIL", default="backup@example.com")
 EMAIL_HOST_PASSWORD = config("WEBSITE_EMAIL_PASSWORD", default="Backuppassword")
 
 PASSWORD_RESET_TIMEOUT = 15000
+
+
+
+CAPTCHA_IMAGE_SIZE = (110, 50)
+CAPTCHA_FONT_SIZE = 30
+CAPTCHA_LETTER_ROTATION = (-30, 30)
+CAPTCHA_BACKGROUND_COLOR = '#ffffff'
+CAPTCHA_NOISE_FUNCTIONS = (
+    'captcha.helpers.noise_arcs',
+    'captcha.helpers.noise_dots',
+)

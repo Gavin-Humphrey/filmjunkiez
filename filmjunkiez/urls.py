@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import trigger_error
 from django.views.static import serve
-import os
+from django.shortcuts import redirect ####
 
 
 urlpatterns = [
@@ -29,6 +29,12 @@ urlpatterns = [
     path("", include("base.urls")),
     path("", include("user_follow.urls")),
     path("sentry-debug/", trigger_error),
+
+    path('contact/', include('django_secure_contact_form.urls')),  # Use plugin's URL 
+    path('captcha/', include('captcha.urls')),  # Include CAPTCHA URLs 
+     # Other URL patterns
+    path('', lambda request: redirect('contact')), 
+
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
 ]

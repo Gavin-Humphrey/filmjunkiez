@@ -18,5 +18,5 @@ urlpatterns = [
     path("delete-review/<str:pk>/", views.deleteReview, name="delete-review"),
     path("activity", views.activityPage, name="activity"),
     path("activate/<str:uidb64>/<str:token>/", views.activate, name="activate"),
-    path("contact", views.contact, name="contact"),
+    path("contact/", views.contact, name="contact"),
 ]
